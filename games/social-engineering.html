@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Social Engineering Game</title>
+  <link href="../style.css" rel="stylesheet">
+</head>
+<body class="bg-cybershield text-white text-center p-8">
+  <h1 class="text-3xl font-bold mb-6">🕵️ Social Engineering Game</h1>
+  <p class="mb-4">Which message is a scam?</p>
+
+  <button class="bg-blue-500 hover:bg-blue-600 text-white p-3 rounded-lg m-2" onclick="check('A')">
+    “You’ve won a free iPhone! Click here.”
+  </button>
+
+  <button class="bg-blue-500 hover:bg-blue-600 text-white p-3 rounded-lg m-2" onclick="check('B')">
+    “Reminder: Meeting at 3PM today.”
+  </button>
+
+  <p id="result" class="mt-4 text-lg"></p>
+
+  <script>
+    function check(choice) {
+      const result = document.getElementById('result');
+      if (choice === 'A') {
+        result.textContent = '✅ Correct! That was a phishing scam.';
+      } else {
+        result.textContent = '❌ Nope! That was a normal message.';
+      }
+    }
+  </script>
+</body>
+</html>
+<div class="flex flex-col items-center">
+  <img src="../images/hacker.png" alt="Hacker" class="w-32 animate-bounce" />
+  <p class="mt-4 text-yellow-300">A hacker is trying to trick you!</p>
+</div>
+<div class="card" onclick="window.location.href='games/social-engineering.html'">
+  <img src="images/social.png" alt="Social Engineering" />
+  <h2>Social Engineering</h2>
+</div>
