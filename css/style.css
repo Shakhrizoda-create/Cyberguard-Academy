@@ -21,13 +21,7 @@ button.choice:hover {
   background-color: #ffd700;
 }
 
-#feedback {
-  font-size: 1.1em;
-  margin-top: 15px;
-  font-weight: bold;
-}
+#feedback.correct { color: green; }
+#feedback.wrong { color: red; }
 
-#score, #timer {
-  font-size: 1.2em;
-  margin: 10px;
-}
+#score, #timer { font-size: 1.3em; margin: 10px; font-weight: bold; color: #fff; }
