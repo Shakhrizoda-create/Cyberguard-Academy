@@ -1,47 +1,49 @@
-<div id="score">Score: 0</div>
 <!DOCTYPE html>
 <html lang="en">
-<head><link rel="stylesheet" href="../css/style.css">
+<head>
   <meta charset="UTF-8" />
   <title>Social Engineering Game</title>
-  <link href="../style.css" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
 </head>
 <body class="bg-cybershield text-white text-center p-8">
+
   <h1 class="text-3xl font-bold mb-6">🕵️ Social Engineering Game</h1>
-  <p class="mb-4">Which message is a scam?</p>
 
-  <button class="bg-blue-500 hover:bg-blue-600 text-white p-3 rounded-lg m-2" onclick="check('A')">
-    “You’ve won a free iPhone! Click here.”
-  </button>
+  <!-- Intro Section -->
+  <section id="intro">
+    <p class="mb-4">Can you spot phishing or scam messages?</p>
+    <button id="startBtn" class="bg-blue-500 hover:bg-blue-600 text-white p-3 rounded-lg m-2">
+      Start Game
+    </button>
+  </section>
 
-  <button class="bg-blue-500 hover:bg-blue-600 text-white p-3 rounded-lg m-2" onclick="check('B')">
-    “Reminder: Meeting at 3PM today.”
-  </button>
+  <!-- Game Section -->
+  <section id="game" class="hidden">
+    <div id="scenario" class="text-lg mb-4"></div>
 
-  <p id="result" class="mt-4 text-lg"></p>
+    <div class="choices mb-4">
+      <button class="choice bg-blue-500 hover:bg-blue-600 text-white p-3 rounded-lg m-2" data-choice="safe"></button>
+      <button class="choice bg-blue-500 hover:bg-blue-600 text-white p-3 rounded-lg m-2" data-choice="suspicious"></button>
+      <button class="choice bg-blue-500 hover:bg-blue-600 text-white p-3 rounded-lg m-2" data-choice="safe"></button>
+    </div>
 
-  <script>
-    function check(choice) {
-      const result = document.getElementById('result');
-      if (choice === 'A') {
-        result.textContent = '✅ Correct! That was a phishing scam.';
-      } else {
-        result.textContent = '❌ Nope! That was a normal message.';
-      }
-    }
-  </script>
-</body>
-</html>
-<div class="flex flex-col items-center">
-  <img src="../images/hacker.png" alt="Hacker" class="w-32 animate-bounce" />
-  <p class="mt-4 text-yellow-300">A hacker is trying to trick you!</p>
-</div>
-<div class="card" onclick="window.location.href='games/social-engineering.html'">
-  <img src="images/social.png" alt="Social Engineering" />
-  <h2>Social Engineering</h2>
-</div>
-<script src="../js/social-engineering.js"></script>
-Link social-engineering game JS
-<div id="timer" style="font-weight:bold; color:red;"></div>
-<link rel="stylesheet" href="../css/style.css">
-<script src="../js/social-engineering.js"></script>
+    <div id="feedback" class="text-yellow-300 mb-4"></div>
+    <div id="score" class="mb-4 font-bold">Score: 0</div>
+    <div id="timer" class="mb-4 font-bold text-red-500"></div>
+
+    <button id="nextBtn" class="bg-green-500 hover:bg-green-600 text-white p-3 rounded-lg m-2 hidden">
+      Next
+    </button>
+    <button id="restartBtn" class="bg-purple-500 hover:bg-purple-600 text-white p-3 rounded-lg m-2 hidden">
+      Restart
+    </button>
+  </section>
+
+  <!-- Optional illustration -->
+  <div class="flex flex-col items-center mt-6">
+    <img src="../images/hacker.png" alt="Hacker" class="w-32 animate-bounce" />
+    <p class="mt-4 text-yellow-300">A hacker is trying to trick you!</p>
+  </div>
+
+  <!-- JS -->
+  <script
