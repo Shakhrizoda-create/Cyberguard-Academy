@@ -1,4 +1,26 @@
-let score = 0; 
+let score = 0; let timer; // global timer variable
+
+function startTimer() {
+  let time = 15; // 15 seconds per question
+  const timerEl = document.getElementById('timer');
+  timerEl.textContent = time;
+
+  // Clear previous timer if any
+  clearInterval(timer);
+
+  timer = setInterval(() => {
+    time--;
+    timerEl.textContent = time;
+
+    if (time <= 0) {
+      clearInterval(timer);
+      feedback.textContent = "⏰ Time's up! The correct answer was: " + scenarios[currentIndex].answer;
+      nextBtn.classList.remove('hidden');       // show next button
+      choices.forEach(b => b.disabled = true);  // disable choices
+    }
+  }, 1000);
+}
+
 const scenarios = [
   {
     id: 1,
@@ -199,7 +221,8 @@ function startTimer() {
   }, 1000);
 }
 
-function showScenario() {
+function showScenario()
   // existing code...
   startTimer(); // start timer for each scenario
 }
+clearInterval(timer); // stop timer when the user answers
