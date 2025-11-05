@@ -1,0 +1,33 @@
+body {
+  font-family: 'Comic Sans MS', cursive, sans-serif;
+  background: linear-gradient(to right, #f9d423, #ff4e50);
+  color: #333;
+  text-align: center;
+}
+
+button.choice {
+  background-color: #ffde59;
+  border: 2px solid #333;
+  padding: 10px 20px;
+  margin: 5px;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.2s, background-color 0.2s;
+}
+
+button.choice:hover {
+  transform: scale(1.1);
+  background-color: #ffd700;
+}
+
+#feedback {
+  font-size: 1.1em;
+  margin-top: 15px;
+  font-weight: bold;
+}
+
+#score, #timer {
+  font-size: 1.2em;
+  margin: 10px;
+}
