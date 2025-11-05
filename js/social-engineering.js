@@ -1,6 +1,4 @@
-// js/social-engineering.js
-// Social Engineering mini-game logic
-
+let score = 0; 
 const scenarios = [
   {
     id: 1,
@@ -89,10 +87,15 @@ function handleChoice(choice) {
   const correct = choice === s.answer;
   choices.forEach(b => b.disabled = true);
 
-  if (correct) {
+  if (correct) {score += 10; // 10 points per correct answer
+document.getElementById('score').textContent = "Score: " + score;
+
     feedback.textContent = "✅ Correct! " + s.explain;
     score++;
-  } else {
+  } else {score -= 5;
+if(score < 0) score = 0;
+document.getElementById('score').textContent = "Score: " + score;
+          
     feedback.textContent = "❌ Not quite. " + s.explain;
   }
   feedback.setAttribute('aria-hidden', 'false');
