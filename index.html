@@ -6,67 +6,46 @@
   <title>CyberFun Academy</title>
   <style>
     body {
-      font-family: 'Comic Sans MS', sans-serif;
-      background: linear-gradient(135deg, #89f7fe, #66a6ff);
-      color: #333;
+      font-family: Arial, sans-serif;
+      background: #fefefe;
       text-align: center;
       margin: 0;
       padding: 0;
     }
-
     header {
-      background-color: rgba(255, 255, 255, 0.3);
       padding: 30px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-    }
-
-    h1 {
-      font-size: 3em;
-      color: #fff;
-      text-shadow: 2px 2px #333;
-    }
-
-    .start-btn {
-      margin: 30px;
-      padding: 20px 40px;
-      font-size: 1.5em;
-      border: none;
-      border-radius: 12px;
-      background-color: #ff6f61;
+      background: #4ECDC4;
       color: white;
+    }
+    .start-btn {
+      padding: 15px 30px;
+      font-size: 1.2em;
+      border-radius: 10px;
+      background: #FFD93D;
+      color: #333;
+      border: none;
       cursor: pointer;
-      transition: transform 0.2s, background-color 0.2s;
+      margin-top: 15px;
     }
-
-    .start-btn:hover {
-      transform: scale(1.1);
-      background-color: #ff3b2e;
-    }
-
     .images-row {
       display: flex;
       justify-content: center;
+      gap: 20px;
+      padding: 20px;
       flex-wrap: wrap;
-      margin: 20px 0;
     }
-
-    .images-row img {
-      width: 150px;
-      height: 150px;
-      margin: 10px;
-      border-radius: 15px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-      transition: transform 0.3s;
+    #footer img {
+      margin: 5px;
     }
-
-    .images-row img:hover {
-      transform: scale(1.2);
-    }
-
-    p {
+    #footer button {
+      margin-top: 15px;
+      padding: 10px 20px;
       font-size: 1.2em;
-      color: #fff;
-      text-shadow: 1px 1px #333;
+      border-radius: 10px;
+      background: #4ECDC4;
+      color: white;
+      border: none;
+      cursor: pointer;
     }
   </style>
 </head>
@@ -74,43 +53,28 @@
   <header>
     <h1>Welcome to CyberFun Academy!</h1>
     <p>Learn to spot hacks, play fun games, and stay safe online! 🕵️‍♂️💻</p>
-    <button class="start-btn" onclick="window.location.href='game.html?v=5'">Start Playing</button>
+    <button class="start-btn" onclick="window.location.href='game.html?v=6'">Start Playing</button>
   </header>
 
   <div class="images-row">
-    <img src="https://cdn-icons-png.flaticon.com/512/906/906334.png" alt="Cyber Icon">
-    <img src="https://cdn-icons-png.flaticon.com/512/2910/2910765.png" alt="Game Icon">
-    <img src="https://cdn-icons-png.flaticon.com/512/2910/2910762.png" alt="Safety Icon">
-    <img src="https://cdn-icons-png.flaticon.com/512/2910/2910766.png" alt="Learning Icon">
-  </div>
-  <body>
-  <header>
-    <h1>Welcome to CyberFun Academy!</h1>
-    <p>Learn to spot hacks, play fun games, and stay safe online! 🕵️‍♂️💻</p>
-    <button class="start-btn" onclick="window.location.href='game.html?v=5'">Start Playing</button>
-  </header>
-
-  <div class="images-row">
-    <img src="https://cdn-icons-png.flaticon.com/512/906/906334.png" alt="Cyber Icon">
-    <img src="https://cdn-icons-png.flaticon.com/512/2910/2910765.png" alt="Game Icon">
-    <img src="https://cdn-icons-png.flaticon.com/512/2910/2910762.png" alt="Safety Icon">
-    <img src="https://cdn-icons-png.flaticon.com/512/2910/2910766.png" alt="Learning Icon">
+    <img src="https://cdn-icons-png.flaticon.com/512/906/906334.png" alt="Cyber Icon" width="80">
+    <img src="https://cdn-icons-png.flaticon.com/512/2910/2910765.png" alt="Game Icon" width="80">
+    <img src="https://cdn-icons-png.flaticon.com/512/2910/2910762.png" alt="Safety Icon" width="80">
+    <img src="https://cdn-icons-png.flaticon.com/512/2910/2910766.png" alt="Learning Icon" width="80">
   </div>
 
   <!-- Footer with cute cartoon images and Back Home button -->
   <div id="footer" style="margin-top:50px; text-align:center; padding:20px; background:#f0f8ff; border-top:2px solid #ccc;">
-    <img src="https://i.postimg.cc/B6yFhB4R/cartoon1.png" alt="cartoon" width="80" style="margin:5px;">
-    <img src="https://i.postimg.cc/4yYtVj8D/cartoon2.png" alt="cartoon" width="80" style="margin:5px;">
-    <img src="https://i.postimg.cc/KzVhT9Lp/cartoon3.png" alt="cartoon" width="80" style="margin:5px;">
+    <img src="https://i.postimg.cc/B6yFhB4R/cartoon1.png" alt="cartoon" width="80">
+    <img src="https://i.postimg.cc/4yYtVj8D/cartoon2.png" alt="cartoon" width="80">
+    <img src="https://i.postimg.cc/KzVhT9Lp/cartoon3.png" alt="cartoon" width="80">
 
-    <div style="margin-top:15px;">
-      <button onclick="window.location.href='index.html?v=6'" 
-              style="padding:10px 20px; font-size:1.2em; border-radius:10px; background:#4ECDC4; color:white; border:none; cursor:pointer;">
-        🏠 Back Home
-      </button>
+    <div>
+      <button onclick="window.location.href='index.html?v=6'">🏠 Back Home</button>
     </div>
   </div>
 </body>
 </html>
+
 
 
