@@ -7,16 +7,18 @@
   <style>
     body {
       font-family: Arial, sans-serif;
-      background: #fefefe;
+      background: linear-gradient(to bottom, #fefefe, #d0f0fd);
       text-align: center;
       margin: 0;
       padding: 0;
     }
+
     header {
       padding: 30px;
       background: #4ECDC4;
       color: white;
     }
+
     .start-btn {
       padding: 15px 30px;
       font-size: 1.2em;
@@ -26,7 +28,13 @@
       border: none;
       cursor: pointer;
       margin-top: 15px;
+      transition: transform 0.2s;
     }
+
+    .start-btn:hover {
+      transform: scale(1.1);
+    }
+
     .images-row {
       display: flex;
       justify-content: center;
@@ -34,9 +42,11 @@
       padding: 20px;
       flex-wrap: wrap;
     }
+
     #footer img {
       margin: 5px;
     }
+
     #footer button {
       margin-top: 15px;
       padding: 10px 20px;
@@ -46,6 +56,11 @@
       color: white;
       border: none;
       cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    #footer button:hover {
+      transform: scale(1.1);
     }
   </style>
 </head>
@@ -56,11 +71,26 @@
     <button class="start-btn" onclick="window.location.href='game.html?v=6'">Start Playing</button>
   </header>
 
+  <!-- Cute cartoon row on top -->
+  <div class="images-row">
+    <img src="https://i.postimg.cc/B6yFhB4R/cartoon1.png" alt="cartoon" width="80">
+    <img src="https://i.postimg.cc/4yYtVj8D/cartoon2.png" alt="cartoon" width="80">
+    <img src="https://i.postimg.cc/KzVhT9Lp/cartoon3.png" alt="cartoon" width="80">
+  </div>
+
+  <!-- Main icons row -->
   <div class="images-row">
     <img src="https://cdn-icons-png.flaticon.com/512/906/906334.png" alt="Cyber Icon" width="80">
     <img src="https://cdn-icons-png.flaticon.com/512/2910/2910765.png" alt="Game Icon" width="80">
     <img src="https://cdn-icons-png.flaticon.com/512/2910/2910762.png" alt="Safety Icon" width="80">
     <img src="https://cdn-icons-png.flaticon.com/512/2910/2910766.png" alt="Learning Icon" width="80">
+  </div>
+
+  <!-- Cute cartoon row in the middle -->
+  <div class="images-row">
+    <img src="https://i.postimg.cc/3JrQYxgQ/cartoon4.png" alt="cartoon" width="80">
+    <img src="https://i.postimg.cc/3w9PqKf6/cartoon5.png" alt="cartoon" width="80">
+    <img src="https://i.postimg.cc/2jY0f9vR/cartoon6.png" alt="cartoon" width="80">
   </div>
 
   <!-- Footer with cute cartoon images and Back Home button -->
@@ -69,12 +99,9 @@
     <img src="https://i.postimg.cc/4yYtVj8D/cartoon2.png" alt="cartoon" width="80">
     <img src="https://i.postimg.cc/KzVhT9Lp/cartoon3.png" alt="cartoon" width="80">
 
-    <div>
+    <div style="margin-top:15px;">
       <button onclick="window.location.href='index.html?v=6'">🏠 Back Home</button>
     </div>
   </div>
 </body>
 </html>
-
-
-
