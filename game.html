@@ -196,9 +196,7 @@
     const btn = document.createElement("button");
     btn.classList.add("message");
 
-    // Add emoji: 💌 for correct, 💀 for wrong
-    let emoji = opt.correct ? '💌' : '💀';
-    btn.innerHTML = emoji + " " + opt.text;
+   btn.innerText = opt.text; // simple text only, no emoji
 
     // Add a color to each button
     btn.style.backgroundColor = colors[index % colors.length];
