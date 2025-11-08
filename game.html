@@ -6,71 +6,60 @@
   <title>Spot the Hack! | CyberFun</title>
   <link rel="stylesheet" href="style.css">
   <style>
-    body {
-      background: linear-gradient(135deg, #10182f, #1e2a5a);
-      color: #fff;
-      font-family: 'Arial', sans-serif;
-      text-align: center;
-      margin: 0;
-      padding: 0;
-    }
+  body {
+    font-family: 'Comic Sans MS', sans-serif;
+    background: linear-gradient(120deg, #fddb92, #d1fdff);
+    text-align: center;
+    margin: 0;
+    padding: 0;
+  }
 
-    .game-container {
-      margin: 60px auto;
-      max-width: 600px;
-      background: #171c3b;
-      padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 0 25px rgba(0, 200, 255, 0.4);
-    }
+  #question {
+    font-size: 2em;
+    color: #333;
+    margin: 40px 20px 20px;
+    text-shadow: 1px 1px #fff;
+  }
 
-    h1, h2 {
-      color: #00c2ff;
-    }
+  #options {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 30px;
+  }
 
-    .message {
-      display: block;
-      background: #262b60;
-      color: #fff;
-      border: none;
-      border-radius: 8px;
-      padding: 15px;
-      margin: 10px 0;
-      cursor: pointer;
-      font-size: 16px;
-      transition: all 0.2s;
-    }
+  .message {
+    background-color: #ff6f61;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    padding: 20px 25px;
+    margin: 10px;
+    font-size: 1.2em;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    transition: transform 0.2s, background-color 0.2s;
+  }
 
-    .message:hover {
-      background: #33397a;
-      transform: scale(1.02);
-    }
+  .message:hover {
+    transform: scale(1.1);
+    background-color: #ff3b2e;
+  }
 
-    .result {
-      font-size: 18px;
-      margin-top: 15px;
-    }
+  #feedback {
+    font-size: 1.5em;
+    margin-top: 20px;
+    height: 30px;
+    color: #333;
+    text-shadow: 1px 1px #fff;
+  }
 
-    .score {
-      margin-top: 20px;
-      color: #00ffcc;
-    }
-
-    button.back {
-      background-color: #00c2ff;
-      border: none;
-      padding: 10px 15px;
-      border-radius: 6px;
-      margin-top: 20px;
-      cursor: pointer;
-      color: #0a0f24;
-      font-weight: bold;
-    }
-
-    button.back:hover {
-      background-color: #009bd4;
-    }
-  </style>
+  #score {
+    font-size: 1.2em;
+    margin-bottom: 20px;
+    color: #333;
+  }
+</style>
 </head>
 <body>
   <header>
