@@ -2,46 +2,34 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>CyberGuard Academy</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Learn cybersecurity through fun games and animations!">
+  <title>CyberFun — Learn Cybersecurity the Fun Way!</title>
+  <link rel="stylesheet" href="style.css">
 </head>
-<body class="bg-gray-100 text-center p-10">
-  <!-- Cartoon Section -->
-  <div id="cartoon">
-    <h1 class="text-4xl font-bold mb-4">Welcome to CyberGuard Academy!</h1>
-    <p id="cartoon-text" class="text-xl mb-6">
-      A hacker is trying to trick you…
-    </p>
-    <button onclick="nextScene()" class="bg-blue-600 hover:bg-blue-700 p-3 rounded-lg text-white">
-      Next
-    </button>
-  </div>
+<body>
+  <header>
+    <h1>🛡️ CyberFun</h1>
+    <nav>
+      <a href="#">Home</a>
+      <a href="#">Mini Games</a>
+      <a href="#">Cartoons</a>
+      <a href="#">Learn</a>
+      <a href="#">About</a>
+    </nav>
+  </header>
 
-  <!-- Mini-Game Section (hidden at first) -->
-  <div id="game" style="display:none;">
-    <h2 class="text-3xl font-bold mb-4">Mini-Game: Spot the Phishing Link!</h2>
-    <button onclick="alert('Wrong! Try again')" class="bg-red-500 hover:bg-red-600 p-3 m-2 rounded-lg text-white">Click Me</button>
-    <button onclick="alert('Correct! Well done')" class="bg-green-500 hover:bg-green-600 p-3 m-2 rounded-lg text-white">Do Not Click</button>
-  </div>
+  <main>
+    <section id="intro">
+      <h2>Welcome to CyberFun!</h2>
+      <p>Play, watch, and learn the basics of cybersecurity.</p>
+      <button onclick="window.location.href='games.html'">Start Playing</button>
+    </section>
+  </main>
 
-  <script>
-    let step = 0;
-    const cartoonText = document.getElementById('cartoon-text');
-
-    function nextScene() {
-      const scenes = [
-        "A hacker sends you a suspicious link...",
-        "You must decide whether to click it or not!",
-        "Get ready for the challenge!"
-      ];
-      if(step < scenes.length) {
-        cartoonText.textContent = scenes[step];
-        step++;
-      } else {
-        document.getElementById('cartoon').style.display = 'none';
-        document.getElementById('game').style.display = 'block';
-      }
-    }
-  </script>
+  <footer>
+    <p>© 2025 CyberFun Project — Created by [Your Name]</p>
+  </footer>
 </body>
 </html>
+
