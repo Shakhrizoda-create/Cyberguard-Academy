@@ -180,24 +180,36 @@
     return array;
   }
 
-  function showQuestion() {
-    const q = questions[currentQuestion];
-    document.getElementById("question").innerText = q.text;
-    const optionsDiv = document.getElementById("options");
-    optionsDiv.innerHTML = "";
+ function showQuestion() {
+  const q = questions[currentQuestion];
+  document.getElementById("question").innerText = q.text;
+  const optionsDiv = document.getElementById("options");
+  optionsDiv.innerHTML = "";
 
-    // Shuffle options so the correct one moves around
-    const shuffled = shuffle([...q.options]);
-    shuffled.forEach(opt => {
-      const btn = document.createElement("button");
-      btn.classList.add("message");
-      btn.innerText = opt.text;
-      btn.onclick = () => checkAnswer(opt.correct);
-      optionsDiv.appendChild(btn);
-    });
+  // Shuffle options so the correct one moves around
+  const shuffled = shuffle([...q.options]);
 
-    document.getElementById("feedback").innerText = "";
-  }
+  // Colors for buttons
+  const colors = ['#FF6B6B', '#4ECDC4', '#FFD93D', '#6A4C93'];
+
+  shuffled.forEach((opt, index) => {
+    const btn = document.createElement("button");
+    btn.classList.add("message");
+
+    // Add emoji: 💌 for correct, 💀 for wrong
+    let emoji = opt.correct ? '💌' : '💀';
+    btn.innerHTML = emoji + " " + opt.text;
+
+    // Add a color to each button
+    btn.style.backgroundColor = colors[index % colors.length];
+
+    btn.onclick = () => checkAnswer(opt.correct);
+    optionsDiv.appendChild(btn);
+  });
+
+  document.getElementById("feedback").innerText = "";
+}
+
 
   function checkAnswer(correct) {
     const feedback = document.getElementById("feedback");
