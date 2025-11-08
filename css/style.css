@@ -1,126 +1,90 @@
-/* === Body and background === */
-body.bg-cybershield {
-    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-    color: white;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    min-height: 100vh;
+body {
+  font-family: Arial, sans-serif;
+  background-color: #0a0f24;
+  color: #fff;
+  text-align: center;
+  margin: 0;
+  padding: 0;
 }
 
-/* === Headings === */
-h1 {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
-    text-shadow: 2px 2px #00000050;
+header {
+  background-color: #12183d;
+  padding: 20px;
 }
 
-/* === Buttons === */
+nav a {
+  color: #00c2ff;
+  margin: 0 15px;
+  text-decoration: none;
+}
+
+nav a:hover {
+  text-decoration: underline;
+}
+
 button {
-    cursor: pointer;
-    font-weight: bold;
-    transition: all 0.2s ease;
+  background-color: #00c2ff;
+  color: #12183d;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 6px;
 }
 
 button:hover {
-    transform: scale(1.05);
-    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  background-color: #009bd4;
 }
 
-/* === Choice Buttons === */
-.choice {
-    min-width: 200px;
-    margin: 0.5rem;
-    padding: 0.75rem 1rem;
-    border: none;
-    border-radius: 12px;
-    font-size: 1rem;
-    color: white;
+footer {
+  margin-top: 40px;
+  padding: 10px;
+  font-size: 14px;
+  color: #aaa;
+}
+body {
+  font-family: Arial, sans-serif;
+  background-color: #0a0f24;
+  color: #fff;
+  text-align: center;
+  margin: 0;
+  padding: 0;
 }
 
-.choice.correct {
-    background-color: #28a745 !important; /* Green */
+header {
+  background-color: #12183d;
+  padding: 20px;
 }
 
-.choice.incorrect {
-    background-color: #dc3545 !important; /* Red */
+nav a {
+  color: #00c2ff;
+  margin: 0 15px;
+  text-decoration: none;
 }
 
-/* === Feedback text === */
-#feedback {
-    font-size: 1.1rem;
-    margin-top: 1rem;
-    min-height: 2em;
+nav a:hover {
+  text-decoration: underline;
 }
 
-/* === Score and timer === */
-#score, #timer {
-    font-size: 1.2rem;
-    margin-bottom: 1rem;
-    font-weight: bold;
+button {
+  background-color: #00c2ff;
+  color: #12183d;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 6px;
 }
 
-/* === Next and Restart buttons === */
-#nextBtn {
-    background-color: #007bff;
+button:hover {
+  background-color: #009bd4;
 }
 
-#nextBtn:hover {
-    background-color: #0056b3;
+footer {
+  margin-top: 40px;
+  padding: 10px;
+  font-size: 14px;
+  color: #aaa;
 }
 
-#restartBtn {
-    background-color: #6f42c1;
-}
-
-#restartBtn:hover {
-    background-color: #4b2c91;
-}
-
-/* === Animations === */
-.animate-bounce {
-    animation: bounce 2s infinite;
-}
-
-@keyframes bounce {
-    0%, 20%, 50%, 80%, 100% {
-        transform: translateY(0);
-    }
-    40% {
-        transform: translateY(-20px);
-    }
-    60% {
-        transform: translateY(-10px);
-    }
-}
-
-/* === Hidden class === */
-.hidden {
-    display: none !important;
-}
-
-/* === Card hover effect === */
-.card {
-    background: #1c1c1c;
-    border-radius: 10px;
-    padding: 1rem;
-    margin: 1rem auto;
-    width: 250px;
-    text-align: center;
-    cursor: pointer;
-    transition: transform 0.2s, box-shadow 0.2s;
-}
-
-.card:hover {
-    transform: scale(1.05);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.5);
-}
-
-.card img {
-    max-width: 100px;
-    margin-bottom: 0.5rem;
-}
-
-.card h2 {
-    margin-top: 0.5rem;
-    font-size: 1.2rem;
-}
 
