@@ -6,7 +6,7 @@
   <title>CyberFun Academy</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
+      font-family: 'Comic Sans MS', cursive, sans-serif;
       background: linear-gradient(to bottom, #fefefe, #d0f0fd);
       text-align: center;
       margin: 0;
@@ -14,44 +14,57 @@
     }
 
     header {
-      padding: 30px;
+      padding: 50px 20px;
       background: #4ECDC4;
       color: white;
     }
 
+    header h1 {
+      font-size: 3em;
+      margin-bottom: 15px;
+      text-shadow: 2px 2px #333;
+    }
+
+    header p {
+      font-size: 1.5em;
+      margin-bottom: 25px;
+    }
+
     .start-btn {
-      padding: 15px 30px;
-      font-size: 1.2em;
-      border-radius: 10px;
+      padding: 20px 40px;
+      font-size: 1.5em;
+      border-radius: 12px;
       background: #FFD93D;
       color: #333;
       border: none;
       cursor: pointer;
-      margin-top: 15px;
-      transition: transform 0.2s;
+      transition: transform 0.2s, background 0.3s;
     }
 
     .start-btn:hover {
       transform: scale(1.1);
+      background: #ffea70;
     }
 
     .images-row {
       display: flex;
       justify-content: center;
-      gap: 20px;
+      gap: 25px;
       padding: 20px;
       flex-wrap: wrap;
     }
 
-    #footer img {
+    #footer img, .images-row img {
       margin: 5px;
+      border-radius: 12px;
+      box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
     }
 
     #footer button {
       margin-top: 15px;
-      padding: 10px 20px;
-      font-size: 1.2em;
-      border-radius: 10px;
+      padding: 12px 25px;
+      font-size: 1.3em;
+      border-radius: 12px;
       background: #4ECDC4;
       color: white;
       border: none;
@@ -73,34 +86,27 @@
 
   <!-- Cute cartoon row on top -->
   <div class="images-row">
-    <img src="https://i.postimg.cc/B6yFhB4R/cartoon1.png" alt="cartoon" width="80">
-    <img src="https://i.postimg.cc/4yYtVj8D/cartoon2.png" alt="cartoon" width="80">
-    <img src="https://i.postimg.cc/KzVhT9Lp/cartoon3.png" alt="cartoon" width="80">
+    <img src="https://i.postimg.cc/B6yFhB4R/cartoon1.png" alt="cartoon1" width="100">
+    <img src="https://i.postimg.cc/4yYtVj8D/cartoon2.png" alt="cartoon2" width="100">
+    <img src="https://i.postimg.cc/KzVhT9Lp/cartoon3.png" alt="cartoon3" width="100">
   </div>
 
   <!-- Main icons row -->
   <div class="images-row">
-    <img src="https://cdn-icons-png.flaticon.com/512/906/906334.png" alt="Cyber Icon" width="80">
-    <img src="https://cdn-icons-png.flaticon.com/512/2910/2910765.png" alt="Game Icon" width="80">
-    <img src="https://cdn-icons-png.flaticon.com/512/2910/2910762.png" alt="Safety Icon" width="80">
-    <img src="https://cdn-icons-png.flaticon.com/512/2910/2910766.png" alt="Learning Icon" width="80">
-  </div>
-
-  <!-- Cute cartoon row in the middle -->
-  <div class="images-row">
-    <img src="https://i.postimg.cc/3JrQYxgQ/cartoon4.png" alt="cartoon" width="80">
-    <img src="https://i.postimg.cc/3w9PqKf6/cartoon5.png" alt="cartoon" width="80">
-    <img src="https://i.postimg.cc/2jY0f9vR/cartoon6.png" alt="cartoon" width="80">
+    <img src="https://cdn-icons-png.flaticon.com/512/906/906334.png" alt="Cyber Icon" width="100">
+    <img src="https://cdn-icons-png.flaticon.com/512/2910/2910765.png" alt="Game Icon" width="100">
+    <img src="https://cdn-icons-png.flaticon.com/512/2910/2910762.png" alt="Safety Icon" width="100">
+    <img src="https://cdn-icons-png.flaticon.com/512/2910/2910766.png" alt="Learning Icon" width="100">
   </div>
 
   <!-- Footer with cute cartoon images and Back Home button -->
   <div id="footer" style="margin-top:50px; text-align:center; padding:20px; background:#f0f8ff; border-top:2px solid #ccc;">
-    <img src="https://i.postimg.cc/B6yFhB4R/cartoon1.png" alt="cartoon" width="80">
-    <img src="https://i.postimg.cc/4yYtVj8D/cartoon2.png" alt="cartoon" width="80">
-    <img src="https://i.postimg.cc/KzVhT9Lp/cartoon3.png" alt="cartoon" width="80">
+    <img src="https://i.postimg.cc/B6yFhB4R/cartoon1.png" alt="cartoon1" width="100">
+    <img src="https://i.postimg.cc/4yYtVj8D/cartoon2.png" alt="cartoon2" width="100">
+    <img src="https://i.postimg.cc/KzVhT9Lp/cartoon3.png" alt="cartoon3" width="100">
 
     <div style="margin-top:15px;">
-      <button onclick="window.location.href='index.html?v=6'">🏠 Back Home</button>
+      <button onclick="window.location.href='index.html?v=7'">🏠 Back Home</button>
     </div>
   </div>
 </body>
