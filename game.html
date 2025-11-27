@@ -3,233 +3,279 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Spot the Hack! | CyberFun</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Spot the Hack! | CyberGuard Academy</title>
+
+  <!-- Hacker font -->
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+
   <style>
-  body {
-    font-family: 'Comic Sans MS', sans-serif;
-    background: linear-gradient(120deg, #fddb92, #d1fdff);
-    text-align: center;
-    margin: 0;
-    padding: 0;
-  }
+    /* ===== GENERAL ===== */
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Share Tech Mono', monospace;
+      color: #00ffea;
+      background: url('https://images.unsplash.com/photo-1544197150-b99a580bb7a8?q=80&w=1920')
+        no-repeat center center fixed;
+      background-size: cover;
+      text-align: center;
+      backdrop-filter: blur(3px);
+    }
 
-  #question {
-    font-size: 2em;
-    color: #333;
-    margin: 40px 20px 20px;
-    text-shadow: 1px 1px #fff;
-  }
+    /* Dark overlay for readability */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.75);
+      z-index: -1;
+    }
 
-  #options {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin-bottom: 30px;
-  }
+    h1 {
+      margin-top: 20px;
+      font-size: 3em;
+      text-shadow: 0 0 10px #00fff2,
+                   0 0 20px #00fff2;
+    }
 
-  .message {
-    background-color: #ff6f61;
-    color: white;
-    border: none;
-    border-radius: 12px;
-    padding: 20px 25px;
-    margin: 10px;
-    font-size: 1.2em;
-    cursor: pointer;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-    transition: transform 0.2s, background-color 0.2s;
-  }
+    #question {
+      font-size: 2em;
+      margin-top: 30px;
+      color: #00ffe5;
+      text-shadow: 0 0 5px #00fff2;
+    }
 
-  .message:hover {
-    transform: scale(1.1);
-    background-color: #ff3b2e;
-  }
+    /* ===== OPTIONS ===== */
+    #options {
+      margin-top: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
 
-  #feedback {
-    font-size: 1.5em;
-    margin-top: 20px;
-    height: 30px;
-    color: #333;
-    text-shadow: 1px 1px #fff;
-  }
+    .message {
+      border: 1px solid #0ff;
+      background: rgba(0, 0, 0, 0.4);
+      color: #00ffe5;
+      font-size: 1.2em;
+      padding: 15px 25px;
+      margin: 10px;
+      cursor: pointer;
+      border-radius: 10px;
+      backdrop-filter: blur(4px);
+      transition: 0.2s;
+      text-shadow: 0 0 5px #00fff2;
+    }
 
-  #score {
-    font-size: 1.2em;
-    margin-bottom: 20px;
-    color: #333;
-  }
-</style>
+    .message:hover {
+      background: rgba(0, 255, 217, 0.15);
+      transform: scale(1.1);
+      box-shadow: 0 0 10px #00ffe5;
+    }
+
+    /* ===== SCORE & FEEDBACK ===== */
+    #feedback {
+      margin-top: 20px;
+      font-size: 1.6em;
+      text-shadow: 0 0 10px #00fff2;
+    }
+
+    #score {
+      margin-top: 10px;
+      font-size: 1.2em;
+      color: #7afcff;
+    }
+
+    /* ===== BACK BUTTON ===== */
+    .back {
+      margin-top: 30px;
+      font-size: 1.2em;
+      padding: 10px 20px;
+      background: rgba(0, 255, 221, 0.2);
+      border: 1px solid #00ffe5;
+      border-radius: 8px;
+      cursor: pointer;
+      color: #00ffe5;
+      transition: 0.2s;
+      text-shadow: 0 0 5px #00fff2;
+    }
+
+    .back:hover {
+      background: rgba(0, 255, 221, 0.4);
+      box-shadow: 0 0 10px #00ffe5;
+      transform: scale(1.05);
+    }
+
+  </style>
 </head>
+
 <body>
+
   <header>
     <h1>🕵️ Spot the Hack!</h1>
   </header>
 
   <main class="game-container">
-    <h2 id="question">Question loading...</h2>
+    <h2 id="question">Loading...</h2>
     <div id="options"></div>
-    <div id="feedback" class="result"></div>
-    <div id="score" class="score"></div>
+    <div id="feedback"></div>
+    <div id="score"></div>
     <button class="back" onclick="window.location.href='index.html'">🏠 Back to Home</button>
   </main>
 
- <script>
-  const questions = [
-    {
-      text: "Which of these messages is safe?",
-      options: [
-        { text: "Hey, is this you in this photo? 😳", correct: false },
-        { text: "Yo, today we have the team meeting at 3 PM.", correct: true },
-        { text: "Your account has been locked! Click here to fix it.", correct: false },
-        { text: "Check out this video, you’re in it 😂", correct: false }
-      ]
-    },
-    {
-      text: "Spot the safe message:",
-      options: [
-        { text: "Your bank account has been suspended, confirm your info now!", correct: false },
-        { text: "Reminder: don’t forget to submit your homework tonight.", correct: true },
-        { text: "Urgent! Your device is infected, click here to clean it!", correct: false },
-        { text: "Click to win a free phone!", correct: false }
-      ]
-    },
-    {
-      text: "Choose the real message:",
-      options: [
-        { text: "Bro, we’re at the café, come join!", correct: true },
-        { text: "You’ve won a $500 gift card!", correct: false },
-        { text: "Your email password expired, update here.", correct: false },
-        { text: "This video of you is going viral 😬", correct: false }
-      ]
-    },
-    {
-      text: "Which message seems trustworthy?",
-      options: [
-        { text: "Your parcel delivery failed, click to reschedule.", correct: false },
-        { text: "The teacher said we can use notes for the exam.", correct: true },
-        { text: "We found suspicious login activity, confirm here.", correct: false },
-        { text: "You must verify your Instagram now!", correct: false }
-      ]
-    },
-    {
-      text: "Find the safe message:",
-      options: [
-        { text: "Yo, want to play that new game tonight?", correct: true },
-        { text: "Click this link to claim your crypto reward.", correct: false },
-        { text: "System alert! Your password is weak!", correct: false },
-        { text: "Is this your TikTok video? 😂", correct: false }
-      ]
-    },
-    {
-      text: "Which is safe?",
-      options: [
-        { text: "Mom said dinner at 7, don’t be late!", correct: true },
-        { text: "Verify your Apple ID here immediately!", correct: false },
-        { text: "Win a free trip by clicking this link!", correct: false },
-        { text: "Account alert: login from Russia detected!", correct: false }
-      ]
-    },
-    {
-      text: "Choose the safe text:",
-      options: [
-        { text: "We added you to the project group chat.", correct: true },
-        { text: "Click here to view your salary details.", correct: false },
-        { text: "Urgent: your files will be deleted soon!", correct: false },
-        { text: "Tap here to get your free NFT.", correct: false }
-      ]
-    },
-    {
-      text: "Which message is normal?",
-      options: [
-        { text: "Happy Birthday! 🎉", correct: true },
-        { text: "You have been hacked, click here to protect yourself!", correct: false },
-        { text: "Your email will be deactivated unless you log in here.", correct: false },
-        { text: "Is this your photo? 😱", correct: false }
-      ]
-    },
-    {
-      text: "Pick the safe message:",
-      options: [
-        { text: "Don’t forget the quiz tomorrow!", correct: true },
-        { text: "Click here for exclusive prizes!", correct: false },
-        { text: "Warning! Account access limited!", correct: false },
-        { text: "Free gift for loyal users! 🎁", correct: false }
-      ]
-    },
-    {
-      text: "Which message would you trust?",
-      options: [
-        { text: "Can you send me your phone number again?", correct: true },
-        { text: "You are in this video! 😂", correct: false },
-        { text: "We have detected a virus, click to remove.", correct: false },
-        { text: "Your card has been blocked, verify now!", correct: false }
-      ]
-    }
-  ];
+  <!-- GAME LOGIC (unchanged) -->
+  <script>
+    const questions = [
+      {
+        text: "Which of these messages is safe?",
+        options: [
+          { text: "Hey, is this you in this photo? 😳", correct: false },
+          { text: "Yo, today we have the team meeting at 3 PM.", correct: true },
+          { text: "Your account has been locked! Click here to fix it.", correct: false },
+          { text: "Check out this video, you’re in it 😂", correct: false }
+        ]
+      },
+      {
+        text: "Spot the safe message:",
+        options: [
+          { text: "Your bank account has been suspended, confirm your info now!", correct: false },
+          { text: "Reminder: don’t forget to submit your homework tonight.", correct: true },
+          { text: "Urgent! Your device is infected, click here to clean it!", correct: false },
+          { text: "Click to win a free phone!", correct: false }
+        ]
+      },
+      {
+        text: "Choose the real message:",
+        options: [
+          { text: "Bro, we’re at the café, come join!", correct: true },
+          { text: "You’ve won a $500 gift card!", correct: false },
+          { text: "Your email password expired, update here.", correct: false },
+          { text: "This video of you is going viral 😬", correct: false }
+        ]
+      },
+      {
+        text: "Which message seems trustworthy?",
+        options: [
+          { text: "Your parcel delivery failed, click to reschedule.", correct: false },
+          { text: "The teacher said we can use notes for the exam.", correct: true },
+          { text: "We found suspicious login activity, confirm here.", correct: false },
+          { text: "You must verify your Instagram now!", correct: false }
+        ]
+      },
+      {
+        text: "Find the safe message:",
+        options: [
+          { text: "Yo, want to play that new game tonight?", correct: true },
+          { text: "Click this link to claim your crypto reward.", correct: false },
+          { text: "System alert! Your password is weak!", correct: false },
+          { text: "Is this your TikTok video? 😂", correct: false }
+        ]
+      },
+      {
+        text: "Which is safe?",
+        options: [
+          { text: "Mom said dinner at 7, don’t be late!", correct: true },
+          { text: "Verify your Apple ID here immediately!", correct: false },
+          { text: "Win a free trip by clicking this link!", correct: false },
+          { text: "Account alert: login from Russia detected!", correct: false }
+        ]
+      },
+      {
+        text: "Choose the safe text:",
+        options: [
+          { text: "We added you to the project group chat.", correct: true },
+          { text: "Click here to view your salary details.", correct: false },
+          { text: "Urgent: your files will be deleted soon!", correct: false },
+          { text: "Tap here to get your free NFT.", correct: false }
+        ]
+      },
+      {
+        text: "Which message is normal?",
+        options: [
+          { text: "Happy Birthday! 🎉", correct: true },
+          { text: "You have been hacked, click here to protect yourself!", correct: false },
+          { text: "Your email will be deactivated unless you log in here.", correct: false },
+          { text: "Is this your photo? 😱", correct: false }
+        ]
+      },
+      {
+        text: "Pick the safe message:",
+        options: [
+          { text: "Don’t forget the quiz tomorrow!", correct: true },
+          { text: "Click here for exclusive prizes!", correct: false },
+          { text: "Warning! Account access limited!", correct: false },
+          { text: "Free gift for loyal users! 🎁", correct: false }
+        ]
+      },
+      {
+        text: "Which message would you trust?",
+        options: [
+          { text: "Can you send me your phone number again?", correct: true },
+          { text: "You are in this video! 😂", correct: false },
+          { text: "We have detected a virus, click to remove.", correct: false },
+          { text: "Your card has been blocked, verify now!", correct: false }
+        ]
+      }
+    ];
 
-  let currentQuestion = 0;
-  let score = 0;
+    let currentQuestion = 0;
+    let score = 0;
 
-  // Shuffle helper
-  function shuffle(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [array[i], array[j]] = [array[j], array[i]];
-    }
-    return array;
-  }
-
- function showQuestion() {
-  const q = questions[currentQuestion];
-  document.getElementById("question").innerText = q.text;
-  const optionsDiv = document.getElementById("options");
-  optionsDiv.innerHTML = "";
-
-  // Shuffle options so the correct one moves around
-  const shuffled = shuffle([...q.options]);
-
-  // Colors for buttons
-  const colors = ['#FF6B6B', '#4ECDC4', '#FFD93D', '#6A4C93'];
-
-  shuffled.forEach((opt, index) => {
-    const btn = document.createElement("button");
-    btn.classList.add("message");
-
-   btn.innerText = opt.text; // simple text only, no emoji
-
-    // Add a color to each button
-    btn.style.backgroundColor = colors[index % colors.length];
-
-    btn.onclick = () => checkAnswer(opt.correct);
-    optionsDiv.appendChild(btn);
-  });
-
-  document.getElementById("feedback").innerText = "";
-}
-
-
-  function checkAnswer(correct) {
-    const feedback = document.getElementById("feedback");
-    if (correct) {
-      feedback.innerHTML = "✅ You’re safe!";
-      score++;
-    } else {
-      feedback.innerHTML = "💀 You got hacked!";
+    function shuffle(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
     }
 
-    currentQuestion++;
-    if (currentQuestion < questions.length) {
-      setTimeout(showQuestion, 1500);
-    } else {
-      document.getElementById("question").innerText = "🎯 Game Over!";
-      document.getElementById("options").innerHTML = "";
-      feedback.innerHTML = "Your final score: " + score + " / " + questions.length;
+    function showQuestion() {
+      const q = questions[currentQuestion];
+      document.getElementById("question").innerText = q.text;
+      const optionsDiv = document.getElementById("options");
+      optionsDiv.innerHTML = "";
+
+      const shuffled = shuffle([...q.options]);
+
+      shuffled.forEach((opt) => {
+        const btn = document.createElement("button");
+        btn.classList.add("message");
+        btn.innerText = opt.text;
+        btn.onclick = () => checkAnswer(opt.correct);
+        optionsDiv.appendChild(btn);
+      });
+
+      document.getElementById("feedback").innerText = "";
     }
 
-    document.getElementById("score").innerText = "Score: " + score;
-  }
+    function checkAnswer(correct) {
+      const feedback = document.getElementById("feedback");
 
-  showQuestion();
-</script>
+      if (correct) {
+        feedback.innerHTML = "✔️ Safe!";
+        score++;
+      } else {
+        feedback.innerHTML = "💀 Hacked!";
+      }
+
+      currentQuestion++;
+
+      if (currentQuestion < questions.length) {
+        setTimeout(showQuestion, 1200);
+      } else {
+        document.getElementById("question").innerText = "🎯 Game Over!";
+        document.getElementById("options").innerHTML = "";
+        feedback.innerHTML = "Your final score: " + score + " / " + questions.length;
+      }
+
+      document.getElementById("score").innerText = "Score: " + score;
+    }
+
+    showQuestion();
+  </script>
+</body>
+</html>
 
