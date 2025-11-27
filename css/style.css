@@ -1,76 +1,75 @@
-/* ===== BODY & BACKGROUND ===== */
+/* =========================
+   General Body & Background
+========================= */
 body {
-  font-family: Arial, sans-serif;
-  color: #fff;
-  text-align: center;
+  font-family: 'Arial', sans-serif;
   margin: 0;
   padding: 0;
-  
-  /* Background hacker image, fixed and cover */
-  background: url('assets/hacker-bg.png') no-repeat center center fixed;
-  background-size: cover;
+  color: #fff;
+  text-align: center;
   position: relative;
-  z-index: 0;
+  overflow: hidden;
 }
 
-/* Dark overlay with blur on top of background */
+/* Hacker background with blur */
 body::before {
   content: "";
   position: fixed;
   inset: 0;
-  background: rgba(10, 15, 36, 0.85); /* slightly lighter for better text contrast */
-  backdrop-filter: blur(6px);
+  background: url('assets/hacker-bg.png') no-repeat center center fixed;
+  background-size: cover;
+  filter: blur(4px);               /* adjust blur level here */
+  opacity: 0.7;                     /* dark overlay + transparency */
   z-index: -1;
 }
 
-/* ===== HEADER ===== */
+/* =========================
+   Header
+========================= */
 header {
-  background-color: rgba(18, 24, 61, 0.85); /* slightly transparent */
-  padding: 20px;
-  box-shadow: 0 0 10px #009bd4aa;
+  padding: 60px 20px;
 }
 
-/* ===== NAVIGATION ===== */
-nav a {
-  color: #00c2ff;
-  margin: 0 15px;
-  text-decoration: none;
-  transition: color 0.3s ease;
+header h1 {
+  font-size: 3em;
+  margin-bottom: 20px;
+  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.7);
 }
 
-nav a:hover {
-  text-decoration: underline;
-  color: #009bd4;
+header p {
+  font-size: 1.5em;
+  margin-bottom: 40px;
+  text-shadow: 1px 1px 4px rgba(0,0,0,0.6);
 }
 
-/* ===== BUTTONS ===== */
-button {
-  background-color: #00c2ff;
-  color: #12183d;
+/* =========================
+   Start Button
+========================= */
+.start-btn {
+  padding: 20px 50px;
+  font-size: 1.8em;
+  border-radius: 12px;
   border: none;
-  padding: 10px 20px;
-  font-size: 16px;
   cursor: pointer;
-  border-radius: 6px;
-
-  /* Neon glow effect */
-  box-shadow: 0 0 8px #00c2ff;
-  transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+  background: linear-gradient(135deg, #00c2ff, #4e54c8);
+  color: #fff;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+  transition: transform 0.2s, background 0.3s;
 }
 
-button:hover {
-  background-color: #009bd4;
-  box-shadow: 0 0 20px #009bd4;
-  transform: scale(1.05);
+.start-btn:hover {
+  transform: scale(1.1);
+  background: linear-gradient(135deg, #4e54c8, #00c2ff);
 }
 
-/* ===== FOOTER ===== */
+/* =========================
+   Optional Footer
+========================= */
 footer {
   margin-top: 40px;
-  padding: 10px;
+  padding: 20px;
   font-size: 14px;
   color: #aaa;
 }
 
-  
 
