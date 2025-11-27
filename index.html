@@ -9,26 +9,34 @@
   <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet" />
 
   <style>
+    /* =========================
+       General Body & Background
+    ========================= */
     body {
       margin: 0;
       padding: 0;
       font-family: 'Share Tech Mono', monospace;
       color: #00ffe5;
+      text-align: center;
       background: url('assets/hacker-bg.png') no-repeat center center fixed;
       background-size: cover;
-      text-align: center;
+      position: relative;
+      overflow: hidden;
     }
 
-    /* Dark overlay with blur */
+    /* Dark overlay + blur */
     body::before {
       content: "";
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.7);
-      backdrop-filter: blur(4px);
+      background: rgba(0, 0, 0, 0.7); /* dark overlay */
+      backdrop-filter: blur(5px);      /* blur effect */
       z-index: -1;
     }
 
+    /* =========================
+       Header
+    ========================= */
     header {
       padding: 100px 20px;
     }
@@ -46,6 +54,9 @@
       text-shadow: 0 0 8px #00fff2;
     }
 
+    /* =========================
+       Buttons
+    ========================= */
     .button-container {
       display: flex;
       flex-direction: column;
@@ -68,9 +79,9 @@
     }
 
     .start-btn:hover {
-      transform: scale(1.07);
+      transform: scale(1.08);
       background: rgba(0, 255, 221, 0.2);
-      box-shadow: 0 0 12px #00ffe5;
+      box-shadow: 0 0 15px #00ffe5;
     }
   </style>
 </head>
@@ -83,10 +94,10 @@
 
   <div class="button-container">
     <button class="start-btn" onclick="playClick(); window.location.href='game.html?v=200'">🕹 Start Game</button>
-    <button class="start-btn" onclick="playClick();">🔐 Password Strength Test</button>
-    <button class="start-btn" onclick="playClick();">🛡 Spot the Phish</button>
-    <button class="start-btn" onclick="playClick();">🕵 OSINT Challenge</button>
-    <button class="start-btn" onclick="playClick();">🎯 Beginner CTF</button>
+    <button class="start-btn" onclick="playClick(); alert('Coming soon!')">🔐 Password Strength Test</button>
+    <button class="start-btn" onclick="playClick(); alert('Coming soon!')">🛡 Spot the Phish</button>
+    <button class="start-btn" onclick="playClick(); alert('Coming soon!')">🕵 OSINT Challenge</button>
+    <button class="start-btn" onclick="playClick(); alert('Coming soon!')">🎯 Beginner CTF</button>
   </div>
 
   <!-- Click Sound -->
@@ -94,9 +105,11 @@
 
   <script>
     function playClick() {
-      document.getElementById("click-sound").play();
+      const audio = document.getElementById("click-sound");
+      if (audio) audio.play();
     }
   </script>
 </body>
 </html>
+
 
