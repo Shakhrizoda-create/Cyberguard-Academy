@@ -1,4 +1,6 @@
 index.html
 game.html
-assets/    <-- new folder
+assets/
+    hacker-bg.png
+    click.mp3   <-- optional, for button sound
 
