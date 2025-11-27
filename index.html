@@ -4,81 +4,106 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CyberFun Academy</title>
+
+  <!-- Hacker font -->
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+
   <style>
-    /* Background gradient for full page */
+    /* ===== HACKER BACKGROUND ===== */
     body {
-      font-family: 'Comic Sans MS', cursive, sans-serif;
-      background: linear-gradient(135deg, #FFDEE9, #B5FFFC, #F6FFB3);
-      color: #333;
       margin: 0;
-      text-align: center;
       padding: 0;
+      font-family: 'Share Tech Mono', monospace;
+      color: #00ffe5;
+      background: url('https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=2080')
+        no-repeat center center fixed;
+      background-size: cover;
+      text-align: center;
     }
 
+    /* Dark overlay with blur */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(3px);
+      z-index: -1;
+    }
+
+    /* ===== TITLE SECTION ===== */
     header {
-      padding: 60px 20px;
-      background: rgba(255, 255, 255, 0.2);
-      border-bottom: 3px solid #333;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      padding: 100px 20px;
     }
 
     header h1 {
       font-size: 3.5em;
-      margin-bottom: 20px;
-      color: #222;
-      text-shadow: 3px 3px 5px rgba(0,0,0,0.3);
+      margin-bottom: 10px;
+      color: #00ffe5;
+      text-shadow: 0 0 10px #00fff2, 0 0 20px #00fff2;
     }
 
     header p {
-      font-size: 1.6em;
-      margin-bottom: 40px;
-      color: #444;
+      font-size: 1.4em;
+      color: #9ffcff;
+      text-shadow: 0 0 8px #00fff2;
+    }
+
+    /* ===== BUTTON GRID ===== */
+    .button-container {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      max-width: 350px;
+      margin: 40px auto;
     }
 
     .start-btn {
-      padding: 25px 50px;
-      font-size: 1.8em;
-      border-radius: 15px;
-      background: #FF6B6B;
-      color: white;
-      border: none;
+      padding: 18px;
+      font-size: 1.4em;
+      border: 1px solid #00ffe5;
+      background: rgba(0, 0, 0, 0.4);
+      color: #00ffe5;
+      border-radius: 10px;
       cursor: pointer;
-      transition: transform 0.2s, background 0.3s;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+      transition: 0.2s;
+      text-shadow: 0 0 5px #00fff2;
+      backdrop-filter: blur(4px);
     }
 
     .start-btn:hover {
-      transform: scale(1.1);
-      background: #FF8787;
+      transform: scale(1.07);
+      background: rgba(0, 255, 221, 0.2);
+      box-shadow: 0 0 12px #00ffe5;
     }
-
-    /* Optional fun shapes on page */
-    .decor {
-      position: absolute;
-      border-radius: 50%;
-      opacity: 0.3;
-    }
-
-    .decor1 { width: 150px; height: 150px; background: #FFD93D; top: 20px; left: 10%; }
-    .decor2 { width: 100px; height: 100px; background: #6A4C93; top: 50%; right: 15%; }
-    .decor3 { width: 200px; height: 200px; background: #4ECDC4; bottom: 10%; left: 30%; }
   </style>
 </head>
+
 <body>
+
   <header>
-    <h1>Welcome to CyberFun Academy!</h1>
-    <p>Learn to spot hacks, play fun games, and stay safe online! 🕵️‍♂️💻</p>
-    <button class="start-btn" onclick="window.location.href='game.html?v=100'">Start Playing</button>
+    <h1>CYBERFUN ACADEMY</h1>
+    <p>Train. Learn. Protect. Become a Cyber Ninja 🥷💻</p>
   </header>
 
-  <div class="images-row">
-    <img src="..." alt="Cyber Icon">
-    <img src="..." alt="Game Icon">
-    <img src="..." alt="Safety Icon">
-    <img src="..." alt="Learning Icon">
+  <div class="button-container">
+    <button class="start-btn" onclick="playClick(); window.location.href='game.html?v=200'">🕹 Start Game</button>
+    <button class="start-btn" onclick="playClick();">🔐 Password Strength Test</button>
+    <button class="start-btn" onclick="playClick();">🛡 Spot the Phish</button>
+    <button class="start-btn" onclick="playClick();">🕵 OSINT Challenge</button>
+    <button class="start-btn" onclick="playClick();">🎯 Beginner CTF</button>
   </div>
 
-  <!-- Footer with Back Home button (optional) -->
+  <!-- Click Sound -->
+  <audio id="click-sound" src="assets/click.mp3"></audio>
+
+  <script>
+    function playClick() {
+      document.getElementById("click-sound").play();
+    }
+  </script>
+
 </body>
 </html>
+
 
