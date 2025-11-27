@@ -1,27 +1,49 @@
+/* ===== BODY & BACKGROUND ===== */
 body {
   font-family: Arial, sans-serif;
-  background-color: #0a0f24;
   color: #fff;
   text-align: center;
   margin: 0;
   padding: 0;
+  
+  /* Background hacker image, fixed and cover */
+  background: url('assets/hacker-bg.png') no-repeat center center fixed;
+  background-size: cover;
+  position: relative;
+  z-index: 0;
 }
 
+/* Dark overlay with blur on top of background */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 15, 36, 0.85); /* slightly lighter for better text contrast */
+  backdrop-filter: blur(6px);
+  z-index: -1;
+}
+
+/* ===== HEADER ===== */
 header {
-  background-color: #12183d;
+  background-color: rgba(18, 24, 61, 0.85); /* slightly transparent */
   padding: 20px;
+  box-shadow: 0 0 10px #009bd4aa;
 }
 
+/* ===== NAVIGATION ===== */
 nav a {
   color: #00c2ff;
   margin: 0 15px;
   text-decoration: none;
+  transition: color 0.3s ease;
 }
 
 nav a:hover {
   text-decoration: underline;
+  color: #009bd4;
 }
 
+/* ===== BUTTONS ===== */
 button {
   background-color: #00c2ff;
   color: #12183d;
@@ -30,56 +52,19 @@ button {
   font-size: 16px;
   cursor: pointer;
   border-radius: 6px;
+
+  /* Neon glow effect */
+  box-shadow: 0 0 8px #00c2ff;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
 }
 
 button:hover {
   background-color: #009bd4;
+  box-shadow: 0 0 20px #009bd4;
+  transform: scale(1.05);
 }
 
-footer {
-  margin-top: 40px;
-  padding: 10px;
-  font-size: 14px;
-  color: #aaa;
-}
-body {
-  font-family: Arial, sans-serif;
-  background-color: #0a0f24;
-  color: #fff;
-  text-align: center;
-  margin: 0;
-  padding: 0;
-}
-
-header {
-  background-color: #12183d;
-  padding: 20px;
-}
-
-nav a {
-  color: #00c2ff;
-  margin: 0 15px;
-  text-decoration: none;
-}
-
-nav a:hover {
-  text-decoration: underline;
-}
-
-button {
-  background-color: #00c2ff;
-  color: #12183d;
-  border: none;
-  padding: 10px 20px;
-  font-size: 16px;
-  cursor: pointer;
-  border-radius: 6px;
-}
-
-button:hover {
-  background-color: #009bd4;
-}
-
+/* ===== FOOTER ===== */
 footer {
   margin-top: 40px;
   padding: 10px;
@@ -87,4 +72,5 @@ footer {
   color: #aaa;
 }
 
+  
 
