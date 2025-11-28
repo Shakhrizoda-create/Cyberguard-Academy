@@ -11,6 +11,8 @@
   <style>
     /* ===== GENERAL ===== */
     body {
+      <body>
+    <audio id="bg-music" src="assets/music.mp3" loop></audio>
       margin: 0;
       padding: 0;
       font-family: 'Share Tech Mono', monospace;
@@ -111,6 +113,14 @@
 
   </style>
 </head>
+<script>
+document.addEventListener("click", function() {
+    const music = document.getElementById("bg-music");
+    if (music.paused) music.play();
+}, { once: true });
+</script>
+</body>
+</html>
 
 <body>
 
@@ -278,4 +288,15 @@
   </script>
 </body>
 </html>
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+
+<script>
+function celebrate() {
+    confetti({
+        particleCount: 150,
+        spread: 70,
+        origin: { y: 0.6 }
+    });
+}
+</script>
 
