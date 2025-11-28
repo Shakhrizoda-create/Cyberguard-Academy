@@ -78,15 +78,16 @@ header h1 {
   margin-right: auto;
 }
 
-/* Feedback messages - text only, no square */
+/* Feedback messages - text only, no rectangle */
 .feedback-line {
   opacity: 0;
-  font-size: 1.2em;  /* keeps text readable */
+  font-size: 1em;  /* fits more lines */
   color: #ff9999;
   text-shadow: 0 0 5px #ff4c4c; /* glowing text */
-  padding: 0;  /* remove extra spacing from boxes */
-  border: none; /* remove border */
+  padding: 0;       /* remove extra spacing */
+  border: none;     /* remove border */
   border-radius: 0; /* remove rounding */
+  background: none; /* remove any background color */
   transform: translateY(10px);
   transition: opacity 0.5s ease, transform 0.5s ease;
 }
