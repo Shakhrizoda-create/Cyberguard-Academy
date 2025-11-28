@@ -38,7 +38,7 @@ header h1 {
 
 /* Instruction text bigger */
 #instruction {
-  font-size: 2.5em;
+  font-size: 1.8em;  /* smaller to fit better */
   max-width: 90%;
   margin: 20px auto;
   line-height: 1.3em;
