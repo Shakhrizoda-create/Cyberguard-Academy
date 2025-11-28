@@ -36,9 +36,9 @@ header h1 {
   text-shadow: 0 0 8px #ff1a1a, 0 0 20px #ff6666;
 }
 
-/* Instruction text bigger */
+/* Instruction text back to original smaller size */
 #instruction {
-  font-size: 1.8em;  /* smaller to fit better */
+  font-size: 1.2em; /* original smaller size */
   max-width: 90%;
   margin: 20px auto;
   line-height: 1.3em;
@@ -135,5 +135,6 @@ header h1 {
   box-shadow: 0 0 15px #ff4c4c;
   background: rgba(0,0,0,0.2);
 }
+
 
 
