@@ -38,7 +38,7 @@ header h1 {
 
 /* Instruction text */
 #instruction {
-  font-size: 1.8em;  /* text big but fits screen */
+  font-size: 1.8em;  /* fits screen nicely */
   max-width: 90%;
   margin: 20px auto;
   line-height: 1.3em;
@@ -67,32 +67,34 @@ header h1 {
   border-color: #ff1a1a;
 }
 
-/* Feedback container */
+/* Feedback container with two columns */
 #feedback {
   margin-top: 30px;
   display: flex;
-  flex-direction: column;
-  gap: 5px; /* smaller gap to fit more lines */
-  max-width: 400px;
+  flex-wrap: wrap;          /* allow two columns */
+  justify-content: center;
+  gap: 10px 40px;           /* vertical + horizontal gaps */
+  max-width: 900px;
   margin-left: auto;
   margin-right: auto;
 }
 
-/* Feedback messages - text only, no rectangle */
+/* Feedback messages - text only, no rectangles */
 .feedback-line {
   opacity: 0;
-  font-size: 1em;  /* fits more lines */
+  font-size: 1em;           /* small enough to fit many lines */
   color: #ff9999;
   text-shadow: 0 0 5px #ff4c4c; /* glowing text */
-  padding: 0;       /* remove extra spacing */
-  border: none;     /* remove border */
-  border-radius: 0; /* remove rounding */
-  background: none; /* remove any background color */
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  background: none;
+  width: 40%;               /* roughly half width for two columns */
   transform: translateY(10px);
   transition: opacity 0.5s ease, transform 0.5s ease;
 }
 
-/* Show feedback lines one by one */
+/* Show feedback lines */
 .feedback-line.show {
   opacity: 1;
   transform: translateY(0);
@@ -135,4 +137,3 @@ header h1 {
   box-shadow: 0 0 15px #ff4c4c;
   background: rgba(0,0,0,0.2);
 }
-
