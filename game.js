@@ -1,3 +1,9 @@
+/* ===== UNLOCK AUDIO ON FIRST CLICK ===== */
+document.addEventListener('click', () => {
+  const clickSound = document.getElementById("click-sound");
+  clickSound.play().catch(() => {}); // unlocks audio
+}, { once: true });
+
 /* ===== CLICK SOUND FUNCTION ===== */
 function playClick() {
   const clickSound = document.getElementById("click-sound");
@@ -166,7 +172,6 @@ function checkAnswer(correct) {
   } else {
     document.getElementById("question").innerText = "🎯 Game Over!";
     document.getElementById("options").innerHTML = "";
-
     feedback.innerHTML = "Your final score: " + score + " / " + questions.length;
 
     if (score >= 5) celebrate();
@@ -178,3 +183,22 @@ function checkAnswer(correct) {
 
 /* ===== START GAME ===== */
 showQuestion();
+
+/* ===== MUTE BUTTON ===== */
+const music = document.getElementById("bg-music");
+const muteBtn = document.getElementById("mute-btn");
+muteBtn.onclick = () => {
+  playClick(); // click sound for mute button
+  if (music.paused) {
+    music.play();
+    muteBtn.innerHTML = "🔊 Music On";
+  } else {
+    music.pause();
+    muteBtn.innerHTML = "🔇 Music Off";
+  }
+};
+
+/* ===== BACK BUTTON ===== */
+// In your HTML, change Back button to:
+// <button class="back" onclick="playClick(); window.location.href='index.html'">🏠 Back to Home</button>
+
