@@ -135,11 +135,10 @@
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
 
   <script>
-    /* ======= MUSIC ======= */
+    /* ===== MUSIC ===== */
     const music = document.getElementById("bg-music");
     const muteBtn = document.getElementById("mute-btn");
 
-    // Start music after first click (required by browsers)
     document.addEventListener("click", () => {
       if (music.paused) music.play();
     }, { once: true });
@@ -154,8 +153,7 @@
       }
     };
 
-
-    /* ======= QUESTIONS (RESTORED FULL 10) ======= */
+    /* ===== 10 QUIZ QUESTIONS ===== */
     const questions = [
       {
         text: "Which of these messages is safe?",
@@ -278,19 +276,37 @@
       document.getElementById("feedback").innerHTML = "";
     }
 
+    /* ===== CELEBRATION & BIG SHAKING SKULL ===== */
     function celebrate() {
       confetti({ particleCount: 200, spread: 80 });
     }
 
-    function skullRain() {
-      confetti({
-        particleCount: 80,
-        spread: 60,
-        emojis: ['💀'],
-        emojiSize: 50
-      });
+    function showSkull() {
+      const skull = document.createElement("div");
+      skull.innerHTML = "💀";
+      skull.style.position = "fixed";
+      skull.style.top = "50%";
+      skull.style.left = "50%";
+      skull.style.transform = "translate(-50%, -50%) scale(3)";
+      skull.style.color = "red";
+      skull.style.textShadow = "0 0 15px red";
+      skull.style.fontSize = "6rem";
+      skull.style.animation = "shake 0.4s infinite";
+      skull.id = "big-skull";
+      document.body.appendChild(skull);
     }
 
+    const style = document.createElement("style");
+    style.innerHTML = `
+    @keyframes shake {
+      0% { transform: translate(-50%, -50%) rotate(-5deg) scale(3); }
+      50% { transform: translate(-50%, -50%) rotate(5deg) scale(3); }
+      100% { transform: translate(-50%, -50%) rotate(-5deg) scale(3); }
+    }
+    `;
+    document.head.appendChild(style);
+
+    /* ===== CHECK ANSWER & GAME LOGIC ===== */
     function checkAnswer(correct) {
       const feedback = document.getElementById("feedback");
 
@@ -308,11 +324,13 @@
       } else {
         document.getElementById("question").innerText = "🎯 Game Over!";
         document.getElementById("options").innerHTML = "";
-
         feedback.innerHTML = "Your final score: " + score + " / " + questions.length;
 
-        if (score >= 5) celebrate();
-        else skullRain();
+        if (score >= 5) {
+          celebrate();
+        } else {
+          showSkull(); // <-- big shaking skull
+        }
       }
 
       document.getElementById("score").innerText = "Score: " + score;
@@ -320,7 +338,7 @@
 
     showQuestion();
   </script>
-
 </body>
 </html>
+
 
