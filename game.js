@@ -1,14 +1,14 @@
 /* ===== UNLOCK AUDIO ON FIRST CLICK ===== */
 document.addEventListener('click', () => {
   const clickSound = document.getElementById("click-sound");
-  clickSound.play().catch(() => {}); // unlocks audio
+  clickSound.play().catch(() => {}); // unlocks audio on first interaction
 }, { once: true });
 
 /* ===== CLICK SOUND FUNCTION ===== */
 function playClick() {
   const clickSound = document.getElementById("click-sound");
-  clickSound.currentTime = 0; // rewind to start
-  clickSound.play();
+  clickSound.currentTime = 0;
+  clickSound.play().catch(() => {});
 }
 
 /* ===== QUESTIONS (full 10) ===== */
@@ -105,10 +105,11 @@ const questions = [
   }
 ];
 
+/* === Game State === */
 let currentQuestion = 0;
 let score = 0;
 
-/* ===== SHUFFLE FUNCTION ===== */
+/* ===== SHUFFLE ===== */
 function shuffle(arr) {
   for (let i = arr.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -130,7 +131,7 @@ function showQuestion() {
     btn.classList.add("message");
     btn.innerText = opt.text;
     btn.onclick = () => {
-      playClick();        // Play click sound on option click
+      playClick();
       checkAnswer(opt.correct);
     };
     optionsDiv.appendChild(btn);
@@ -172,7 +173,10 @@ function checkAnswer(correct) {
   } else {
     document.getElementById("question").innerText = "🎯 Game Over!";
     document.getElementById("options").innerHTML = "";
+
     feedback.innerHTML = "Your final score: " + score + " / " + questions.length;
+
+    document.querySelector(".back").style.display = "inline-block";
 
     if (score >= 5) celebrate();
     else skullRain();
@@ -187,8 +191,9 @@ showQuestion();
 /* ===== MUTE BUTTON ===== */
 const music = document.getElementById("bg-music");
 const muteBtn = document.getElementById("mute-btn");
+
 muteBtn.onclick = () => {
-  playClick(); // click sound for mute button
+  playClick();
   if (music.paused) {
     music.play();
     muteBtn.innerHTML = "🔊 Music On";
@@ -197,8 +202,4 @@ muteBtn.onclick = () => {
     muteBtn.innerHTML = "🔇 Music Off";
   }
 };
-
-/* ===== BACK BUTTON ===== */
-// In your HTML, change Back button to:
-// <button class="back" onclick="playClick(); window.location.href='index.html'">🏠 Back to Home</button>
 
