@@ -4,53 +4,43 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Spot the Hack! | CyberGuard Academy</title>
-
-  <!-- Hacker font -->
+  
   <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
 
   <style>
     /* ===== GENERAL ===== */
     body {
-      <body>
-    <audio id="bg-music" src="assets/music.mp3" loop></audio>
       margin: 0;
       padding: 0;
       font-family: 'Share Tech Mono', monospace;
       color: #00ffea;
-      background: url('https://images.unsplash.com/photo-1544197150-b99a580bb7a8?q=80&w=1920')
-        no-repeat center center fixed;
+      background: url('assets/hacker-bg.png') no-repeat center center fixed;
       background-size: cover;
       text-align: center;
-      backdrop-filter: blur(3px);
     }
 
-    /* Dark overlay for readability */
+    /* Dark overlay */
     body::before {
       content: "";
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.75);
+      inset: 0;
+      background: rgba(0,0,0,0.75);
+      backdrop-filter: blur(4px);
       z-index: -1;
     }
 
     h1 {
       margin-top: 20px;
       font-size: 3em;
-      text-shadow: 0 0 10px #00fff2,
-                   0 0 20px #00fff2;
+      text-shadow: 0 0 10px #00fff2;
     }
 
     #question {
       font-size: 2em;
       margin-top: 30px;
-      color: #00ffe5;
-      text-shadow: 0 0 5px #00fff2;
+      text-shadow: 0 0 8px #00fff2;
     }
 
-    /* ===== OPTIONS ===== */
     #options {
       margin-top: 20px;
       display: flex;
@@ -60,29 +50,24 @@
 
     .message {
       border: 1px solid #0ff;
-      background: rgba(0, 0, 0, 0.4);
-      color: #00ffe5;
-      font-size: 1.2em;
+      background: rgba(0,0,0,0.45);
       padding: 15px 25px;
       margin: 10px;
       cursor: pointer;
       border-radius: 10px;
-      backdrop-filter: blur(4px);
+      font-size: 1.2em;
       transition: 0.2s;
-      text-shadow: 0 0 5px #00fff2;
     }
 
     .message:hover {
-      background: rgba(0, 255, 217, 0.15);
+      background: rgba(0,255,217,0.2);
       transform: scale(1.1);
       box-shadow: 0 0 10px #00ffe5;
     }
 
-    /* ===== SCORE & FEEDBACK ===== */
     #feedback {
       margin-top: 20px;
       font-size: 1.6em;
-      text-shadow: 0 0 10px #00fff2;
     }
 
     #score {
@@ -91,44 +76,50 @@
       color: #7afcff;
     }
 
-    /* ===== BACK BUTTON ===== */
     .back {
       margin-top: 30px;
-      font-size: 1.2em;
       padding: 10px 20px;
-      background: rgba(0, 255, 221, 0.2);
+      background: rgba(0,255,221,0.2);
       border: 1px solid #00ffe5;
+      color: #00ffe5;
       border-radius: 8px;
       cursor: pointer;
-      color: #00ffe5;
       transition: 0.2s;
-      text-shadow: 0 0 5px #00fff2;
     }
 
     .back:hover {
-      background: rgba(0, 255, 221, 0.4);
+      transform: scale(1.1);
       box-shadow: 0 0 10px #00ffe5;
-      transform: scale(1.05);
     }
 
+    /* MUTE BUTTON */
+    #mute-btn {
+      position: fixed;
+      top: 15px;
+      right: 15px;
+      padding: 10px 15px;
+      background: rgba(0,255,221,0.25);
+      border: 1px solid #00ffe5;
+      color: #00ffe5;
+      cursor: pointer;
+      border-radius: 8px;
+      text-shadow: 0 0 8px #00fff2;
+    }
   </style>
 </head>
-<script>
-document.addEventListener("click", function() {
-    const music = document.getElementById("bg-music");
-    if (music.paused) music.play();
-}, { once: true });
-</script>
-</body>
-</html>
 
 <body>
+
+  <!-- Background Music -->
+  <audio id="bg-music" src="assets/music.mp3" loop></audio>
+
+  <button id="mute-btn">🔊 Music On</button>
 
   <header>
     <h1>🕵️ Spot the Hack!</h1>
   </header>
 
-  <main class="game-container">
+  <main>
     <h2 id="question">Loading...</h2>
     <div id="options"></div>
     <div id="feedback"></div>
@@ -136,11 +127,32 @@ document.addEventListener("click", function() {
     <button class="back" onclick="window.location.href='index.html'">🏠 Back to Home</button>
   </main>
 
-  <!-- GAME LOGIC (unchanged) -->
+  <!-- Confetti Library -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+
   <script>
+    /* ====== MUSIC CONTROL ====== */
+    const music = document.getElementById("bg-music");
+    const muteBtn = document.getElementById("mute-btn");
+
+    document.addEventListener("click", () => {
+      if (music.paused) music.play();
+    }, { once: true });
+
+    muteBtn.onclick = () => {
+      if (music.paused) {
+        music.play();
+        muteBtn.innerHTML = "🔊 Music On";
+      } else {
+        music.pause();
+        muteBtn.innerHTML = "🔇 Music Off";
+      }
+    };
+
+
+    /* ====== GAME LOGIC ====== */
     const questions = [
-      {
-        text: "Which of these messages is safe?",
+      { text: "Which of these messages is safe?",
         options: [
           { text: "Hey, is this you in this photo? 😳", correct: false },
           { text: "Yo, today we have the team meeting at 3 PM.", correct: true },
@@ -148,109 +160,30 @@ document.addEventListener("click", function() {
           { text: "Check out this video, you’re in it 😂", correct: false }
         ]
       },
-      {
-        text: "Spot the safe message:",
-        options: [
-          { text: "Your bank account has been suspended, confirm your info now!", correct: false },
-          { text: "Reminder: don’t forget to submit your homework tonight.", correct: true },
-          { text: "Urgent! Your device is infected, click here to clean it!", correct: false },
-          { text: "Click to win a free phone!", correct: false }
-        ]
-      },
-      {
-        text: "Choose the real message:",
-        options: [
-          { text: "Bro, we’re at the café, come join!", correct: true },
-          { text: "You’ve won a $500 gift card!", correct: false },
-          { text: "Your email password expired, update here.", correct: false },
-          { text: "This video of you is going viral 😬", correct: false }
-        ]
-      },
-      {
-        text: "Which message seems trustworthy?",
-        options: [
-          { text: "Your parcel delivery failed, click to reschedule.", correct: false },
-          { text: "The teacher said we can use notes for the exam.", correct: true },
-          { text: "We found suspicious login activity, confirm here.", correct: false },
-          { text: "You must verify your Instagram now!", correct: false }
-        ]
-      },
-      {
-        text: "Find the safe message:",
-        options: [
-          { text: "Yo, want to play that new game tonight?", correct: true },
-          { text: "Click this link to claim your crypto reward.", correct: false },
-          { text: "System alert! Your password is weak!", correct: false },
-          { text: "Is this your TikTok video? 😂", correct: false }
-        ]
-      },
-      {
-        text: "Which is safe?",
-        options: [
-          { text: "Mom said dinner at 7, don’t be late!", correct: true },
-          { text: "Verify your Apple ID here immediately!", correct: false },
-          { text: "Win a free trip by clicking this link!", correct: false },
-          { text: "Account alert: login from Russia detected!", correct: false }
-        ]
-      },
-      {
-        text: "Choose the safe text:",
-        options: [
-          { text: "We added you to the project group chat.", correct: true },
-          { text: "Click here to view your salary details.", correct: false },
-          { text: "Urgent: your files will be deleted soon!", correct: false },
-          { text: "Tap here to get your free NFT.", correct: false }
-        ]
-      },
-      {
-        text: "Which message is normal?",
-        options: [
-          { text: "Happy Birthday! 🎉", correct: true },
-          { text: "You have been hacked, click here to protect yourself!", correct: false },
-          { text: "Your email will be deactivated unless you log in here.", correct: false },
-          { text: "Is this your photo? 😱", correct: false }
-        ]
-      },
-      {
-        text: "Pick the safe message:",
-        options: [
-          { text: "Don’t forget the quiz tomorrow!", correct: true },
-          { text: "Click here for exclusive prizes!", correct: false },
-          { text: "Warning! Account access limited!", correct: false },
-          { text: "Free gift for loyal users! 🎁", correct: false }
-        ]
-      },
-      {
-        text: "Which message would you trust?",
-        options: [
-          { text: "Can you send me your phone number again?", correct: true },
-          { text: "You are in this video! 😂", correct: false },
-          { text: "We have detected a virus, click to remove.", correct: false },
-          { text: "Your card has been blocked, verify now!", correct: false }
-        ]
-      }
+      /* ... keep your remaining questions ... */
     ];
 
     let currentQuestion = 0;
     let score = 0;
 
-    function shuffle(array) {
-      for (let i = array.length - 1; i > 0; i--) {
+    function shuffle(arr) {
+      for (let i = arr.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
+        [arr[i], arr[j]] = [arr[j], arr[i]];
       }
-      return array;
+      return arr;
     }
 
     function showQuestion() {
       const q = questions[currentQuestion];
       document.getElementById("question").innerText = q.text;
+
       const optionsDiv = document.getElementById("options");
       optionsDiv.innerHTML = "";
 
       const shuffled = shuffle([...q.options]);
 
-      shuffled.forEach((opt) => {
+      shuffled.forEach(opt => {
         const btn = document.createElement("button");
         btn.classList.add("message");
         btn.innerText = opt.text;
@@ -258,7 +191,20 @@ document.addEventListener("click", function() {
         optionsDiv.appendChild(btn);
       });
 
-      document.getElementById("feedback").innerText = "";
+      document.getElementById("feedback").innerHTML = "";
+    }
+
+    function celebrate() {
+      confetti({ particleCount: 200, spread: 80 });
+    }
+
+    function skullRain() {
+      confetti({
+        particleCount: 80,
+        spread: 60,
+        emojis: ['💀'],
+        emojiSize: 50
+      });
     }
 
     function checkAnswer(correct) {
@@ -278,7 +224,11 @@ document.addEventListener("click", function() {
       } else {
         document.getElementById("question").innerText = "🎯 Game Over!";
         document.getElementById("options").innerHTML = "";
+
         feedback.innerHTML = "Your final score: " + score + " / " + questions.length;
+
+        if (score >= 5) celebrate();
+        else skullRain();
       }
 
       document.getElementById("score").innerText = "Score: " + score;
@@ -286,17 +236,8 @@ document.addEventListener("click", function() {
 
     showQuestion();
   </script>
+
 </body>
 </html>
-<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
 
-<script>
-function celebrate() {
-    confetti({
-        particleCount: 150,
-        spread: 70,
-        origin: { y: 0.6 }
-    });
-}
-</script>
 
