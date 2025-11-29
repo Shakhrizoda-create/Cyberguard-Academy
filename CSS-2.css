@@ -38,7 +38,7 @@ header h1 {
 
 /* Instruction text */
 #instruction {
-  font-size: 1.8em;  /* fits screen nicely */
+  font-size: 1.8em;
   max-width: 90%;
   margin: 20px auto;
   line-height: 1.3em;
@@ -71,9 +71,9 @@ header h1 {
 #feedback {
   margin-top: 30px;
   display: flex;
-  flex-wrap: wrap;          /* allow two columns */
+  flex-wrap: wrap;
   justify-content: center;
-  gap: 10px 40px;           /* vertical + horizontal gaps */
+  gap: 10px 40px;
   max-width: 900px;
   margin-left: auto;
   margin-right: auto;
@@ -82,19 +82,18 @@ header h1 {
 /* Feedback messages - text only, no rectangles */
 .feedback-line {
   opacity: 0;
-  font-size: 1em;           /* small enough to fit many lines */
+  font-size: 1em;
   color: #ff9999;
-  text-shadow: 0 0 5px #ff4c4c; /* glowing text */
+  text-shadow: 0 0 5px #ff4c4c;
   padding: 0;
   border: none;
   border-radius: 0;
   background: none;
-  width: 40%;               /* roughly half width for two columns */
+  width: 40%;
   transform: translateY(10px);
   transition: opacity 0.5s ease, transform 0.5s ease;
 }
 
-/* Show feedback lines */
 .feedback-line.show {
   opacity: 1;
   transform: translateY(0);
