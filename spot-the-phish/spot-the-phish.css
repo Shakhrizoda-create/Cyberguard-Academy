@@ -1,233 +1,213 @@
-/* ===========================================
-   GLOBAL STYLE — Black & Cyber Yellow Theme
-   =========================================== */
-
+/* ==========================
+   GLOBAL STYLES
+========================== */
 body {
     margin: 0;
     padding: 0;
-    background: #000000; /* later you can replace with your image */
     font-family: 'Share Tech Mono', monospace;
-    color: #ffd700;
+    background-color: #000000;
+    color: #ffff00;
     text-align: center;
-    overflow-x: hidden;
 }
 
-/* Glow preset */
-.glow-yellow {
-    text-shadow: 0 0 5px #ffe066, 0 0 10px #ffd700, 0 0 20px #ffea00;
-}
-
+/* Hidden class */
 .hidden {
     display: none;
 }
 
-/* ===========================================
+/* ==========================
    START SCREEN
-   =========================================== */
-
+========================== */
 #start-screen {
-    width: 100%;
-    padding: 40px 20px;
-    color: #ffd700;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
 }
 
 .title {
-    font-size: 2.8em;
+    font-size: 2.5rem;
     margin-bottom: 20px;
-    text-shadow: 0 0 8px #ffea00, 0 0 15px #ffd700;
+    color: #ffff00;
+    text-shadow: 0 0 10px #ffff00, 0 0 20px #ffff00;
 }
 
 #intro-box {
-    width: 80%;
-    max-width: 900px;
-    margin: 0 auto 40px auto;
+    max-width: 800px;
+    margin-bottom: 30px;
     text-align: left;
-    background: rgba(20, 20, 20, 0.6);
-    padding: 25px 30px;
-    border: 2px solid #ffd700;
-    border-radius: 8px;
-    box-shadow: 0 0 12px #ffd700;
+    line-height: 1.5;
+    font-size: 1rem;
+    color: #ffff00;
+    text-shadow: 0 0 5px #ffff00;
 }
 
 #intro-box ul {
-    margin-left: 25px;
+    list-style: none;
+    padding: 0;
+}
+
+#intro-box li {
+    margin: 5px 0;
 }
 
 #start-btn {
-    margin-top: 25px;
-    padding: 14px 40px;
-    font-size: 1.6em;
-    background: black;
-    color: #ffd700;
-    border: 2px solid #ffd700;
-    border-radius: 8px;
+    font-size: 1.5rem;
+    padding: 15px 40px;
+    background-color: #000000;
+    color: #ffff00;
+    border: 2px solid #ffff00;
     cursor: pointer;
-    transition: 0.25s ease;
-    text-shadow: 0 0 8px #ffd700;
+    text-shadow: 0 0 5px #ffff00;
+    transition: 0.3s;
+    box-shadow: 0 0 20px #ffff00;
 }
 
 #start-btn:hover {
-    transform: scale(1.08);
-    box-shadow: 0 0 20px #ffd700;
+    background-color: #ffff00;
+    color: #000;
+    text-shadow: 0 0 10px #000;
 }
 
-
-/* ===========================================
+/* ==========================
    GAME UI
-   =========================================== */
-
+========================== */
 #game-ui {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     padding: 20px;
-    width: 100%;
-    position: relative;
 }
 
-/* TIMER */
 #timer-box {
-    position: fixed;
+    position: absolute;
     top: 20px;
     left: 20px;
-    background: rgba(20, 20, 20, 0.7);
-    border: 2px solid #ffd700;
-    padding: 10px 18px;
-    border-radius: 8px;
-    font-size: 1.4em;
-    box-shadow: 0 0 12px #ffd700;
-    color: #ffd700;
+    font-size: 1.5rem;
+    color: #ffff00;
+    text-shadow: 0 0 10px #ffff00;
 }
 
-#timer {
-    font-weight: bold;
-}
-
-/* BUDGET */
 #budget-box {
-    position: fixed;
+    position: absolute;
     top: 20px;
     right: 20px;
-    background: rgba(20, 20, 20, 0.7);
-    border: 2px solid #ffd700;
-    padding: 10px 18px;
-    border-radius: 8px;
-    font-size: 1.4em;
-    box-shadow: 0 0 12px #ffd700;
-    color: #ffd700;
+    font-size: 1.5rem;
+    color: #ffff00;
+    text-shadow: 0 0 10px #ffff00;
+    border: 2px solid #ffff00;
+    padding: 10px 15px;
+    border-radius: 10px;
 }
 
-/* EMAIL PANEL */
 #email-container {
-    width: 80%;
-    max-width: 900px;
-    margin: 120px auto 40px auto;
-    background: rgba(25, 25, 25, 0.6);
-    padding: 25px 30px;
-    border: 2px solid #ffd700;
-    border-radius: 8px;
-    box-shadow: 0 0 15px #ffd700;
+    margin-top: 100px;
+    max-width: 800px;
+    width: 90%;
+    padding: 20px;
+    border: 2px solid #ffff00;
+    border-radius: 15px;
     text-align: left;
-    min-height: 150px;
-    font-size: 1.25em;
+    font-size: 1rem;
+    background-color: #111;
+    color: #ffff00;
+    text-shadow: 0 0 5px #ffff00;
 }
 
-/* BUTTON CHOICES */
 #choice-buttons {
     margin-top: 30px;
     display: flex;
     justify-content: center;
-    gap: 25px;
+    gap: 50px;
 }
 
 .choice-btn {
-    padding: 14px 30px;
-    background: black;
-    color: #ffd700;
-    border: 2px solid #ffd700;
-    border-radius: 8px;
+    padding: 20px 40px;
+    font-size: 1.2rem;
+    border: 2px solid;
+    border-radius: 10px;
     cursor: pointer;
-    transition: 0.25s ease;
-    font-size: 1.3em;
-    text-shadow: 0 0 8px #ffd700;
+    text-shadow: 0 0 5px currentColor;
+    transition: 0.3s;
 }
 
-.choice-btn:hover {
-    transform: scale(1.08);
-    box-shadow: 0 0 18px #ffd700;
+#safe-btn {
+    color: #00ff00;
+    border-color: #00ff00;
 }
 
+#safe-btn:hover {
+    background-color: #00ff00;
+    color: #000;
+}
 
-/* ===========================================
-   HACKED / PENALTY ANIMATION
-   =========================================== */
+#suspicious-btn {
+    color: #ffff00;
+    border-color: #ffff00;
+}
 
+#suspicious-btn:hover {
+    background-color: #ffff00;
+    color: #000;
+}
+
+#malicious-btn {
+    color: #ff0000;
+    border-color: #ff0000;
+}
+
+#malicious-btn:hover {
+    background-color: #ff0000;
+    color: #000;
+}
+
+/* Penalty animation */
 #penalty-display {
-    position: fixed;
-    top: 45%;
+    position: absolute;
+    top: 50%;
     left: 50%;
+    font-size: 3rem;
+    font-weight: bold;
     transform: translate(-50%, -50%);
-    font-size: 3em;
+    opacity: 0;
+    pointer-events: none;
+    text-shadow: 0 0 20px red, 0 0 40px red;
     color: red;
-    text-shadow: 0 0 15px red, 0 0 30px #ff0000;
-    opacity: 0;
-    transition: opacity 0.6s ease, transform 0.5s ease;
+    transition: all 1s ease-out;
 }
 
-/* When JS adds .show */
-.penalty-show {
-    opacity: 1 !important;
-    transform: translate(-50%, -55%) scale(1.15);
-}
-
-/* Yellow money loss animation */
-.penalty-money {
-    position: fixed;
-    top: 60%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 2.4em;
-    color: #ffd700;
-    text-shadow: 0 0 10px #ffd700, 0 0 20px #ffdd33;
-    opacity: 0;
-    transition: opacity 0.6s ease, transform 0.5s ease;
-}
-
-
-/* ===========================================
+/* ==========================
    END SCREEN
-   =========================================== */
-
+========================== */
 #end-screen {
-    padding: 60px 20px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #000;
+    color: #ffff00;
+    text-shadow: 0 0 10px #ffff00;
 }
 
-#end-title {
-    font-size: 3em;
-    margin-bottom: 30px;
-    color: #ffd700;
-    text-shadow: 0 0 12px #ffd700, 0 0 20px #ffea00;
-}
-
-#final-budget-text {
-    font-size: 1.8em;
-    margin-bottom: 40px;
-}
-
-#restart-btn,
-#back-btn {
-    margin: 15px;
-    padding: 14px 30px;
-    font-size: 1.4em;
-    background: black;
-    color: #ffd700;
-    border: 2px solid #ffd700;
-    border-radius: 8px;
+#end-screen button {
+    font-size: 1.2rem;
+    padding: 15px 30px;
+    margin: 10px;
     cursor: pointer;
-    transition: 0.25s;
-    text-shadow: 0 0 8px #ffd700;
+    border: 2px solid #ffff00;
+    border-radius: 10px;
+    background-color: #000;
+    color: #ffff00;
+    text-shadow: 0 0 5px #ffff00;
+    transition: 0.3s;
 }
 
-#restart-btn:hover,
-#back-btn:hover {
-    transform: scale(1.08);
-    box-shadow: 0 0 20px #ffd700;
+#end-screen button:hover {
+    background-color: #ffff00;
+    color: #000;
 }
 
