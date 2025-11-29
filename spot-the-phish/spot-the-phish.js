@@ -1,147 +1,271 @@
-/* =========================
-   Spot the Phish Game Logic
-========================= */
+// ============================================================
+// VARIABLES & DOM ELEMENTS
+// ============================================================
 
-let emails = [
+let budget = 850000;
+let currentIndex = 0;
+let timerSeconds = 150;
+let timerInterval = null;
+
+const startScreen = document.getElementById("start-screen");
+const startBtn = document.getElementById("start-btn");
+const gameUI = document.getElementById("game-ui");
+const emailContainer = document.getElementById("email-container");
+
+const timerBox = document.getElementById("timer");
+const budgetAmount = document.getElementById("budget-amount");
+
+const safeBtn = document.getElementById("safe-btn");
+const suspiciousBtn = document.getElementById("suspicious-btn");
+const maliciousBtn = document.getElementById("malicious-btn");
+
+const penaltyDisplay = document.getElementById("penalty-display");
+
+const endScreen = document.getElementById("end-screen");
+const finalBudget = document.getElementById("final-budget");
+const restartBtn = document.getElementById("restart-btn");
+const backBtn = document.getElementById("back-btn");
+
+// ============================================================
+// EMAIL DATABASE
+// ============================================================
+
+const emails = [
     {
-        text: "Your PayPal account has been locked. Click here to restore access immediately.",
-        isPhish: true,
-        explanation: "Urgent messages asking you to click a link are classic phishing tactics."
+        fromName: "PayPal Security",
+        fromEmail: "noreply@paypal-alert.com",
+        subject: "Your account is locked!",
+        date: "Tue, 12 Nov 2025 08:41 AM",
+        attachments: [{ name: "Security_Report_84729.pdf", size: "142 KB" }],
+        body: "We detected unusual login attempts on your account. Please download the attached report or click the verification link below.",
+        correct: "malicious",
+        penalty: 10000,
+        difficulty: "Easy"
     },
     {
-        text: "Your package has been shipped. Track it here: https://ups.com/track/90sd33",
-        isPhish: false,
-        explanation: "Legitimate shipping links are usually safe, especially with proper domains."
+        fromName: "School Admin",
+        fromEmail: "admin@school.edu",
+        subject: "Class Schedule Updated",
+        date: "Wed, 13 Nov 2025 09:10 AM",
+        attachments: [{ name: "Schedule_Fall2025.docx", size: "56 KB" }],
+        body: "Your class schedule has been updated. Please review the changes on the school portal.",
+        correct: "safe",
+        penalty: 10000,
+        difficulty: "Easy"
     },
     {
-        text: "We detected suspicious login attempts. Verify your account or it will be deleted.",
-        isPhish: true,
-        explanation: "Threatening to delete accounts is a common pressure tactic."
+        fromName: "Amazon Orders",
+        fromEmail: "orders@amazon.com",
+        subject: "Package Delivery Update",
+        date: "Thu, 14 Nov 2025 06:12 PM",
+        attachments: [{ name: "Delivery_Invoice_92218.png", size: "684 KB" }],
+        body: "Your order #118-9921 is delayed due to weather conditions. Check attachment for details.",
+        correct: "safe",
+        penalty: 20000,
+        difficulty: "Low-Moderate"
     },
     {
-        text: "Your friend shared a Google Doc with you.",
-        isPhish: false,
-        explanation: "This email is normal unless the domain looks strange."
+        fromName: "Apple Security",
+        fromEmail: "noreply@apple-secure.com",
+        subject: "Apple ID Verification Required",
+        date: "Fri, 15 Nov 2025 11:30 AM",
+        attachments: [{ name: "Verification_Link.htm", size: "4 KB" }],
+        body: "Your Apple ID has been temporarily locked. Click the link to restore access immediately.",
+        correct: "malicious",
+        penalty: 50000,
+        difficulty: "Moderate"
     },
     {
-        text: "You won a free iPhone! Claim your prize now!",
-        isPhish: true,
-        explanation: "Unsolicited prize offers are almost always scams."
+        fromName: "HR Department",
+        fromEmail: "hr@company.com",
+        subject: "Payroll Report Q4",
+        date: "Mon, 18 Nov 2025 08:00 AM",
+        attachments: [{ name: "Payroll_Report_Q4_2025.xlsm", size: "220 KB" }],
+        body: "Attached is your payroll report for Q4 2025. Open the file for details.",
+        correct: "malicious",
+        penalty: 100000,
+        difficulty: "Hard"
     },
     {
-        text: "Your school posted new exam dates on the dashboard.",
-        isPhish: false,
-        explanation: "Informational school messages are usually trustworthy."
+        fromName: "Colleague",
+        fromEmail: "jane.doe@company.com",
+        subject: "Project Update",
+        date: "Tue, 19 Nov 2025 02:20 PM",
+        attachments: [{ name: "Project_Update_Nov19.pdf", size: "125 KB" }],
+        body: "Please find attached the latest project update.",
+        correct: "safe",
+        penalty: 50000,
+        difficulty: "Moderate"
     },
     {
-        text: "We noticed unusual activity. Login here to verify: http://security-alert-login.com",
-        isPhish: true,
-        explanation: "Fake login pages often imitate security services."
+        fromName: "Bank Alert",
+        fromEmail: "alert@banking.com",
+        subject: "Suspicious Activity Detected",
+        date: "Wed, 20 Nov 2025 07:15 AM",
+        attachments: [],
+        body: "We detected unusual activity in your account. Verify your identity immediately.",
+        correct: "suspicious",
+        penalty: 200000,
+        difficulty: "Very Hard"
     },
     {
-        text: "Your Microsoft 365 subscription renews next week.",
-        isPhish: false,
-        explanation: "Normal subscription notifications don’t ask for urgent action."
+        fromName: "LinkedIn",
+        fromEmail: "notifications@linkedin.com",
+        subject: "New Connection Request",
+        date: "Thu, 21 Nov 2025 09:50 AM",
+        attachments: [],
+        body: "John Smith has sent you a connection request.",
+        correct: "safe",
+        penalty: 10000,
+        difficulty: "Easy"
     },
     {
-        text: "Your tax refund is ready! Submit your bank info now to receive it.",
-        isPhish: true,
-        explanation: "Authorities never ask for bank info through email."
+        fromName: "Unknown Sender",
+        fromEmail: "unknown@malicious.site",
+        subject: "Urgent: Download Now",
+        date: "Fri, 22 Nov 2025 01:05 PM",
+        attachments: [{ name: "Install_Update.exe", size: "512 KB" }],
+        body: "Your system requires immediate update. Download attached file.",
+        correct: "malicious",
+        penalty: 200000,
+        difficulty: "Very Hard"
     },
     {
-        text: "Your gaming friend added you to a new group.",
-        isPhish: false,
-        explanation: "Casual account notifications are typically safe."
+        fromName: "Dropbox",
+        fromEmail: "notifications@dropbox.com",
+        subject: "Shared Document",
+        date: "Sat, 23 Nov 2025 10:30 AM",
+        attachments: [{ name: "Budget_Proposal_2025.pdf", size: "178 KB" }],
+        body: "A colleague has shared a document with you.",
+        correct: "safe",
+        penalty: 50000,
+        difficulty: "Moderate"
     }
 ];
 
-let round = 0;
-let score = 0;
+// ============================================================
+// START SIMULATION
+// ============================================================
 
-// DOM elements
-const roundText = document.getElementById("round");
-const scoreText = document.getElementById("score");
-const emailContainer = document.getElementById("email-container");
-const resultDiv = document.getElementById("result");
-const nextBtn = document.getElementById("next-btn");
-const backBtn = document.getElementById("back-btn");
+startBtn.addEventListener("click", () => {
+    startScreen.classList.add("hidden");
+    gameUI.classList.remove("hidden");
+    loadEmail();
+    startTimer();
+});
 
-// Load the first email
-loadRound();
+// ============================================================
+// TIMER SYSTEM
+// ============================================================
 
-function loadRound() {
-    resultDiv.innerText = "";
-    nextBtn.style.display = "none";
-
-    let current = emails[round];
-
-    emailContainer.innerHTML = `
-        <div class="email-box" onclick="chooseEmail(true)">
-            🚨 This is a PHISH attempt
-        </div>
-        <div class="email-box" onclick="chooseEmail(false)">
-            👍 This is SAFE
-        </div>
-
-        <p class="email-message" style="color:#fff; margin-top:20px; font-size:1.3em;">
-            "${current.text}"
-        </p>
-    `;
-
-    roundText.innerText = round + 1;
-    scoreText.innerText = score;
+function startTimer() {
+    timerInterval = setInterval(() => {
+        timerSeconds--;
+        let minutes = Math.floor(timerSeconds / 60);
+        let seconds = timerSeconds % 60;
+        if (seconds < 10) seconds = "0" + seconds;
+        timerBox.textContent = `${minutes}:${seconds}`;
+        if (timerSeconds <= 0) endGame();
+    }, 1000);
 }
 
-window.chooseEmail = function(playerChoice) {
-    let current = emails[round];
-    let correct = (playerChoice === current.isPhish);
+// ============================================================
+// LOAD EMAIL
+// ============================================================
 
-    if (correct) {
-        score++;
-        resultDiv.style.color = "#00ff88";
-        resultDiv.innerText = "✔ Correct! " + current.explanation;
-    } else {
-        resultDiv.style.color = "#ff4c4c";
-        resultDiv.innerText = "✘ Wrong! " + current.explanation;
+function loadEmail() {
+    const email = emails[currentIndex];
+    let attachmentsHTML = "";
+    if (email.attachments.length > 0) {
+        attachmentsHTML = '<div class="attachments">';
+        email.attachments.forEach(att => {
+            attachmentsHTML += `<span class="attachment">${att.name} (${att.size})</span>`;
+        });
+        attachmentsHTML += '</div>';
     }
 
-    scoreText.innerText = score;
+    emailContainer.innerHTML = `
+        <div class="email-card">
+            <div class="email-meta"><strong>From:</strong> ${email.fromName} &lt;${email.fromEmail}&gt;</div>
+            <div class="email-meta"><strong>Subject:</strong> ${email.subject}</div>
+            <div class="email-meta"><strong>Date:</strong> ${email.date}</div>
+            <div class="email-body">${email.body}</div>
+            ${attachmentsHTML}
+        </div>
+    `;
+}
 
-    nextBtn.style.display = "inline-block";
-};
+// ============================================================
+// CHOICE BUTTONS
+// ============================================================
 
-nextBtn.onclick = () => {
-    round++;
+safeBtn.onclick = () => handleChoice("safe");
+suspiciousBtn.onclick = () => handleChoice("suspicious");
+maliciousBtn.onclick = () => handleChoice("malicious");
 
-    if (round >= emails.length) {
-        endGame();
-        return;
-    }
+function handleChoice(choice) {
+    const email = emails[currentIndex];
+    if (choice !== email.correct) applyPenalty(email.penalty);
 
-    loadRound();
-};
+    currentIndex++;
+    if (currentIndex >= emails.length) endGame();
+    else loadEmail();
+}
+
+// ============================================================
+// PENALTY + ANIMATION
+// ============================================================
+
+function applyPenalty(amount) {
+    budget -= amount;
+    budgetAmount.textContent = `${budget.toLocaleString()} USD`;
+
+    // Red HACKED text
+    penaltyDisplay.innerHTML = `HACKED!`;
+    penaltyDisplay.classList.add("penalty-show");
+
+    // Yellow money loss
+    const moneyLoss = document.createElement("div");
+    moneyLoss.classList.add("penalty-money");
+    moneyLoss.textContent = `-${amount.toLocaleString()} USD`;
+    document.body.appendChild(moneyLoss);
+
+    setTimeout(() => {
+        penaltyDisplay.classList.remove("penalty-show");
+        moneyLoss.style.opacity = "1";
+        moneyLoss.style.transform = "translate(-50%, -55%) scale(1.2)";
+        setTimeout(() => {
+            moneyLoss.remove();
+        }, 1200);
+    }, 500);
+}
+
+// ============================================================
+// END SIMULATION
+// ============================================================
 
 function endGame() {
-    emailContainer.innerHTML = "";
-    resultDiv.style.color = "#ffd700";
-    resultDiv.innerHTML = `
-        <h2>🏁 Finished!</h2>
-        <p>You scored <b>${score} / ${emails.length}</b></p>
-        <p>Great job analyzing emails and spotting phishing attempts.</p>
-    `;
+    clearInterval(timerInterval);
+    gameUI.classList.add("hidden");
+    endScreen.classList.remove("hidden");
+    finalBudget.textContent = `${budget.toLocaleString()} USD`;
+}
 
-    nextBtn.innerText = "Restart";
-    nextBtn.style.display = "inline-block";
+// ============================================================
+// RESTART / BACK
+// ============================================================
 
-    nextBtn.onclick = () => {
-        round = 0;
-        score = 0;
-        nextBtn.innerText = "Next";
-        loadRound();
-    };
+restartBtn.onclick = () => {
+    budget = 850000;
+    currentIndex = 0;
+    timerSeconds = 150;
+    endScreen.classList.add("hidden");
+    gameUI.classList.remove("hidden");
+    budgetAmount.textContent = `${budget.toLocaleString()} USD`;
+    loadEmail();
+    startTimer();
 };
 
-// back button
 backBtn.onclick = () => {
     window.location.href = "index.html";
 };
