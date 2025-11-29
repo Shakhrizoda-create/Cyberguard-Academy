@@ -29,8 +29,8 @@ const emails = [
         date: "Fri, 15 Nov 2025 11:30 AM",
         attachments: [],
         body: "Please reset your password using the link provided.",
-        correct: "suspicious",
-        difficulty: "Medium"
+        correct: "malicious",
+        difficulty: "Medium harder"
     },
     {
         fromName: "HR Department",
@@ -130,9 +130,8 @@ const startScreen = document.getElementById("start-screen");
 const startBtn = document.getElementById("start-btn");
 const gameUI = document.getElementById("game-ui");
 const emailContainer = document.getElementById("email-container");
+const infectedBtn = document.getElementById("infected-btn");
 const safeBtn = document.getElementById("safe-btn");
-const suspiciousBtn = document.getElementById("suspicious-btn");
-const maliciousBtn = document.getElementById("malicious-btn");
 const budgetAmount = document.getElementById("budget-amount");
 const timerDisplay = document.getElementById("timer");
 const penaltyDisplay = document.getElementById("penalty-display");
@@ -145,7 +144,6 @@ const backBtn = document.getElementById("back-btn");
 // UTILITY FUNCTIONS
 // ==========================
 
-// Shuffle array (Fisher–Yates)
 function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -153,18 +151,26 @@ function shuffleArray(array) {
     }
 }
 
-// Format seconds to mm:ss
 function formatTime(seconds) {
     const m = Math.floor(seconds / 60).toString().padStart(2, "0");
     const s = (seconds % 60).toString().padStart(2, "0");
     return `${m}:${s}`;
 }
 
+function showPenalty(amount) {
+    penaltyDisplay.textContent = `-${amount.toLocaleString()}$`;
+    penaltyDisplay.style.opacity = "1";
+    penaltyDisplay.style.transform = "translate(-50%, -50%) scale(1.5)";
+    setTimeout(() => {
+        penaltyDisplay.style.opacity = "0";
+        penaltyDisplay.style.transform = "translate(-50%, -50%) scale(1)";
+    }, 1200);
+}
+
 // ==========================
 // GAME FUNCTIONS
 // ==========================
 
-// Show email
 function showEmail() {
     const email = emails[currentEmailIndex];
     let attachmentsHTML = "";
@@ -182,10 +188,11 @@ function showEmail() {
         <p><strong>Body:</strong> ${email.body}</p>
         ${attachmentsHTML}
     `;
+    budgetAmount.textContent = `${budget.toLocaleString()} USD`;
 }
 
-// Handle choice click
 function handleChoice(choice) {
+    if (currentEmailIndex >= 6) return; // Prevent extra questions beyond 6
     const email = emails[currentEmailIndex];
     const penaltyAmount = difficultyPenalties[email.difficulty];
 
@@ -199,60 +206,25 @@ function handleChoice(choice) {
 
     currentEmailIndex++;
 
-    // Stop game after 6 questions
-    if (currentEmailIndex >= emails.length || currentEmailIndex >= 6) {
+    if (currentEmailIndex >= 6 || currentEmailIndex >= emails.length) {
         endGame();
     } else {
         showEmail();
     }
 }
 
-// Penalty animation
-function showPenalty(amount) {
-    penaltyDisplay.textContent = `-${amount.toLocaleString()}$`;
-    penaltyDisplay.style.opacity = "1";
-    penaltyDisplay.style.transform = "translate(-50%, -50%) scale(1.5)";
-    setTimeout(() => {
-        penaltyDisplay.style.opacity = "0";
-        penaltyDisplay.style.transform = "translate(-50%, -50%) scale(1)";
-    }, 1200);
-}
-
-// Timer
 function startTimer() {
     timerDisplay.textContent = formatTime(timerSeconds);
     timerInterval = setInterval(() => {
         timerSeconds--;
         timerDisplay.textContent = formatTime(timerSeconds);
-
         if (timerSeconds <= 0) {
             clearInterval(timerInterval);
-            // End game immediately when time runs out
             endGame();
         }
     }, 1000);
 }
 
-// Start game
-startBtn.addEventListener("click", () => {
-    shuffleArray(emails); // Shuffle emails at start
-    currentEmailIndex = 0;
-    budget = 850000;
-    timerSeconds = 150;
-
-    startScreen.classList.add("hidden");
-    gameUI.classList.remove("hidden");
-    showEmail();
-    budgetAmount.textContent = `${budget.toLocaleString()} USD`;
-    startTimer();
-});
-
-// Choice buttons
-safeBtn.addEventListener("click", () => handleChoice("safe"));
-suspiciousBtn.addEventListener("click", () => handleChoice("suspicious"));
-maliciousBtn.addEventListener("click", () => handleChoice("malicious"));
-
-// End game
 function endGame() {
     clearInterval(timerInterval);
     gameUI.classList.add("hidden");
@@ -260,7 +232,25 @@ function endGame() {
     finalBudget.textContent = `${budget.toLocaleString()} USD`;
 }
 
-// Restart game
+// ==========================
+// EVENT LISTENERS
+// ==========================
+
+startBtn.addEventListener("click", () => {
+    shuffleArray(emails);
+    currentEmailIndex = 0;
+    budget = 850000;
+    timerSeconds = 150;
+
+    startScreen.classList.add("hidden");
+    gameUI.classList.remove("hidden");
+    showEmail();
+    startTimer();
+});
+
+infectedBtn.addEventListener("click", () => handleChoice("malicious"));
+safeBtn.addEventListener("click", () => handleChoice("safe"));
+
 restartBtn.addEventListener("click", () => {
     shuffleArray(emails);
     currentEmailIndex = 0;
@@ -270,12 +260,12 @@ restartBtn.addEventListener("click", () => {
     endScreen.classList.add("hidden");
     gameUI.classList.remove("hidden");
     showEmail();
-    budgetAmount.textContent = `${budget.toLocaleString()} USD`;
     startTimer();
 });
 
-// Back to home
 backBtn.addEventListener("click", () => {
     endScreen.classList.add("hidden");
     startScreen.classList.remove("hidden");
 });
+
+
