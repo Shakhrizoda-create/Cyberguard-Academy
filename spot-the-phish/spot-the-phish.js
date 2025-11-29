@@ -143,7 +143,6 @@ const backBtn = document.getElementById("back-btn");
 // ==========================
 // UTILITY FUNCTIONS
 // ==========================
-
 function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -170,7 +169,6 @@ function showPenalty(amount) {
 // ==========================
 // GAME FUNCTIONS
 // ==========================
-
 function showEmail() {
     const email = emails[currentEmailIndex];
     let attachmentsHTML = "";
@@ -192,7 +190,6 @@ function showEmail() {
 }
 
 function handleChoice(choice) {
-    if (currentEmailIndex >= 6) return; // Prevent extra questions beyond 6
     const email = emails[currentEmailIndex];
     const penaltyAmount = difficultyPenalties[email.difficulty];
 
@@ -206,7 +203,8 @@ function handleChoice(choice) {
 
     currentEmailIndex++;
 
-    if (currentEmailIndex >= 6 || currentEmailIndex >= emails.length) {
+    // Check if all 10 questions answered
+    if (currentEmailIndex >= emails.length) {
         endGame();
     } else {
         showEmail();
@@ -235,7 +233,6 @@ function endGame() {
 // ==========================
 // EVENT LISTENERS
 // ==========================
-
 startBtn.addEventListener("click", () => {
     shuffleArray(emails);
     currentEmailIndex = 0;
@@ -267,5 +264,6 @@ backBtn.addEventListener("click", () => {
     endScreen.classList.add("hidden");
     startScreen.classList.remove("hidden");
 });
+
 
 
