@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spot the Phish | CyberFun Academy</title>
+
+    <!-- Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="spot-the-phish.css">
+</head>
+
+<body>
+
+<header>
+    <h1>🎣 Spot the Phish</h1>
+    <p id="subtitle">Can you identify which message is a phishing attempt?</p>
+</header>
+
+<main>
+
+    <!-- Score + Round -->
+    <div id="game-info">
+        <p id="round">Round: 1 / 10</p>
+        <p id="score">Score: 0</p>
+    </div>
+
+    <!-- Email Container -->
+    <div id="email-container">
+        <!-- JS will generate the messages -->
+    </div>
+
+    <!-- Feedback -->
+    <div id="result"></div>
+
+    <!-- Next Button -->
+    <button id="next-btn" onclick="nextRound()">Next ➜</button>
+    <button id="back-btn" onclick="goBack()">🏠 Back to Home</button>
+
+</main>
+
+<!-- Script -->
+<script src="spot-the-phish.js"></script>
+
+</body>
+</html>
