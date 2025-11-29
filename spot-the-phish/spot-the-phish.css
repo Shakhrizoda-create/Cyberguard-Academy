@@ -1,117 +1,233 @@
-/* =========================
-   Spot the Phish Styles
-========================= */
+/* ===========================================
+   GLOBAL STYLE — Black & Cyber Yellow Theme
+   =========================================== */
 
 body {
     margin: 0;
     padding: 0;
+    background: #000000; /* later you can replace with your image */
     font-family: 'Share Tech Mono', monospace;
-    color: #ffd700; /* cyber yellow */
-    text-align: center;
-    background: url('assets-3/phish-bg.png') no-repeat center center fixed;
-    background-size: cover;
-    position: relative;
-    overflow: hidden;
-}
-
-/* Dark overlay + blur */
-body::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.75);
-    backdrop-filter: blur(4px);
-    z-index: -1;
-}
-
-/* Header text */
-header {
-    padding: 80px 20px 20px 20px;
-}
-
-header h1 {
-    font-size: 3em;
-    margin-bottom: 10px;
     color: #ffd700;
-    text-shadow: 0 0 8px #ffea00, 0 0 20px #fff200;
+    text-align: center;
+    overflow-x: hidden;
 }
 
-header #subtitle {
-    font-size: 1.5em;
-    color: #fff176;
-    text-shadow: 0 0 6px #fff59d;
+/* Glow preset */
+.glow-yellow {
+    text-shadow: 0 0 5px #ffe066, 0 0 10px #ffd700, 0 0 20px #ffea00;
 }
 
-/* Game info */
-#game-info {
+.hidden {
+    display: none;
+}
+
+/* ===========================================
+   START SCREEN
+   =========================================== */
+
+#start-screen {
+    width: 100%;
+    padding: 40px 20px;
+    color: #ffd700;
+}
+
+.title {
+    font-size: 2.8em;
+    margin-bottom: 20px;
+    text-shadow: 0 0 8px #ffea00, 0 0 15px #ffd700;
+}
+
+#intro-box {
+    width: 80%;
+    max-width: 900px;
+    margin: 0 auto 40px auto;
+    text-align: left;
+    background: rgba(20, 20, 20, 0.6);
+    padding: 25px 30px;
+    border: 2px solid #ffd700;
+    border-radius: 8px;
+    box-shadow: 0 0 12px #ffd700;
+}
+
+#intro-box ul {
+    margin-left: 25px;
+}
+
+#start-btn {
+    margin-top: 25px;
+    padding: 14px 40px;
+    font-size: 1.6em;
+    background: black;
+    color: #ffd700;
+    border: 2px solid #ffd700;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.25s ease;
+    text-shadow: 0 0 8px #ffd700;
+}
+
+#start-btn:hover {
+    transform: scale(1.08);
+    box-shadow: 0 0 20px #ffd700;
+}
+
+
+/* ===========================================
+   GAME UI
+   =========================================== */
+
+#game-ui {
+    padding: 20px;
+    width: 100%;
+    position: relative;
+}
+
+/* TIMER */
+#timer-box {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    background: rgba(20, 20, 20, 0.7);
+    border: 2px solid #ffd700;
+    padding: 10px 18px;
+    border-radius: 8px;
+    font-size: 1.4em;
+    box-shadow: 0 0 12px #ffd700;
+    color: #ffd700;
+}
+
+#timer {
+    font-weight: bold;
+}
+
+/* BUDGET */
+#budget-box {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: rgba(20, 20, 20, 0.7);
+    border: 2px solid #ffd700;
+    padding: 10px 18px;
+    border-radius: 8px;
+    font-size: 1.4em;
+    box-shadow: 0 0 12px #ffd700;
+    color: #ffd700;
+}
+
+/* EMAIL PANEL */
+#email-container {
+    width: 80%;
+    max-width: 900px;
+    margin: 120px auto 40px auto;
+    background: rgba(25, 25, 25, 0.6);
+    padding: 25px 30px;
+    border: 2px solid #ffd700;
+    border-radius: 8px;
+    box-shadow: 0 0 15px #ffd700;
+    text-align: left;
+    min-height: 150px;
+    font-size: 1.25em;
+}
+
+/* BUTTON CHOICES */
+#choice-buttons {
+    margin-top: 30px;
     display: flex;
     justify-content: center;
-    gap: 50px;
-    margin-bottom: 30px;
+    gap: 25px;
 }
 
-#game-info p {
-    font-size: 1.3em;
-    color: #fff176;
-    text-shadow: 0 0 5px #ffd700;
-}
-
-/* Email container */
-#email-container {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    max-width: 700px;
-    margin: 0 auto 30px auto;
-}
-
-/* Individual email box */
-.email-box {
-    background: rgba(0,0,0,0.4);
-    color: #fff;
-    padding: 15px 20px;
-    border-radius: 8px;
-    cursor: pointer;
-    text-align: left;
-    font-size: 1.1em;
-    transition: 0.2s;
+.choice-btn {
+    padding: 14px 30px;
+    background: black;
+    color: #ffd700;
     border: 2px solid #ffd700;
-    text-shadow: 0 0 5px #fff59d;
-}
-
-.email-box:hover {
-    background: rgba(255, 255, 0, 0.1);
-    box-shadow: 0 0 15px #ffd700;
-    transform: scale(1.03);
-}
-
-/* Result feedback */
-#result {
-    font-size: 1.5em;
-    font-weight: bold;
-    margin-top: 20px;
-    min-height: 2em;
-    color: #ffd700;
-    text-shadow: 0 0 8px #fff59d;
-}
-
-/* Buttons */
-#next-btn, #back-btn {
-    margin: 20px 10px;
-    padding: 12px 25px;
-    font-size: 1.3em;
-    border: 1px solid #ffd700;
     border-radius: 8px;
-    background: rgba(0,0,0,0.3);
-    color: #ffd700;
     cursor: pointer;
-    text-shadow: 0 0 5px #fff59d;
-    transition: 0.2s;
+    transition: 0.25s ease;
+    font-size: 1.3em;
+    text-shadow: 0 0 8px #ffd700;
 }
 
-#next-btn:hover, #back-btn:hover {
+.choice-btn:hover {
     transform: scale(1.08);
-    box-shadow: 0 0 15px #ffd700;
-    background: rgba(255, 255, 0, 0.1);
+    box-shadow: 0 0 18px #ffd700;
+}
+
+
+/* ===========================================
+   HACKED / PENALTY ANIMATION
+   =========================================== */
+
+#penalty-display {
+    position: fixed;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 3em;
+    color: red;
+    text-shadow: 0 0 15px red, 0 0 30px #ff0000;
+    opacity: 0;
+    transition: opacity 0.6s ease, transform 0.5s ease;
+}
+
+/* When JS adds .show */
+.penalty-show {
+    opacity: 1 !important;
+    transform: translate(-50%, -55%) scale(1.15);
+}
+
+/* Yellow money loss animation */
+.penalty-money {
+    position: fixed;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 2.4em;
+    color: #ffd700;
+    text-shadow: 0 0 10px #ffd700, 0 0 20px #ffdd33;
+    opacity: 0;
+    transition: opacity 0.6s ease, transform 0.5s ease;
+}
+
+
+/* ===========================================
+   END SCREEN
+   =========================================== */
+
+#end-screen {
+    padding: 60px 20px;
+}
+
+#end-title {
+    font-size: 3em;
+    margin-bottom: 30px;
+    color: #ffd700;
+    text-shadow: 0 0 12px #ffd700, 0 0 20px #ffea00;
+}
+
+#final-budget-text {
+    font-size: 1.8em;
+    margin-bottom: 40px;
+}
+
+#restart-btn,
+#back-btn {
+    margin: 15px;
+    padding: 14px 30px;
+    font-size: 1.4em;
+    background: black;
+    color: #ffd700;
+    border: 2px solid #ffd700;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.25s;
+    text-shadow: 0 0 8px #ffd700;
+}
+
+#restart-btn:hover,
+#back-btn:hover {
+    transform: scale(1.08);
+    box-shadow: 0 0 20px #ffd700;
 }
 
