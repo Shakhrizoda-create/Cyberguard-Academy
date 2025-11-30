@@ -1,70 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Spot the Phish | Cybersecurity Simulator</title>
-    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="spot-the-phish/spot-the-phish.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cybersecurity Email Simulator</title>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="spot-the-phish.css">
 </head>
 <body>
 
-<!-- INTRO SCREEN -->
-<div id="intro-screen">
-    <h1 id="game-title">CYBERSECURITY EMAIL THREAT SIMULATOR</h1>
+<!-- ================= START SCREEN ================= -->
+<div id="start-screen">
+    <h1 class="game-title">CYBERSECURITY EMAIL THREAT SIMULATOR</h1>
     <div id="intro-box">
-        <p>
-            Welcome to the <strong>Cybersecurity Email Threat Assessment Simulator</strong>!  
-            Your mission is to analyze emails and determine whether they are <strong>SAFE</strong> or <strong>INFECTED</strong>.  
-            Protect your organization's budget from phishing attacks and malware threats.
-        </p>
-        <p>Your starting budget is <strong>850,000 USD</strong>. Misclassifying emails results in the following penalties:</p>
-        <ul>
-            <li>Easy: -10,000 USD</li>
-            <li>Medium: -50,000 USD</li>
-            <li>Medium Hard: -100,000 USD</li>
-            <li>Hardest: -200,000 USD</li>
-        </ul>
-        <p>You have <strong>1:40</strong> to complete 10 emails. Make wise decisions and protect your budget!</p>
+        <p>Welcome to the Cybersecurity Email Threat Simulator. <br>
+        Your mission: identify emails that are safe or infected. <br>
+        You start with <strong>850,000 USD</strong> security budget. <br>
+        Wrong choices cost money depending on difficulty. <br>
+        Stay sharp, protect your organization, and have fun!</p>
     </div>
-    <button id="big-start-btn">START</button>
+    <button id="start-btn" class="hidden">▶ START</button>
 </div>
 
-<!-- GAME UI -->
+<!-- ================= GAME UI ================= -->
 <div id="game-ui" class="hidden">
-    <div id="timer-box">⏱ <span id="timer">1:40</span></div>
-    <div id="budget-box">💰 Budget: <span id="budget-amount">850,000 USD</span></div>
-
+    <div id="timer-box"><span>⏱</span> <span id="timer">1:40</span></div>
+    <div id="budget-box"><span>💰 Budget:</span> <span id="budget-amount">850,000 USD</span></div>
     <div id="email-container"></div>
-
     <div id="choice-buttons">
         <button class="choice-btn" id="infected-btn">INFECTED</button>
         <button class="choice-btn" id="safe-btn">SAFE</button>
     </div>
-
     <div id="penalty-display"></div>
 </div>
 
-<!-- END SCREEN -->
+<!-- ================= END SCREEN ================= -->
 <div id="end-screen" class="hidden">
     <div id="end-message">
-        <h1 id="end-title">SIMULATION COMPLETE</h1>
+        <h1>SIMULATION COMPLETE</h1>
     </div>
-    <div id="end-details" class="hidden">
-        <p id="final-budget-text">Your remaining budget: <span id="final-budget"></span></p>
+    <div id="end-details">
+        <p>Your remaining budget: <span id="final-budget"></span></p>
         <div id="end-buttons">
             <button id="restart-btn">RESTART</button>
-            <button id="home-btn">BACK TO HOME</button>
+            <button id="back-btn">BACK TO HOME</button>
         </div>
     </div>
 </div>
 
-<!-- Audio (add your files in assets-3 folder) -->
-<audio id="bg-music" src="assets-3/music.mp3" loop></audio>
-<audio id="click-sound" src="assets-3/click.mp3"></audio>
-<audio id="penalty-sound" src="assets-3/penalty.mp3"></audio>
-
-<script src="spot-the-phish/spot-the-phish.js"></script>
+<script src="spot-the-phish.js"></script>
 </body>
 </html>
+
 
