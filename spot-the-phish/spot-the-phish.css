@@ -1,213 +1,251 @@
-/* ==========================
-   GLOBAL STYLES
-========================== */
+/* ================================
+   GLOBAL LAYOUT + BACKGROUND
+================================ */
+
 body {
     margin: 0;
     padding: 0;
-    font-family: 'Share Tech Mono', monospace;
-    background-color: #000000;
-    color: #ffff00;
-    text-align: center;
+    font-family: "Share Tech Mono", monospace;
+    background: url('your-background.jpg') no-repeat center center fixed;
+    background-size: cover;
+    color: #fff;
+    overflow: hidden;
 }
 
-/* Hidden class */
+/* Yellow glow used everywhere */
+.glow-yellow {
+    text-shadow: 0 0 10px #ffea00, 0 0 20px #ffea00;
+}
+
+/* Centering utility */
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+/* ================================
+   START SCREEN
+================================ */
+
+#start-screen {
+    width: 100%;
+    height: 100vh;
+    text-align: center;
+    padding: 40px;
+    background: rgba(0, 0, 0, 0.75);
+}
+
+#start-screen .title {
+    font-size: 40px;
+    margin-bottom: 20px;
+    color: #ffde39;
+    text-shadow: 0 0 10px #ffea00, 0 0 20px #ffea00;
+}
+
+#intro-box {
+    width: 60%;
+    margin: auto;
+    background: rgba(0, 0, 0, 0.6);
+    padding: 25px;
+    border: 2px solid #ffde39;
+    border-radius: 10px;
+    text-align: left;
+    font-size: 16px;
+}
+
+#start-btn {
+    margin-top: 30px;
+    font-size: 28px;
+    padding: 14px 40px;
+    cursor: pointer;
+    border: none;
+    color: #000;
+    background: #ffea00;
+    border-radius: 8px;
+    box-shadow: 0 0 20px #ffea00;
+    transition: 0.2s;
+}
+
+#start-btn:hover {
+    box-shadow: 0 0 40px #fff200;
+    transform: scale(1.05);
+}
+
+
+/* ================================
+   GAME UI
+================================ */
+
 .hidden {
     display: none;
 }
 
-/* ==========================
-   START SCREEN
-========================== */
-#start-screen {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    padding: 20px;
-}
-
-.title {
-    font-size: 2.5rem;
-    margin-bottom: 20px;
-    color: #ffff00;
-    text-shadow: 0 0 10px #ffff00, 0 0 20px #ffff00;
-}
-
-#intro-box {
-    max-width: 800px;
-    margin-bottom: 30px;
-    text-align: left;
-    line-height: 1.5;
-    font-size: 1rem;
-    color: #ffff00;
-    text-shadow: 0 0 5px #ffff00;
-}
-
-#intro-box ul {
-    list-style: none;
-    padding: 0;
-}
-
-#intro-box li {
-    margin: 5px 0;
-}
-
-#start-btn {
-    font-size: 1.5rem;
-    padding: 15px 40px;
-    background-color: #000000;
-    color: #ffff00;
-    border: 2px solid #ffff00;
-    cursor: pointer;
-    text-shadow: 0 0 5px #ffff00;
-    transition: 0.3s;
-    box-shadow: 0 0 20px #ffff00;
-}
-
-#start-btn:hover {
-    background-color: #ffff00;
-    color: #000;
-    text-shadow: 0 0 10px #000;
-}
-
-/* ==========================
-   GAME UI
-========================== */
 #game-ui {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    width: 100%;
+    height: 100vh;
     padding: 20px;
 }
+
+/* ===== Timer top-left ===== */
 
 #timer-box {
     position: absolute;
     top: 20px;
     left: 20px;
-    font-size: 1.5rem;
-    color: #ffff00;
-    text-shadow: 0 0 10px #ffff00;
+    font-size: 26px;
+    color: #ffea00;
+    text-shadow: 0 0 10px #ffea00;
 }
+
+/* ===== Budget top-right ===== */
 
 #budget-box {
     position: absolute;
     top: 20px;
     right: 20px;
-    font-size: 1.5rem;
-    color: #ffff00;
-    text-shadow: 0 0 10px #ffff00;
-    border: 2px solid #ffff00;
-    padding: 10px 15px;
-    border-radius: 10px;
+    font-size: 26px;
+    color: #ffea00;
+    text-shadow: 0 0 10px #ffea00;
 }
+
+#budget-amount {
+    color: #ffea00;
+    font-weight: bold;
+}
+
+/* ===== Email Container ===== */
 
 #email-container {
-    margin-top: 100px;
-    max-width: 800px;
-    width: 90%;
-    padding: 20px;
-    border: 2px solid #ffff00;
-    border-radius: 15px;
-    text-align: left;
-    font-size: 1rem;
-    background-color: #111;
-    color: #ffff00;
-    text-shadow: 0 0 5px #ffff00;
+    margin-top: 120px;
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+    background: rgba(20, 20, 20, 0.75);
+    border: 2px solid #ffea00;
+    padding: 25px;
+    border-radius: 8px;
+    font-size: 18px;
+    line-height: 1.6;
+    text-shadow: 0 0 5px #000;
 }
+
+
+/* ================================
+   CHOICE BUTTONS
+================================ */
 
 #choice-buttons {
-    margin-top: 30px;
-    display: flex;
-    justify-content: center;
-    gap: 50px;
+    margin-top: 40px;
+    text-align: center;
 }
 
-.choice-btn {
-    padding: 20px 40px;
-    font-size: 1.2rem;
-    border: 2px solid;
-    border-radius: 10px;
+/* Red infected button */
+#infected-btn {
+    font-size: 24px;
+    padding: 14px 36px;
+    margin-right: 40px;
+    border: none;
+    background: #d10000;
+    color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 20px red;
     cursor: pointer;
-    text-shadow: 0 0 5px currentColor;
-    transition: 0.3s;
+    transition: 0.2s;
+    text-shadow: 0 0 10px #ff0000;
 }
 
+#infected-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 40px red;
+}
+
+/* Green safe button */
 #safe-btn {
-    color: #00ff00;
-    border-color: #00ff00;
+    font-size: 24px;
+    padding: 14px 36px;
+    border: none;
+    background: #00c245;
+    color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 20px #00ff66;
+    cursor: pointer;
+    transition: 0.2s;
+    text-shadow: 0 0 10px #00ff66;
 }
 
 #safe-btn:hover {
-    background-color: #00ff00;
-    color: #000;
+    transform: scale(1.05);
+    box-shadow: 0 0 40px #00ff66;
 }
 
-#suspicious-btn {
-    color: #ffff00;
-    border-color: #ffff00;
-}
 
-#suspicious-btn:hover {
-    background-color: #ffff00;
-    color: #000;
-}
+/* ================================
+   PENALTY ANIMATION
+================================ */
 
-#malicious-btn {
-    color: #ff0000;
-    border-color: #ff0000;
-}
-
-#malicious-btn:hover {
-    background-color: #ff0000;
-    color: #000;
-}
-
-/* Penalty animation */
 #penalty-display {
     position: absolute;
     top: 50%;
     left: 50%;
-    font-size: 3rem;
-    font-weight: bold;
     transform: translate(-50%, -50%);
-    opacity: 0;
-    pointer-events: none;
-    text-shadow: 0 0 20px red, 0 0 40px red;
+    font-size: 55px;
     color: red;
-    transition: all 1s ease-out;
+    opacity: 0;
+    transition: 0.6s ease-in-out;
+    text-shadow: 0 0 20px red, 0 0 40px red;
 }
 
-/* ==========================
+
+/* ================================
    END SCREEN
-========================== */
+================================ */
+
 #end-screen {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-color: #000;
-    color: #ffff00;
-    text-shadow: 0 0 10px #ffff00;
+    width: 100%;
+    height: 100vh;
+    text-align: center;
+    padding-top: 120px;
+    background: rgba(0, 0, 0, 0.75);
 }
 
-#end-screen button {
-    font-size: 1.2rem;
-    padding: 15px 30px;
-    margin: 10px;
+#end-title {
+    font-size: 42px;
+    color: #ffea00;
+    text-shadow: 0 0 20px #ffea00;
+}
+
+#final-budget-text {
+    margin-top: 30px;
+    font-size: 26px;
+    color: #fff;
+}
+
+#final-budget {
+    color: #ffea00;
+    font-size: 32px;
+    text-shadow: 0 0 20px #ffea00;
+}
+
+/* Buttons on end screen */
+#restart-btn, #back-btn {
+    font-size: 24px;
+    margin-top: 40px;
+    padding: 12px 32px;
+    border: none;
+    border-radius: 8px;
     cursor: pointer;
-    border: 2px solid #ffff00;
-    border-radius: 10px;
-    background-color: #000;
-    color: #ffff00;
-    text-shadow: 0 0 5px #ffff00;
-    transition: 0.3s;
+    background: #ffea00;
+    color: #000;
+    box-shadow: 0 0 20px #ffea00;
+    margin-right: 20px;
+    transition: 0.2s;
 }
 
-#end-screen button:hover {
-    background-color: #ffff00;
-    color: #000;
+#restart-btn:hover, #back-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 40px #fff200;
 }
+
 
