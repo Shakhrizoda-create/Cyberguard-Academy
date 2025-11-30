@@ -1,121 +1,97 @@
-// EMAIL DATA
-const emails = [
-    {fromName:"School Admin",fromEmail:"admin@school.edu",subject:"Class Schedule Updated",date:"Wed, 13 Nov 2025 09:10 AM",attachments:[{name:"Schedule_Fall2025.docx",size:"56 KB"}],body:"Your class schedule has been updated. Review changes on the school portal.",correct:"safe",difficulty:"Easy"},
-    {fromName:"IT Support",fromEmail:"support@school.edu",subject:"Password Expired",date:"Fri, 15 Nov 2025 11:30 AM",attachments:[],body:"Your password expired. Reset using the link.",correct:"infected",difficulty:"Medium"},
-    {fromName:"HR Department",fromEmail:"hr@school.edu",subject:"Policy Update",date:"Mon, 18 Nov 2025 08:00 AM",attachments:[{name:"policy.docx",size:"22 KB"}],body:"Please review updated policy.",correct:"safe",difficulty:"Easy"},
-    {fromName:"Prize Center",fromEmail:"win@big-prize.net",subject:"You Won!",date:"Tue, 19 Nov 2025 14:15 PM",attachments:[],body:"Claim your prize by clicking here.",correct:"infected",difficulty:"Hardest"},
-    {fromName:"Bank Security",fromEmail:"verify@secure-banking-alert.com",subject:"URGENT: Account Verification",date:"Thu, 14 Nov 2025 13:55 PM",attachments:[],body:"Unusual activity detected. Verify your identity.",correct:"infected",difficulty:"Hardest"},
-    {fromName:"Event Team",fromEmail:"event@school.edu",subject:"Event Details",date:"Tue, 20 Nov 2025 10:00 AM",attachments:[{name:"EventDetails.pdf",size:"45 KB"}],body:"Details of upcoming event.",correct:"safe",difficulty:"Medium"},
-    {fromName:"Social Media Alert",fromEmail:"security@social.com",subject:"New Login Detected",date:"Wed, 21 Nov 2025 09:15 AM",attachments:[],body:"A new login detected from unknown device.",correct:"infected",difficulty:"Medium Hard"},
-    {fromName:"Library",fromEmail:"library@school.edu",subject:"Book Overdue Notice",date:"Thu, 22 Nov 2025 12:00 PM",attachments:[],body:"Your borrowed book is overdue.",correct:"safe",difficulty:"Easy"},
-    {fromName:"Tech Support",fromEmail:"support@school.edu",subject:"Install New Software",date:"Fri, 23 Nov 2025 15:45 PM",attachments:[{name:"software.exe",size:"120 MB"}],body:"Install the latest software.",correct:"infected",difficulty:"Medium Hard"},
-    {fromName:"Newsletter",fromEmail:"news@school.edu",subject:"Weekly Updates",date:"Sat, 24 Nov 2025 08:30 AM",attachments:[{name:"updates.pdf",size:"10 KB"}],body:"Here are this week’s updates.",correct:"safe",difficulty:"Medium"}
-];
-
-const penalties = {"Easy":10000,"Medium":50000,"Medium Hard":100000,"Hardest":200000};
-
-let index = 0, budget = 850000, timeLeft = 100, timer;
-
-// DOM
-const startScreen = document.getElementById("intro-screen");
-const bigStartBtn = document.getElementById("big-start-btn");
+const startScreen = document.getElementById("start-screen");
+const startBtn = document.getElementById("start-btn");
 const gameUI = document.getElementById("game-ui");
-const emailContainer = document.getElementById("email-container");
 const timerDisplay = document.getElementById("timer");
 const budgetDisplay = document.getElementById("budget-amount");
+const emailContainer = document.getElementById("email-container");
+const infectedBtn = document.getElementById("infected-btn");
+const safeBtn = document.getElementById("safe-btn");
 const penaltyDisplay = document.getElementById("penalty-display");
-const bgMusic = document.getElementById("bg-music");
-const clickSound = document.getElementById("click-sound");
-const penaltySound = document.getElementById("penalty-sound");
-
-// End screen
 const endScreen = document.getElementById("end-screen");
 const endMessage = document.getElementById("end-message");
 const endDetails = document.getElementById("end-details");
+const finalBudget = document.getElementById("final-budget");
+const restartBtn = document.getElementById("restart-btn");
+const backBtn = document.getElementById("back-btn");
 
-// ========================
-// FUNCTIONS
-// ========================
-function shuffle(array){
-    for(let i=array.length-1;i>0;i--){
-        const j=Math.floor(Math.random()*(i+1));
-        [array[i],array[j]]=[array[j],array[i]];
+let budget = 850000;
+let time = 100; // 1:40 in seconds
+let currentIndex = 0;
+let timer;
+const emails = [
+    {subject:"Class Schedule Updated",from:"School Admin",blocks:["Your class schedule has been updated.","Check your portal for details.","Attached is the updated schedule.","Ensure to review timings.","Contact admin for questions.","Do not ignore this message."],correct:"safe",penalty:10000},
+    {subject:"Urgent Password Reset",from:"IT Dept",blocks:["Your account was compromised.","Reset your password immediately.","Ignore at your own risk.","Link expires in 1 hour.","Do not share password.","Confirm identity now."],correct:"infected",penalty:50000},
+    {subject:"Team Lunch Invite",from:"HR Team",blocks:["You are invited to team lunch.","Date: Friday 12PM.","RSVP required.","Check menu attached.","Bring your ID badge.","Enjoy the meal!"],correct:"safe",penalty:10000},
+    {subject:"Invoice Overdue",from:"Accounting",blocks:["Invoice #12345 overdue.","Immediate payment required.","Attached document has details.","Late fee may apply.","Contact finance.","Do not ignore."],correct:"infected",penalty:20000},
+    {subject:"Phishing Test",from:"Security Dept",blocks:["This is a phishing test.","Do not click links.","Report any suspicious email.","Your awareness counts.","No penalty this time.","Thank you."],correct:"safe",penalty:10000},
+    {subject:"Win a Prize!",from:"Unknown",blocks:["You won a prize!","Click the link to claim.","Provide details quickly.","Offer expires soon.","Do not miss this.","Be cautious!"],correct:"infected",penalty:50000},
+    {subject:"Project Deadline Reminder",from:"Manager",blocks:["Project submission due.","Check attached timeline.","Ensure all tasks complete.","Contact manager if late.","Do not skip steps.","Submit on time."],correct:"safe",penalty:10000},
+    {subject:"Suspicious Login Alert",from:"IT Security",blocks:["Unusual login detected.","Click link to verify.","Account may be at risk.","Do not ignore.","Confirm identity.","Report issues immediately."],correct:"infected",penalty:50000},
+    {subject:"Workshop Invitation",from:"HR Team",blocks:["Join the cybersecurity workshop.","Date: Monday 10AM.","RSVP online.","Materials attached.","Be on time.","Certificate provided."],correct:"safe",penalty:10000},
+    {subject:"Bank Account Notice",from:"Bank",blocks:["Suspicious activity detected.","Verify account now.","Attached form required.","Failure may cause lockout.","Do not ignore.","Contact support immediately."],correct:"infected",penalty:50000}
+];
+
+// Shuffle emails
+emails.sort(() => Math.random() - 0.5);
+
+// ---------------- START BUTTON ----------------
+setTimeout(()=>{ startBtn.classList.remove("hidden"); },10000);
+startBtn.addEventListener("click",startGame);
+
+// ---------------- GAME LOGIC ----------------
+function startGame(){
+    startScreen.style.display="none";
+    gameUI.classList.remove("hidden");
+    updateEmail();
+    timer = setInterval(countdown,1000);
+}
+
+function countdown(){
+    if(time<=0){ endGame(); return;}
+    time--;
+    let min = Math.floor(time/60);
+    let sec = time%60;
+    timerDisplay.textContent=`${min}:${sec<10?'0'+sec:sec}`;
+}
+
+function updateEmail(){
+    if(currentIndex>=emails.length){ endGame(); return;}
+    const e = emails[currentIndex];
+    emailContainer.innerHTML = `<h2>${e.subject}</h2><h3>From: ${e.from}</h3>` + e.blocks.map(b=>`<p>${b}</p>`).join("");
+}
+
+infectedBtn.addEventListener("click",()=>checkAnswer("infected"));
+safeBtn.addEventListener("click",()=>checkAnswer("safe"));
+
+function checkAnswer(choice){
+    const e = emails[currentIndex];
+    if(choice!==e.correct){
+        budget -= e.penalty;
+        penaltyDisplay.textContent = `-${e.penalty.toLocaleString()} USD`;
+        setTimeout(()=>{ penaltyDisplay.textContent=""; },1000);
     }
+    budgetDisplay.textContent = `${budget.toLocaleString()} USD`;
+    currentIndex++;
+    updateEmail();
 }
 
-function format(t){ let m=Math.floor(t/60); let s=t%60; return `${m}:${s.toString().padStart(2,"0")}`; }
-
-function loadEmail(){
-    const m=emails[index];
-    let att="";
-    if(m.attachments.length){att="<ul>"; m.attachments.forEach(x=>att+=`<li>${x.name} (${x.size})</li>`); att+="</ul>";}
-    emailContainer.innerHTML=`
-        <p><strong>From:</strong> ${m.fromName} &lt;${m.fromEmail}&gt;</p>
-        <p><strong>Subject:</strong> ${m.subject}</p>
-        <p><strong>Date:</strong> ${m.date}</p>
-        <p>${m.body}</p>
-        ${att}`;
-    emailContainer.scrollTop=0;
-}
-
-function startTimer(){
-    timerDisplay.textContent=format(timeLeft);
-    timer=setInterval(()=>{
-        timeLeft--;
-        timerDisplay.textContent=format(timeLeft);
-        if(timeLeft<=0) endGame();
-    },1000);
-}
-
-function showPenalty(val){
-    penaltyDisplay.textContent=`-${val}$`;
-    penaltyDisplay.style.opacity="1";
-    penaltyDisplay.style.transform="translate(-50%, -50%) scale(1.5)";
-    penaltySound.play();
-    setTimeout(()=>{
-        penaltyDisplay.style.opacity="0";
-        penaltyDisplay.style.transform="translate(-50%, -50%) scale(1)";
-    },1000);
-}
-
-function answer(type){
-    clickSound.play();
-    const q=emails[index];
-    const pen=penalties[q.difficulty];
-    if(type!==q.correct){budget-=pen;if(budget<0) budget=0; showPenalty(pen);}
-    index++;
-    if(index>=emails.length) endGame();
-    else {loadEmail(); budgetDisplay.textContent=`${budget} USD`;}
-}
-
+// ---------------- END GAME ----------------
 function endGame(){
     clearInterval(timer);
-    bgMusic.pause();
-    gameUI.style.display="none";
+    gameUI.classList.add("hidden");
     endScreen.style.display="flex";
-    document.getElementById("final-budget").textContent=`${budget} USD`;
+    finalBudget.textContent = `${budget.toLocaleString()} USD`;
     endMessage.style.transform="translateY(0)";
-    endDetails.style.opacity=0;
+    endDetails.style.opacity = 0;
+    endDetails.style.display="flex";
     setTimeout(()=>{
         endMessage.style.transform="translateY(-20%)";
-        endDetails.style.opacity=1;
+        endDetails.style.opacity = 1;
     },3000);
 }
 
-// ========================
-// EVENTS
-// ========================
-bigStartBtn.onclick=()=>{
-    startScreen.style.display="none";
-    gameUI.style.display="flex";
-    shuffle(emails);
-    loadEmail();
-    startTimer();
-    bgMusic.volume=0.4; bgMusic.play();
-};
+// ---------------- BUTTONS ----------------
+restartBtn.addEventListener("click",()=>location.reload());
+backBtn.addEventListener("click",()=>window.location.href="index.html");
 
-document.getElementById("safe-btn").onclick=()=>answer("safe");
-document.getElementById("infected-btn").onclick=()=>answer("infected");
-document.getElementById("restart-btn").onclick=()=>location.reload();
-document.getElementById("home-btn").onclick=()=>location.reload();
 
