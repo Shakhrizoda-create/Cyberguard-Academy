@@ -19,6 +19,30 @@ let time = 100; // 1:40
 let currentIndex = 0;
 let timer;
 
+// Show start button after 10 seconds
+setTimeout(() => {
+    startBtn.classList.add("show");
+}, 10000);
+
+// ------------------ Cyber cubes ------------------
+const cyberCubesContainer = document.getElementById('cyber-cubes');
+
+function createCubes(num) {
+    for (let i = 0; i < num; i++) {
+        const cube = document.createElement('div');
+        cube.classList.add('cube');
+        cube.style.left = Math.random() * 100 + 'vw';
+        cube.style.animationDuration = 5 + Math.random() * 5 + 's';
+        cube.style.width = 10 + Math.random() * 20 + 'px';
+        cube.style.height = cube.style.width;
+        cube.style.opacity = 0.2 + Math.random() * 0.5;
+        cyberCubesContainer.appendChild(cube);
+    }
+}
+
+// Create 50 cubes
+createCubes(50);
+
 const emails = [
     {subject:"Class Update",from:"School Admin",blocks:["Schedule updated.","Check portal.","Attached document included.","Review all classes.","Contact admin if questions.","Do not ignore."],correct:"safe",penalty:10000},
     {subject:"Urgent Password Reset",from:"IT Dept",blocks:["Your account was compromised.","Reset password immediately.","Ignore at your own risk.","Link expires soon.","Confirm identity.","Do not share credentials."],correct:"infected",penalty:50000},
