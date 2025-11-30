@@ -7,13 +7,14 @@ body {
     overflow: hidden;
 }
 
-/* Hidden helper */
+/* Hidden class */
 .hidden { display: none; }
 
 /* ================= START SCREEN ================= */
 #start-screen {
     position: relative;
     height: 100vh;
+    width: 100vw;
     text-align: center;
     overflow: hidden;
 }
@@ -27,37 +28,51 @@ body {
     z-index: 1;
 }
 
-/* Title with lagging glow */
+/* CRT overlay for scanlines effect */
+#crt-overlay {
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+        to bottom,
+        rgba(255,255,255,0.03) 0,
+        rgba(255,255,255,0.03) 1px,
+        transparent 1px,
+        transparent 3px
+    );
+    z-index: 2;
+    pointer-events: none;
+}
+
+/* Title glow and lag */
 .game-title {
     position: relative;
+    top: 20px;
     z-index: 10;
-    font-size: 3.5rem; /* smaller than before */
+    font-size: 4rem;
     color: #ffeb3b;
-    margin-top: 30px;
     text-shadow: 0 0 15px #ffeb3b, 0 0 35px #fff200, 0 0 55px #fff200;
     animation: titleLag 1.5s infinite alternate;
 }
 
+/* Typing animation for title lag */
 @keyframes titleLag {
-    0% { text-shadow: 0 0 10px #ffeb3b, 0 0 20px #fff200; transform: translateX(0); }
-    25% { text-shadow: 0 0 15px #fff200, 0 0 35px #ffeb3b; transform: translateX(-1px); }
-    50% { text-shadow: 0 0 20px #ffeb3b, 0 0 40px #fff200; transform: translateX(1px); }
-    75% { text-shadow: 0 0 15px #fff200, 0 0 35px #ffeb3b; transform: translateX(0); }
-    100% { text-shadow: 0 0 10px #ffeb3b, 0 0 20px #fff200; transform: translateX(-1px); }
+    0% { transform: translateX(0px) scale(1); }
+    50% { transform: translateX(2px) scale(1.02); }
+    100% { transform: translateX(-2px) scale(1); }
 }
 
-/* Intro text typing */
+/* Intro text */
 #intro-box {
     position: relative;
+    top: 80px;
     z-index: 10;
-    width: 80%;
-    max-width: 1200px;
+    width: 70%;
     margin: 0 auto;
-    margin-top: 20px;
-    font-size: clamp(1.8rem, 2.5vw, 2.2rem);
+    font-size: 1.8rem;
     color: #ffeb3b;
     text-shadow: 0 0 10px #ffeb3b;
     line-height: 1.7em;
+    min-height: 150px;
 }
 
 /* START button */
@@ -70,22 +85,20 @@ body {
     border-radius: 15px;
     cursor: pointer;
     text-shadow: 0 0 15px #ffeb3b;
-    margin-top: 60px;
+    margin-top: 40px;
     opacity: 0;
     z-index: 20;
     position: relative;
-    transition: opacity 1s, transform 0.3s, text-shadow 0.3s;
+    transition: opacity 1s, transform 0.3s;
 }
 
 #start-btn.show {
     opacity: 1;
-    animation: startBtnGlow 1.5s infinite alternate;
 }
 
-@keyframes startBtnGlow {
-    0% { text-shadow: 0 0 15px #ffeb3b, 0 0 30px #fff200; transform: scale(1); }
-    50% { text-shadow: 0 0 25px #fff200, 0 0 50px #ffeb3b; transform: scale(1.05); }
-    100% { text-shadow: 0 0 15px #ffeb3b, 0 0 30px #fff200; transform: scale(1); }
+#start-btn:hover {
+    transform: scale(1.15);
+    text-shadow: 0 0 30px #fff200, 0 0 60px #ffeb3b;
 }
 
 /* Cyber cubes */
@@ -116,5 +129,8 @@ body {
     background: #000000a0;
 }
 
-/* Other elements kept as before */
-#timer-box, #budget-box { font-size: 2em; margin-top: 20px; text-shadow: 0 0 10px #ffeb3b; }
+#timer-box, #budget-box {
+    font-size: 2em;
+    margin-top: 20px;
+    text-shadow: 0 0 10px #ffeb3b;
+}
