@@ -1,6 +1,7 @@
 // ================= ELEMENTS =================
 const startScreen = document.getElementById("start-screen");
 const startBtn = document.getElementById("start-btn");
+const introBox = document.getElementById("intro-box");
 const gameUI = document.getElementById("game-ui");
 const timerDisplay = document.getElementById("timer");
 const budgetDisplay = document.getElementById("budget-amount");
@@ -14,8 +15,6 @@ const endDetails = document.getElementById("end-details");
 const finalBudget = document.getElementById("final-budget");
 const restartBtn = document.getElementById("restart-btn");
 const backBtn = document.getElementById("back-btn");
-const introBox = document.getElementById("intro-box");
-const gameTitle = document.querySelector(".game-title");
 const cyberCubesContainer = document.getElementById("cyber-cubes");
 
 // ================= VARIABLES =================
@@ -30,48 +29,44 @@ function spawnCubes(amount) {
         const cube = document.createElement("div");
         cube.classList.add("cube");
         cube.style.left = Math.random() * 100 + "vw";
+        cube.style.animationDuration = 6 + Math.random() * 4 + "s";
         cube.style.width = cube.style.height = (15 + Math.random() * 30) + "px";
         cube.style.opacity = 0.2 + Math.random() * 0.6;
-        cube.style.animationDuration = 6 + Math.random() * 4 + "s";
         cyberCubesContainer.appendChild(cube);
     }
 }
 spawnCubes(40);
 
-// ================= TYPING EFFECT =================
-function typeIntroText(element, text, interval = 50) {
-    element.textContent = "";
-    let i = 0;
-    return new Promise(resolve => {
-        const typing = setInterval(() => {
-            element.textContent += text.charAt(i);
-            i++;
-            if (i >= text.length) {
-                clearInterval(typing);
-                resolve();
-            }
-        }, interval);
-    });
+// ================= TYPING INTRO =================
+const introText = introBox.querySelector("p").innerHTML;
+introBox.innerHTML = "";
+let charIndex = 0;
+
+function typeIntro() {
+    if (charIndex < introText.length) {
+        introBox.innerHTML += introText.charAt(charIndex);
+        charIndex++;
+        setTimeout(typeIntro, 50); // controls typing speed (~10s for full text)
+    } else {
+        // After typing, fade out text and show start button
+        setTimeout(() => {
+            introBox.classList.add("fade-out");
+            startBtn.classList.remove("hidden");
+            startBtn.classList.add("show");
+        }, 500); // small delay before fade
+    }
 }
+typeIntro();
 
-// ================= START SCREEN LOGIC =================
-const introTextFull = `Welcome! Your task is to evaluate incoming emails and determine which are safe or malicious.\n\nYou are provided with a security budget of 850,000 USD.\n\nIncorrect decisions reduce your funds depending on the threat level.\n\nProtect your organization—your cybersecurity awareness is the key.`;
+// ================= START GAME =================
+startBtn.addEventListener("click", startGame);
 
-async function runIntroSequence() {
-    await typeIntroText(introBox, introTextFull, 30); // type effect
-    // fade out intro text
-    introBox.classList.add("fade-out");
-    // move title slightly up
-    gameTitle.style.transition = "transform 1.5s";
-    gameTitle.style.transform = "translateY(-20px)";
-    // show start button at bottom
-    setTimeout(() => {
-        startBtn.classList.remove("hidden");
-        startBtn.classList.add("show");
-    }, 1500);
+function startGame() {
+    startScreen.style.display = "none";
+    gameUI.classList.remove("hidden");
+    updateEmail();
+    timer = setInterval(countdown, 1000);
 }
-
-runIntroSequence();
 
 // ================= GAME LOGIC =================
 const emails = [
@@ -86,30 +81,19 @@ const emails = [
     {subject:"Project Deadline",from:"Manager",blocks:["Project submission due.","Check attached timeline.","Ensure tasks complete.","Contact manager if late.","Do not skip steps.","Submit on time."],correct:"safe",penalty:10000},
     {subject:"Win a Prize!",from:"Unknown",blocks:["You won a prize!","Click link to claim.","Provide details quickly.","Offer expires soon.","Do not miss this.","Be cautious!"],correct:"infected",penalty:50000}
 ];
-
 emails.sort(() => Math.random() - 0.5);
-
-// ================= START GAME =================
-function startGame() {
-    startScreen.style.display = "none";
-    gameUI.classList.remove("hidden");
-    updateEmail();
-    timer = setInterval(countdown, 1000);
-}
 
 function countdown() {
     if (time <= 0) return endGame();
     time--;
     let min = Math.floor(time / 60), sec = time % 60;
-    timerDisplay.textContent = `${min}:${sec < 10 ? "0"+sec : sec}`;
+    timerDisplay.textContent = `${min}:${sec < 10 ? "0" + sec : sec}`;
 }
 
 function updateEmail() {
     if (currentIndex >= emails.length) return endGame();
     const e = emails[currentIndex];
-    emailContainer.innerHTML =
-        `<h2>${e.subject}</h2><h3>From: ${e.from}</h3>` +
-        e.blocks.map(b => `<p>${b}</p>`).join("");
+    emailContainer.innerHTML = `<h2>${e.subject}</h2><h3>From: ${e.from}</h3>` + e.blocks.map(b => `<p>${b}</p>`).join("");
 }
 
 infectedBtn.addEventListener("click", () => checkAnswer("infected"));
@@ -143,8 +127,5 @@ function endGame() {
 }
 
 restartBtn.addEventListener("click", () => location.reload());
-backBtn.addEventListener("click", () => window.location.href="index.html");
-
-// ================= START BUTTON =================
-startBtn.addEventListener("click", startGame);
+backBtn.addEventListener("click", () => window.location.href = "index.html");
 
