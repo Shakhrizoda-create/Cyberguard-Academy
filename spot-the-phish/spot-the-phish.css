@@ -13,9 +13,9 @@ body {
 #start-screen {
     position: relative;
     height: 100vh;
+    width: 100vw;
     text-align: center;
     overflow: hidden;
-    z-index: 0;
 }
 
 /* Blurred background */
@@ -24,55 +24,36 @@ body {
     inset: 0;
     background: url("../assets-3/computer-background.spot-the-phish.jpg") center/cover no-repeat;
     filter: blur(5px) brightness(0.6);
-    z-index: -1;
+    z-index: 1;
 }
 
-/* Hex grid canvas */
-#hex-grid {
-    position: absolute;
-    inset: 0;
-    z-index: 0;
-    pointer-events: none;
-}
-
-/* CRT overlay */
-#crt-overlay {
-    position: absolute;
-    inset: 0;
-    background: repeating-linear-gradient(
-        0deg,
-        rgba(255,255,255,0.02) 0,
-        rgba(255,255,255,0.02) 1px,
-        transparent 1px,
-        transparent 3px
-    );
-    z-index: 2;
-    pointer-events: none;
-}
-
-/* Title glow + glitch */
+/* Title glow */
 .game-title {
-    position: relative;
-    z-index: 10;
-    font-size: 6rem;
+    position: absolute;
+    top: 25%;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 4rem; /* slightly smaller to fit text */
     color: #ffeb3b;
-    margin-top: 60px;
     text-shadow: 0 0 15px #ffeb3b, 0 0 35px #fff200, 0 0 55px #fff200;
-    animation: glitch 1.5s infinite;
+    z-index: 10;
 }
 
 /* Intro text */
 #intro-box {
-    position: relative;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    max-width: 1200px;
+    text-align: center;
     z-index: 10;
-    width: 75%;
-    margin: 0 auto;
-    margin-top: 30px;
     transition: opacity 1.5s;
 }
 
 #intro-box p {
-    font-size: 2rem;
+    font-size: clamp(1.8rem, 2.5vw, 2.2rem);
     color: #ffeb3b;
     text-shadow: 0 0 10px #ffeb3b;
     line-height: 1.7em;
@@ -80,6 +61,10 @@ body {
 
 /* START button */
 #start-btn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     padding: 25px 100px;
     font-size: 3rem;
     border: 4px solid #ffeb3b;
@@ -88,10 +73,8 @@ body {
     border-radius: 15px;
     cursor: pointer;
     text-shadow: 0 0 15px #ffeb3b;
-    margin-top: 60px;
     opacity: 0;
     z-index: 2000;
-    position: relative;
     transition: opacity 1.5s, transform 0.3s;
 }
 
@@ -99,14 +82,15 @@ body {
     opacity: 1;
 }
 
-#intro-box.fade-out {
-    opacity: 0;
-    pointer-events: none;
-}
-
 #start-btn:hover {
     transform: scale(1.1);
     text-shadow: 0 0 30px #fff200, 0 0 60px #ffeb3b;
+}
+
+/* Make intro box fully invisible & non-blocking */
+#intro-box.fade-out {
+    opacity: 0;
+    pointer-events: none;
 }
 
 /* Cyber cubes */
@@ -132,24 +116,6 @@ body {
     100% { transform: translateY(110vh) translateX(40vw) rotate(360deg); }
 }
 
-/* Glitch animation */
-@keyframes glitch {
-    0% { text-shadow: 2px 2px #fff200, -2px -2px #ffeb3b; }
-    20% { text-shadow: -2px -2px #fff200, 2px 2px #ffeb3b; }
-    40% { text-shadow: 2px -2px #fff200, -2px 2px #ffeb3b; }
-    60% { text-shadow: -2px 2px #fff200, 2px -2px #ffeb3b; }
-    80% { text-shadow: 2px 2px #fff200, -2px -2px #ffeb3b; }
-    100% { text-shadow: 2px -2px #fff200, -2px 2px #ffeb3b; }
-}
-
-/* Particle canvas */
-#particles {
-    position: absolute;
-    inset: 0;
-    z-index: 3;
-    pointer-events: none;
-}
-
 /* ================= GAME UI & END SCREEN ================= */
 #game-ui, #end-screen {
     background: #000000a0;
@@ -161,4 +127,88 @@ body {
     text-shadow: 0 0 10px #ffeb3b;
 }
 
+/* Choice buttons */
+.choice-btn {
+    padding: 25px 60px;
+    font-size: 2em;
+    border: 3px solid #fff;
+    cursor: pointer;
+    transition: transform 0.3s, text-shadow 0.3s;
+}
+
+#infected-btn {
+    background-color: black;
+    color: #ff6b81;
+    text-shadow: 0 0 10px #ff6b81, 0 0 20px #ff6b81;
+}
+
+#safe-btn {
+    background-color: black;
+    color: #ffeaa7;
+    text-shadow: 0 0 10px #ffeaa7, 0 0 20px #ffeaa7;
+}
+
+.choice-btn:hover {
+    transform: scale(1.1);
+    text-shadow: 0 0 25px #ff9f43, 0 0 50px #feca57;
+}
+
+#penalty-display {
+    font-size: 3em;
+    color: #ff6b81;
+    text-shadow: 0 0 20px #ff6b81;
+}
+
+/* End screen */
+#end-screen {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
+}
+
+#end-message h1 {
+    font-size: 5em;
+    text-shadow: 0 0 20px #feca57, 0 0 40px #ff9f43;
+}
+
+#end-details {
+    opacity: 0;
+    transition: opacity 1s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
+
+#end-details p {
+    font-size: 2em;
+    margin-bottom: 30px;
+    color: #fff;
+    text-shadow: 0 0 15px #ffeaa7;
+}
+
+#end-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+}
+
+#end-buttons button {
+    padding: 20px 70px;
+    font-size: 2em;
+    border: 3px solid #fff;
+    background-color: black;
+    color: #feca57;
+    text-shadow: 0 0 10px #feca57;
+    cursor: pointer;
+    transition: transform 0.3s, text-shadow 0.3s;
+}
+
+#end-buttons button:hover {
+    transform: scale(1.1);
+    text-shadow: 0 0 25px #ff9f43, 0 0 50px #ffeaa7;
+}
 
