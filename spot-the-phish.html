@@ -11,22 +11,30 @@
 
 <!-- ================= START SCREEN ================= -->
 <div id="start-screen">
-    <h1 class="game-title glow-yellow">ADVANCED CYBERSECURITY EMAIL SIMULATOR</h1>
+
+    <!-- Background blur -->
+    <div id="bg-overlay"></div>
+
+    <!-- Title -->
+    <h1 class="game-title">ADVANCED CYBERSECURITY EMAIL SIMULATOR</h1>
+
+    <!-- Intro text -->
     <div id="intro-box">
-        <p class="glow-yellow">
-            Welcome! Your mission is to evaluate incoming emails and identify which are <strong>safe</strong> or <strong>malicious</strong>.<br>
-            You start with a security budget of <strong>850,000 USD</strong>.<br>
-            Misclassifications cost money based on threat sophistication.<br>
-            Sharpen your analytical skills and protect your organization from cyber threats.
+        <p>
+            Welcome! Your task is to evaluate incoming emails and determine which are 
+            <strong>safe</strong> or <strong>malicious</strong>.<br><br>
+            You are provided with a security budget of 
+            <strong>850,000 USD</strong>.<br><br>
+            Incorrect decisions reduce your funds depending on the threat level.<br><br>
+            Protect your organization—your cybersecurity awareness is the key.
         </p>
     </div>
-    <button id="start-btn" class="hidden glow-button">▶ START</button>
 
-    <!-- Cyber cubes background -->
+    <!-- Start button -->
+    <button id="start-btn" class="hidden">▶ START</button>
+
+    <!-- Cyber cubes -->
     <div id="cyber-cubes"></div>
-</div> 
-    
-    <button id="start-btn" class="hidden">▶ START SIMULATION</button>
 </div>
 
 <!-- ================= GAME UI ================= -->
