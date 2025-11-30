@@ -66,19 +66,22 @@ body {
     border-radius: 15px;
     cursor: pointer;
     text-shadow: 0 0 15px #ffeb3b;
-    margin-top: 60px;
     opacity: 0;
     z-index: 2000;
-    position: relative;
-    transition: opacity 1.5s, transform 0.3s;
+    position: absolute;       /* changed from relative */
+    top: 50%;                 /* center vertically */
+    left: 50%;                /* center horizontally */
+    transform: translate(-50%, -50%); /* shift origin to center */
+    transition: opacity 1.5s ease, transform 0.3s ease;
 }
 
 #start-btn.show {
     opacity: 1;
+    /* translate stays same (centered) */
 }
 
 #start-btn:hover {
-    transform: scale(1.1);
+    transform: translate(-50%, -50%) scale(1.1);
     text-shadow: 0 0 30px #fff200, 0 0 60px #ffeb3b;
 }
 
