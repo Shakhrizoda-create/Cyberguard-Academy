@@ -1,4 +1,4 @@
-// ================= ELEMENTS =================
+/* ================= ELEMENTS ================= */
 const startScreen = document.getElementById("start-screen");
 const startBtn = document.getElementById("start-btn");
 const gameUI = document.getElementById("game-ui");
@@ -9,53 +9,21 @@ const infectedBtn = document.getElementById("infected-btn");
 const safeBtn = document.getElementById("safe-btn");
 const penaltyDisplay = document.getElementById("penalty-display");
 const endScreen = document.getElementById("end-screen");
+const endMessage = document.getElementById("end-message");
+const endDetails = document.getElementById("end-details");
 const finalBudget = document.getElementById("final-budget");
 const restartBtn = document.getElementById("restart-btn");
 const backBtn = document.getElementById("back-btn");
 const introBox = document.getElementById("intro-box");
+const title = document.querySelector(".game-title");
 
-// ================= GAME VARIABLES =================
+/* ================= GAME VARIABLES ================= */
 let budget = 850000;
 let time = 100;
 let currentIndex = 0;
 let timer;
 
-// ================= START SCREEN LOGIC =================
-
-// Typing effect
-function typeText(element, text, speed=30, callback=null) {
-    element.innerHTML = "";
-    let i = 0;
-    const interval = setInterval(() => {
-        element.innerHTML += text.charAt(i);
-        i++;
-        if (i >= text.length) {
-            clearInterval(interval);
-            if (callback) callback();
-        }
-    }, speed);
-}
-
-// Start the typing
-const introText = `Welcome! Your task is to evaluate incoming emails and determine which are safe or malicious.
-
-You are provided with a security budget of 850,000 USD.
-
-Incorrect decisions reduce your funds depending on the threat level.
-
-Protect your organization—your cybersecurity awareness is the key.`;
-
-typeText(introBox, introText, 25, () => {
-    // Fade out text slowly
-    introBox.classList.add("fade-out");
-    // Show start button after fade
-    setTimeout(() => {
-        startBtn.classList.remove("hidden");
-        startBtn.classList.add("show");
-    }, 1200);
-});
-
-// Cyber cubes
+/* ================= CYBER CUBES ================= */
 const cyberCubesContainer = document.getElementById("cyber-cubes");
 
 function spawnCubes(amount) {
@@ -72,10 +40,52 @@ function spawnCubes(amount) {
 
 spawnCubes(40);
 
-// Start game
+/* ================= TYPING EFFECT ================= */
+function typeText(element, speed = 30, callback) {
+    const text = element.innerHTML;
+    element.innerHTML = "";
+    let i = 0;
+    const typer = setInterval(() => {
+        element.innerHTML += text.charAt(i);
+        i++;
+        if (i >= text.length) {
+            clearInterval(typer);
+            if (callback) callback();
+        }
+    }, speed);
+}
+
+typeText(introBox, 20, () => {
+    // After typing finishes, fade out intro and move title
+    introBox.classList.add("fade-out");
+    title.classList.add("top");
+
+    // Show START button after small delay
+    setTimeout(() => {
+        startBtn.classList.remove("hidden");
+        startBtn.classList.add("show");
+    }, 1000);
+});
+
+/* ================= START GAME ================= */
 startBtn.addEventListener("click", startGame);
 
-// ================= GAME LOGIC =================
+function startGame() {
+    startScreen.style.display = "none";
+    gameUI.classList.remove("hidden");
+    updateEmail();
+    timer = setInterval(countdown, 1000);
+}
+
+/* ================= TIMER ================= */
+function countdown() {
+    if (time <= 0) return endGame();
+    time--;
+    let min = Math.floor(time / 60), sec = time % 60;
+    timerDisplay.textContent = `${min}:${sec < 10 ? "0" + sec : sec}`;
+}
+
+/* ================= EMAIL LOGIC ================= */
 const emails = [
     {subject:"Class Update",from:"School Admin",blocks:["Schedule updated.","Check portal.","Attached document included.","Review all classes.","Contact admin if questions.","Do not ignore."],correct:"safe",penalty:10000},
     {subject:"Urgent Password Reset",from:"IT Dept",blocks:["Your account was compromised.","Reset password immediately.","Ignore at your own risk.","Link expires soon.","Confirm identity.","Do not share credentials."],correct:"infected",penalty:50000},
@@ -91,20 +101,6 @@ const emails = [
 
 // Shuffle emails
 emails.sort(() => Math.random() - 0.5);
-
-function startGame() {
-    startScreen.style.display = "none";
-    gameUI.classList.remove("hidden");
-    updateEmail();
-    timer = setInterval(countdown, 1000);
-}
-
-function countdown() {
-    if (time <= 0) return endGame();
-    time--;
-    let min = Math.floor(time / 60), sec = time % 60;
-    timerDisplay.textContent = `${min}:${sec < 10 ? "0" + sec : sec}`;
-}
 
 function updateEmail() {
     if (currentIndex >= emails.length) return endGame();
@@ -129,12 +125,19 @@ function checkAnswer(choice) {
     updateEmail();
 }
 
-// ================= END SCREEN =================
+/* ================= END SCREEN ================= */
 function endGame() {
     clearInterval(timer);
     gameUI.classList.add("hidden");
     endScreen.style.display = "flex";
     finalBudget.textContent = `${budget.toLocaleString()} USD`;
+    endMessage.style.transform = "translateY(0)";
+    endDetails.style.opacity = 0;
+    endDetails.style.display = "flex";
+    setTimeout(() => {
+        endMessage.style.transform = "translateY(-20%)";
+        endDetails.style.opacity = 1;
+    }, 3000);
 }
 
 restartBtn.addEventListener("click", () => location.reload());
