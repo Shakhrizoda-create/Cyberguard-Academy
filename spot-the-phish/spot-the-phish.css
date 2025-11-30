@@ -17,7 +17,7 @@ body {
     overflow: hidden;
 }
 
-/* Background blur */
+/* Blurred background */
 #bg-overlay {
     position: absolute;
     inset: 0;
@@ -26,41 +26,62 @@ body {
     z-index: 1;
 }
 
-/* Title glow with lagging shadow */
+/* CRT overlay */
+#crt-overlay {
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+        rgba(255,255,255,0.05) 0 1px,
+        transparent 1px 2px
+    );
+    pointer-events: none;
+    z-index: 3;
+}
+
+/* Title glow + lagging */
 .game-title {
     position: relative;
-    z-index: 10;
+    top: 20px;  /* top of screen */
     font-size: 4.5rem;
     color: #ffeb3b;
-    margin-top: 30px;
-    text-shadow: 0 0 5px #ffeb3b, 0 0 15px #fff200, 0 0 25px #fff200;
-    animation: lagTitle 1.5s infinite alternate;
+    text-align: center;
+    text-shadow:
+        0 0 5px #ffeb3b,
+        0 0 10px #ffeb3b,
+        0 0 20px #fff200,
+        0 0 40px #fff200;
+    animation: flicker 1.5s infinite;
+    z-index: 10;
 }
 
-@keyframes lagTitle {
-    0%   { text-shadow: 0 0 5px #ffeb3b, 0 0 15px #fff200, 0 0 25px #fff200; }
-    50%  { text-shadow: 0 0 10px #ffeb3b, 0 0 25px #fff200, 0 0 45px #fff200; }
-    100% { text-shadow: 0 0 5px #ffeb3b, 0 0 15px #fff200, 0 0 25px #fff200; }
+/* Flickering effect */
+@keyframes flicker {
+    0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+        text-shadow:
+            0 0 5px #ffeb3b,
+            0 0 10px #ffeb3b,
+            0 0 20px #fff200,
+            0 0 40px #fff200;
+        opacity: 1;
+    }
+    20%, 24%, 55% {
+        text-shadow: none;
+        opacity: 0.6;
+    }
 }
 
-/* Intro text */
+/* Intro text box */
 #intro-box {
     position: relative;
     z-index: 10;
     width: 75%;
     margin: 0 auto;
-    margin-top: 50px;
+    margin-top: 150px;
     font-size: 1.8rem;
     color: #ffeb3b;
     text-shadow: 0 0 10px #ffeb3b;
     line-height: 1.7em;
     opacity: 1;
-    transition: opacity 1.5s;
-}
-
-#intro-box.fade-out {
-    opacity: 0;
-    pointer-events: none;
 }
 
 /* START button */
@@ -73,20 +94,23 @@ body {
     border-radius: 15px;
     cursor: pointer;
     text-shadow: 0 0 15px #ffeb3b;
-    position: relative;
-    z-index: 20;
+    margin-top: 40px;
     opacity: 0;
-    transform: translateY(100px);
+    z-index: 2000;
+    position: absolute;
+    bottom: 80px;  /* slide from bottom */
+    left: 50%;
+    transform: translateX(-50%) translateY(50px);
     transition: opacity 1.5s, transform 1s;
 }
 
 #start-btn.show {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateX(-50%) translateY(0);
 }
 
 #start-btn:hover {
-    transform: translateY(0) scale(1.1);
+    transform: translateX(-50%) translateY(0) scale(1.1);
     text-shadow: 0 0 30px #fff200, 0 0 60px #ffeb3b;
 }
 
@@ -113,7 +137,44 @@ body {
     100% { transform: translateY(110vh) translateX(40vw) rotate(360deg); }
 }
 
-/* ================= GAME UI & END SCREEN ================= */
-#game-ui, #end-screen { background: #000000a0; }
-#timer-box, #budget-box { font-size: 2em; margin-top: 20px; text-shadow: 0 0 10px #ffeb3b; }
+/* ================= GAME UI ================= */
+#game-ui, #end-screen {
+    background: #000000a0;
+}
+
+#timer-box, #budget-box {
+    font-size: 2em;
+    margin-top: 20px;
+    text-shadow: 0 0 10px #ffeb3b;
+}
+
+/* Button styling inside game UI */
+.choice-btn {
+    padding: 15px 50px;
+    margin: 20px;
+    font-size: 1.5rem;
+    border-radius: 10px;
+    border: 3px solid #ffeb3b;
+    background: transparent;
+    color: #ffeb3b;
+    cursor: pointer;
+    text-shadow: 0 0 10px #ffeb3b;
+}
+
+.choice-btn:hover {
+    transform: scale(1.1);
+    text-shadow: 0 0 30px #fff200, 0 0 60px #ffeb3b;
+}
+
+/* End screen */
+#end-screen {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+    color: #ffeb3b;
+    text-align: center;
+}
+
 
