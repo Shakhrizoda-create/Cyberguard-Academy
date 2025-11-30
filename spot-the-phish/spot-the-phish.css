@@ -27,19 +27,19 @@ body {
     z-index: 1;
 }
 
-/* Title glow */
+/* Title at top */
 .game-title {
     position: absolute;
-    top: 25%;
+    top: 5%;
     left: 50%;
     transform: translateX(-50%);
-    font-size: 4rem; /* slightly smaller to fit text */
+    font-size: 3.5rem; 
     color: #ffeb3b;
     text-shadow: 0 0 15px #ffeb3b, 0 0 35px #fff200, 0 0 55px #fff200;
     z-index: 10;
 }
 
-/* Intro text */
+/* Intro text (lagging typewriter effect) */
 #intro-box {
     position: absolute;
     top: 50%;
@@ -49,17 +49,15 @@ body {
     max-width: 1200px;
     text-align: center;
     z-index: 10;
-    transition: opacity 1.5s;
-}
-
-#intro-box p {
     font-size: clamp(1.8rem, 2.5vw, 2.2rem);
     color: #ffeb3b;
     text-shadow: 0 0 10px #ffeb3b;
     line-height: 1.7em;
+    overflow: hidden;
+    white-space: pre-wrap;
 }
 
-/* START button */
+/* START button with fire animation */
 #start-btn {
     position: absolute;
     top: 50%;
@@ -72,7 +70,7 @@ body {
     color: #ffeb3b;
     border-radius: 15px;
     cursor: pointer;
-    text-shadow: 0 0 15px #ffeb3b;
+    text-shadow: 0 0 15px #ffeb3b, 0 0 25px #fff200, 0 0 40px #ffeb3b;
     opacity: 0;
     z-index: 2000;
     transition: opacity 1.5s, transform 0.3s;
@@ -80,11 +78,18 @@ body {
 
 #start-btn.show {
     opacity: 1;
+    animation: firePulse 1.2s infinite alternate;
 }
 
 #start-btn:hover {
-    transform: scale(1.1);
-    text-shadow: 0 0 30px #fff200, 0 0 60px #ffeb3b;
+    transform: scale(1.2);
+    text-shadow: 0 0 50px #fff200, 0 0 80px #ffeb3b, 0 0 100px #ffe200;
+}
+
+@keyframes firePulse {
+    0% { text-shadow: 0 0 15px #ffeb3b, 0 0 25px #fff200, 0 0 40px #ffeb3b; }
+    50% { text-shadow: 0 0 25px #fff200, 0 0 50px #ffeb3b, 0 0 60px #ffe200; }
+    100% { text-shadow: 0 0 15px #ffeb3b, 0 0 25px #fff200, 0 0 40px #ffeb3b; }
 }
 
 /* Make intro box fully invisible & non-blocking */
