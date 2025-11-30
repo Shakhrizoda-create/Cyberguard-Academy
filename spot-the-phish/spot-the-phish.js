@@ -38,6 +38,21 @@ function spawnCubes(amount) {
 spawnCubes(40);
 
 // ================= START SCREEN LOGIC =================
+// Typewriter/lagging effect
+const fullText = introBox.innerHTML;
+introBox.innerHTML = "";
+let index = 0;
+
+function typeWriter() {
+    if (index < fullText.length) {
+        introBox.innerHTML += fullText.charAt(index);
+        index++;
+        setTimeout(typeWriter, 30 + Math.random() * 50); // random lag
+    }
+}
+typeWriter();
+
+// Show start button after text
 setTimeout(() => {
     introBox.classList.add("fade-out");
     startBtn.classList.remove("hidden");
