@@ -1,3 +1,5 @@
+
+/* GLOBAL LAYOUT */
 body {
     margin: 0;
     padding: 0;
@@ -6,141 +8,121 @@ body {
     background-size: cover;
 }
 
-/* Yellow neon glow */
+/* UNIVERSAL YELLOW GLOW */
+html, body, p, div, span, strong, li, ul, h1, h2, h3, h4 {
+    color: #ffeb3b !important;
+    text-shadow: 0 0 10px #ffeb3b, 0 0 20px #ffeb3b !important;
+}
+
+/* HIDE ANY BACKGROUNDS */
 * {
-    color: #ffeb3b;
-    text-shadow: 0 0 10px #ffeb3b, 0 0 20px #ffeb3b;
+    background: none !important;
+    border: none !important;
 }
 
-.hidden {
-    display: none;
-}
-
-/* START SCREEN */
+/* =============================
+    INTRO SCREEN (page 1)
+   ============================= */
 #start-screen {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     text-align: center;
-    margin-top: 140px;
-    padding: 20px;
-}
-
-#title {
-    font-size: 42px;
+    padding: 40px;
 }
 
 #intro-text {
-    width: 60%;
-    margin: 20px auto;
-    font-size: 20px;
+    font-size: 28px;
+    width: 70%;
+    margin: auto;
     line-height: 1.6;
 }
 
-#start-btn {
-    font-size: 28px;
-    padding: 14px 40px;
+/* =============================
+    START BUTTON SCREEN (page 2)
+   ============================= */
+#start-button-screen {
+    display: none;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#big-start-btn {
+    width: 300px;
+    height: 200px;
+    background: black !important;
+    border: 4px solid #ffeb3b !important;
+    box-shadow: 0 0 25px #ffeb3b;
+    font-size: 40px;
     cursor: pointer;
-    border: none;
-    background: #ffea00;
-    color: #000;
-    border-radius: 8px;
-    box-shadow: 0 0 20px #ffea00;
-    transition: 0.2s;
+    color: #ffeb3b !important;
+    text-shadow: 0 0 15px #ffeb3b;
 }
 
-#start-btn:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 35px #fff200;
+/* =============================
+    GAME UI
+   ============================= */
+#game-ui {
+    display: none;
 }
 
-/* GAME UI */
 #timer-box, #budget-box {
     position: absolute;
     top: 20px;
     font-size: 26px;
 }
 
-#timer-box {
-    left: 20px;
-}
+#timer-box { left: 20px; }
+#budget-box { right: 20px; }
 
-#budget-box {
-    right: 20px;
-}
-
+/* EMAIL TEXT */
 #email-container {
     width: 70%;
     margin: 150px auto 0;
-    font-size: 22px;
+    font-size: 24px;
     line-height: 1.7;
-    background: none !important;
-    border: none !important;
 }
 
-/* BUTTONS */
-#choice-buttons {
-    text-align: center;
-    margin-top: 40px;
-}
-
-#infected-btn {
-    font-size: 24px;
-    padding: 14px 30px;
-    margin-right: 40px;
-    background: #d10000;
-    border: none;
-    color: white;
+/* =============================
+    CHOICE BUTTONS
+   ============================= */
+button {
+    background: black !important;
+    border: 3px solid #ffeb3b !important;
+    color: #ffeb3b !important;
+    text-shadow: 0 0 10px #ffeb3b !important;
+    padding: 14px 35px;
+    font-size: 26px;
     cursor: pointer;
-    border-radius: 7px;
-    box-shadow: 0 0 20px red;
+    border-radius: 10px;
+    margin: 0 20px;
+    box-shadow: 0 0 20px #ffeb3b;
 }
 
-#safe-btn {
-    font-size: 24px;
-    padding: 14px 30px;
-    background: #00c245;
-    border: none;
-    color: white;
-    cursor: pointer;
-    border-radius: 7px;
-    box-shadow: 0 0 20px #00ff66;
-}
-
-/* PENALTY */
+/* =============================
+    PENALTY ANIMATION
+   ============================= */
 #penalty-display {
     position: absolute;
     top: 50%;
     left: 50%;
     font-size: 55px;
-    color: red !important;
     opacity: 0;
     transform: translate(-50%, -50%) scale(1);
     transition: 0.6s;
-    text-shadow: 0 0 20px red;
+    color: red !important;
+    text-shadow: 0 0 20px red !important;
 }
 
 /* END SCREEN */
 #end-screen {
+    display: none;
+    height: 100vh;
     text-align: center;
     margin-top: 140px;
 }
-
-#end-title {
-    font-size: 44px;
-}
-
-#final-budget {
-    font-size: 36px;
-    margin-top: 10px;
-}
-
-#restart-btn, #back-btn {
-    margin-top: 30px;
-    margin-right: 20px;
-    font-size: 24px;
-    padding: 12px 30px;
-    border: none;
-    background: #ffea00;
-    color: #000;
-    border-radius: 8px;
-    cursor: pointer;
-}
-
