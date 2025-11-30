@@ -65,12 +65,19 @@ body {
     text-shadow: 0 0 15px #ffeb3b;
     margin-top: 60px;
     opacity: 0;
-    z-index: 10;
+    z-index: 2000;  /* FIXED → shows above cubes & intro box */
+    position: relative; /* make z-index work */
     transition: opacity 1.5s, transform 0.3s;
 }
 
 #start-btn.show {
     opacity: 1;
+}
+
+/* Make intro box fully invisible & non-blocking */
+#intro-box.fade-out {
+    opacity: 0;
+    pointer-events: none;
 }
 
 #start-btn:hover {
