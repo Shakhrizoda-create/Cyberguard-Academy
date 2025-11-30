@@ -1,6 +1,8 @@
-/* ================= ELEMENTS ================= */
+// ================= ELEMENTS =================
 const startScreen = document.getElementById("start-screen");
 const startBtn = document.getElementById("start-btn");
+const introBox = document.getElementById("intro-box");
+const cyberCubesContainer = document.getElementById("cyber-cubes");
 const gameUI = document.getElementById("game-ui");
 const timerDisplay = document.getElementById("timer");
 const budgetDisplay = document.getElementById("budget-amount");
@@ -15,28 +17,13 @@ const finalBudget = document.getElementById("final-budget");
 const restartBtn = document.getElementById("restart-btn");
 const backBtn = document.getElementById("back-btn");
 
-/* ================= VARIABLES ================= */
+// ================= GAME VARIABLES =================
 let budget = 850000;
-let time = 100;
+let time = 100; // 1:40
 let currentIndex = 0;
 let timer;
 
-/* ================= START SCREEN EFFECTS ================= */
-const introBox = document.getElementById("intro-box");
-const cyberCubesContainer = document.getElementById("cyber-cubes");
-const hexGrid = document.getElementById("hex-grid");
-const particlesCanvas = document.getElementById("particles");
-
-startBtn.addEventListener("click", startGame);
-
-/* --- Fade intro and show START button after 10s --- */
-setTimeout(() => {
-    introBox.classList.add("fade-out");
-    startBtn.classList.remove("hidden");
-    startBtn.classList.add("show");
-}, 10000);
-
-/* --- Cyber cubes --- */
+// ================= CYBER CUBES =================
 function spawnCubes(amount) {
     for (let i = 0; i < amount; i++) {
         const cube = document.createElement("div");
@@ -50,67 +37,16 @@ function spawnCubes(amount) {
 }
 spawnCubes(40);
 
-/* --- Hex grid --- */
-const hexCtx = hexGrid.getContext("2d");
-function resizeHex() {
-    hexGrid.width = window.innerWidth;
-    hexGrid.height = window.innerHeight;
-}
-window.addEventListener("resize", resizeHex);
-resizeHex();
+// ================= START SCREEN LOGIC =================
+setTimeout(() => {
+    introBox.classList.add("fade-out");
+    startBtn.classList.remove("hidden");
+    startBtn.classList.add("show");
+}, 10000);
 
-function drawHexGrid() {
-    hexCtx.clearRect(0,0,hexGrid.width,hexGrid.height);
-    const hexSize = 40;
-    for(let y=0; y<hexGrid.height+hexSize; y+=hexSize*1.5){
-        for(let x=0; x<hexGrid.width+hexSize; x+=hexSize*Math.sqrt(3)){
-            hexCtx.strokeStyle = "rgba(255,235,59,0.05)";
-            hexCtx.lineWidth = 1;
-            hexCtx.beginPath();
-            for(let i=0;i<6;i++){
-                const angle = Math.PI/3*i;
-                const dx = x + hexSize*Math.cos(angle);
-                const dy = y + hexSize*Math.sin(angle);
-                if(i===0) hexCtx.moveTo(dx,dy);
-                else hexCtx.lineTo(dx,dy);
-            }
-            hexCtx.closePath();
-            hexCtx.stroke();
-        }
-    }
-    requestAnimationFrame(drawHexGrid);
-}
-drawHexGrid();
+startBtn.addEventListener("click", startGame);
 
-/* --- Particles --- */
-const pCtx = particlesCanvas.getContext("2d");
-particlesCanvas.width = window.innerWidth;
-particlesCanvas.height = window.innerHeight;
-
-let particles = [];
-for(let i=0;i<100;i++){
-    particles.push({
-        x: Math.random()*particlesCanvas.width,
-        y: Math.random()*particlesCanvas.height,
-        size: Math.random()*3+1,
-        speed: Math.random()*1+0.2
-    });
-}
-function animateParticles(){
-    pCtx.clearRect(0,0,particlesCanvas.width,particlesCanvas.height);
-    particles.forEach(p=>{
-        p.y+=p.speed;
-        if(p.y>particlesCanvas.height)p.y=0;
-        pCtx.fillStyle="rgba(255,235,59,0.3)";
-        pCtx.beginPath();
-        pCtx.arc(p.x,p.y,p.size,0,Math.PI*2);
-        pCtx.fill();
-    });
-    requestAnimationFrame(animateParticles);
-}
-animateParticles();
-
-/* ================= GAME LOGIC ================= */
+// ================= EMAILS =================
 const emails = [
     {subject:"Class Update",from:"School Admin",blocks:["Schedule updated.","Check portal.","Attached document included.","Review all classes.","Contact admin if questions.","Do not ignore."],correct:"safe",penalty:10000},
     {subject:"Urgent Password Reset",from:"IT Dept",blocks:["Your account was compromised.","Reset password immediately.","Ignore at your own risk.","Link expires soon.","Confirm identity.","Do not share credentials."],correct:"infected",penalty:50000},
@@ -125,6 +61,7 @@ const emails = [
 ];
 emails.sort(() => Math.random() - 0.5);
 
+// ================= GAME FUNCTIONS =================
 function startGame() {
     startScreen.style.display = "none";
     gameUI.classList.remove("hidden");
@@ -162,7 +99,7 @@ function checkAnswer(choice) {
     updateEmail();
 }
 
-/* ================= END SCREEN ================= */
+// ================= END SCREEN =================
 function endGame() {
     clearInterval(timer);
     gameUI.classList.add("hidden");
@@ -179,4 +116,3 @@ function endGame() {
 
 restartBtn.addEventListener("click", () => location.reload());
 backBtn.addEventListener("click", () => window.location.href="index.html");
-
