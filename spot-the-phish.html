@@ -3,74 +3,66 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Spot the Phish Game</title>
+    <title>Spot the Phish | Cybersecurity Simulator</title>
 
-    <link rel="stylesheet" href="spot-the-phish/spot-the-phish.css">
+    <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
-</head>
 
+    <!-- CSS -->
+    <link rel="stylesheet" href="spot-the-phish/spot-the-phish.css">
+</head>
 <body>
 
-    <!-- START SCREEN -->
-    <div id="start-screen">
-        <h1 id="title">CYBERSECURITY EMAIL THREAT SIMULATOR</h1>
-
+    <!-- =========================
+         INTRO SCREEN
+    ========================= -->
+    <div id="intro-screen">
         <p id="intro-text">
-            You have a budget of <strong>850,000 USD</strong>.  
-            Identify whether each email is <span class="safe">SAFE</span>  
-            or <span class="malicious">INFECTED / VIRUS</span>.  
-            Wrong answers subtract money based on difficulty.  
-            You have <strong>2:30 minutes</strong> to finish 10 questions.
+            Welcome to the Cybersecurity Email Threat Assessment Simulator.<br>
+            You will evaluate emails and identify whether they are safe or malicious.<br>
+            Your goal is to protect your organization's budget of <strong>850,000 USD</strong>.
         </p>
-
-        <button id="start-btn">▶ START</button>
     </div>
 
+    <!-- =========================
+         START BUTTON SCREEN
+    ========================= -->
+    <div id="start-screen" class="hidden">
+        <button id="big-start-btn">START</button>
+    </div>
 
-
-    <!-- GAME UI -->
+    <!-- =========================
+         GAME UI
+    ========================= -->
     <div id="game-ui" class="hidden">
-        <!-- Timer -->
-        <div id="timer-box">⏱ <span id="timer">1:30</span></div>
+        <div id="timer-box">⏱ <span id="timer">2:30</span></div>
+        <div id="budget-box">💰 Budget: <span id="budget-amount">850,000 USD</span></div>
 
-        <!-- Budget -->
-        <div id="budget-box">💰 <span id="budget-amount">850,000 USD</span></div>
-
-        <!-- Email Display -->
         <div id="email-container"></div>
 
-        <!-- Buttons -->
         <div id="choice-buttons">
-            <button id="infected-btn">INFECTED / VIRUS</button>
             <button id="safe-btn">SAFE / RELIABLE</button>
+            <button id="infected-btn">INFECTED / VIRUS</button>
         </div>
 
-        <!-- Penalty Animation -->
         <div id="penalty-display"></div>
     </div>
 
-
-
-    <!-- END SCREEN -->
+    <!-- =========================
+         END SCREEN
+    ========================= -->
     <div id="end-screen" class="hidden">
         <h1 id="end-title">SIMULATION COMPLETE</h1>
-
-        <p>Your remaining budget:</p>
-        <p id="final-budget"></p>
-
+        <p id="final-budget-text">Your remaining budget: <span id="final-budget"></span></p>
         <button id="restart-btn">RESTART</button>
-        <button id="back-btn">BACK</button>
     </div>
 
+    <!-- Background music and sounds -->
+    <audio id="bg-music" src="assets-3/music.mp3" loop></audio>
+    <audio id="click-sound" src="assets-3/click.mp3"></audio>
+    <audio id="penalty-sound" src="assets-3/penalty.mp3"></audio>
 
-
-    <!-- AUDIO -->
-    <audio id="bg-music" src="assets-3/music.mp3" preload="auto" loop></audio>
-    <audio id="click-sound" src="assets-3/click.wav" preload="auto"></audio>
-    <audio id="penalty-sound" src="assets-3/penalty.wav" preload="auto"></audio>
-
-    <script src="spot-the-phish/spot-the-phish.js" defer></script>
+    <!-- JS -->
+    <script src="spot-the-phish/spot-the-phish.js"></script>
 </body>
 </html>
-
-
