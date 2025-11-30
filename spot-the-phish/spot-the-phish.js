@@ -118,3 +118,4 @@ document.getElementById("safe-btn").onclick=()=>answer("safe");
 document.getElementById("infected-btn").onclick=()=>answer("infected");
 document.getElementById("restart-btn").onclick=()=>location.reload();
 document.getElementById("home-btn").onclick=()=>location.reload();
+
