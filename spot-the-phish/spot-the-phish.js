@@ -1,7 +1,6 @@
 // ================= ELEMENTS =================
 const startScreen = document.getElementById("start-screen");
 const startBtn = document.getElementById("start-btn");
-const introBox = document.getElementById("intro-box");
 const gameUI = document.getElementById("game-ui");
 const timerDisplay = document.getElementById("timer");
 const budgetDisplay = document.getElementById("budget-amount");
@@ -15,6 +14,8 @@ const endDetails = document.getElementById("end-details");
 const finalBudget = document.getElementById("final-budget");
 const restartBtn = document.getElementById("restart-btn");
 const backBtn = document.getElementById("back-btn");
+const introBox = document.getElementById("intro-box");
+const gameTitle = document.querySelector(".game-title");
 const cyberCubesContainer = document.getElementById("cyber-cubes");
 
 // ================= VARIABLES =================
@@ -23,7 +24,56 @@ let time = 100;
 let currentIndex = 0;
 let timer;
 
-// Emails array (same as before)
+// ================= CYBER CUBES =================
+function spawnCubes(amount) {
+    for (let i = 0; i < amount; i++) {
+        const cube = document.createElement("div");
+        cube.classList.add("cube");
+        cube.style.left = Math.random() * 100 + "vw";
+        cube.style.width = cube.style.height = (15 + Math.random() * 30) + "px";
+        cube.style.opacity = 0.2 + Math.random() * 0.6;
+        cube.style.animationDuration = 6 + Math.random() * 4 + "s";
+        cyberCubesContainer.appendChild(cube);
+    }
+}
+spawnCubes(40);
+
+// ================= TYPING EFFECT =================
+function typeIntroText(element, text, interval = 50) {
+    element.textContent = "";
+    let i = 0;
+    return new Promise(resolve => {
+        const typing = setInterval(() => {
+            element.textContent += text.charAt(i);
+            i++;
+            if (i >= text.length) {
+                clearInterval(typing);
+                resolve();
+            }
+        }, interval);
+    });
+}
+
+// ================= START SCREEN LOGIC =================
+const introTextFull = `Welcome! Your task is to evaluate incoming emails and determine which are safe or malicious.\n\nYou are provided with a security budget of 850,000 USD.\n\nIncorrect decisions reduce your funds depending on the threat level.\n\nProtect your organization—your cybersecurity awareness is the key.`;
+
+async function runIntroSequence() {
+    await typeIntroText(introBox, introTextFull, 30); // type effect
+    // fade out intro text
+    introBox.classList.add("fade-out");
+    // move title slightly up
+    gameTitle.style.transition = "transform 1.5s";
+    gameTitle.style.transform = "translateY(-20px)";
+    // show start button at bottom
+    setTimeout(() => {
+        startBtn.classList.remove("hidden");
+        startBtn.classList.add("show");
+    }, 1500);
+}
+
+runIntroSequence();
+
+// ================= GAME LOGIC =================
 const emails = [
     {subject:"Class Update",from:"School Admin",blocks:["Schedule updated.","Check portal.","Attached document included.","Review all classes.","Contact admin if questions.","Do not ignore."],correct:"safe",penalty:10000},
     {subject:"Urgent Password Reset",from:"IT Dept",blocks:["Your account was compromised.","Reset password immediately.","Ignore at your own risk.","Link expires soon.","Confirm identity.","Do not share credentials."],correct:"infected",penalty:50000},
@@ -37,46 +87,9 @@ const emails = [
     {subject:"Win a Prize!",from:"Unknown",blocks:["You won a prize!","Click link to claim.","Provide details quickly.","Offer expires soon.","Do not miss this.","Be cautious!"],correct:"infected",penalty:50000}
 ];
 
-// Shuffle emails
 emails.sort(() => Math.random() - 0.5);
 
-// ================= CYBER CUBES =================
-function spawnCubes(amount) {
-    for (let i = 0; i < amount; i++) {
-        const cube = document.createElement("div");
-        cube.classList.add("cube");
-        cube.style.left = Math.random() * 100 + "vw";
-        cube.style.animationDuration = 6 + Math.random() * 4 + "s";
-        cube.style.width = cube.style.height = (15 + Math.random() * 30) + "px";
-        cube.style.opacity = 0.2 + Math.random() * 0.6;
-        cyberCubesContainer.appendChild(cube);
-    }
-}
-spawnCubes(40);
-
-// ================= TYPING EFFECT =================
-function typeText(element, text, speed = 30, callback) {
-    let i = 0;
-    element.innerHTML = "";
-    const interval = setInterval(() => {
-        element.innerHTML += text.charAt(i);
-        i++;
-        if (i >= text.length) {
-            clearInterval(interval);
-            if (callback) callback();
-        }
-    }, speed);
-}
-
-// Start typing intro text and show button after typing
-const fullText = introBox.innerText.trim();
-introBox.innerText = "";
-typeText(introBox, fullText, 35, () => {
-    startBtn.classList.remove("hidden");
-    startBtn.classList.add("show");
-});
-
-// ================= GAME LOGIC =================
+// ================= START GAME =================
 function startGame() {
     startScreen.style.display = "none";
     gameUI.classList.remove("hidden");
@@ -88,7 +101,7 @@ function countdown() {
     if (time <= 0) return endGame();
     time--;
     let min = Math.floor(time / 60), sec = time % 60;
-    timerDisplay.textContent = `${min}:${sec < 10 ? "0" + sec : sec}`;
+    timerDisplay.textContent = `${min}:${sec < 10 ? "0"+sec : sec}`;
 }
 
 function updateEmail() {
@@ -114,7 +127,7 @@ function checkAnswer(choice) {
     updateEmail();
 }
 
-// ================= END GAME =================
+// ================= END SCREEN =================
 function endGame() {
     clearInterval(timer);
     gameUI.classList.add("hidden");
@@ -132,6 +145,6 @@ function endGame() {
 restartBtn.addEventListener("click", () => location.reload());
 backBtn.addEventListener("click", () => window.location.href="index.html");
 
-// Start button click
+// ================= START BUTTON =================
 startBtn.addEventListener("click", startGame);
 
