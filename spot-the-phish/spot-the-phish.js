@@ -25,7 +25,9 @@ let timer;
 
 // Fade intro & show START after 10 seconds
 setTimeout(() => {
-    document.getElementById("intro-box").style.opacity = "0";
+    const intro = document.getElementById("intro-box");
+    intro.classList.add("fade-out");
+
     startBtn.classList.remove("hidden");
     startBtn.classList.add("show");
 }, 10000);
