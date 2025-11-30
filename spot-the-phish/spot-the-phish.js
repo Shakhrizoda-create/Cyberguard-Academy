@@ -1,7 +1,6 @@
-// ================= ELEMENTS =================
+/* ================= ELEMENTS ================= */
 const startScreen = document.getElementById("start-screen");
 const startBtn = document.getElementById("start-btn");
-const introBox = document.getElementById("intro-box");
 const gameUI = document.getElementById("game-ui");
 const timerDisplay = document.getElementById("timer");
 const budgetDisplay = document.getElementById("budget-amount");
@@ -10,20 +9,37 @@ const infectedBtn = document.getElementById("infected-btn");
 const safeBtn = document.getElementById("safe-btn");
 const penaltyDisplay = document.getElementById("penalty-display");
 const endScreen = document.getElementById("end-screen");
-const endMessage = document.getElementById("end-message");
-const endDetails = document.getElementById("end-details");
 const finalBudget = document.getElementById("final-budget");
-const restartBtn = document.getElementById("restart-btn");
-const backBtn = document.getElementById("back-btn");
-const cyberCubesContainer = document.getElementById("cyber-cubes");
 
-// ================= VARIABLES =================
+/* ================= GAME VARIABLES ================= */
 let budget = 850000;
 let time = 100;
 let currentIndex = 0;
 let timer;
 
-// ================= CYBER CUBES =================
+/* ================= START SCREEN LOGIC ================= */
+const introText = `Welcome! Your task is to evaluate incoming emails and determine which are safe or malicious. You are provided with a security budget of 850,000 USD. Incorrect decisions reduce your funds depending on the threat level. Protect your organization—your cybersecurity awareness is the key.`;
+
+const introBox = document.getElementById("intro-box");
+let charIndex = 0;
+
+function typeIntro() {
+    if (charIndex < introText.length) {
+        introBox.innerHTML = introText.substring(0, charIndex) + (charIndex % 2 === 0 ? "|" : "");
+        charIndex++;
+        setTimeout(typeIntro, 45);
+    } else {
+        // show START button after typing finished
+        startBtn.classList.remove("hidden");
+        startBtn.classList.add("show");
+    }
+}
+
+typeIntro();
+
+/* ================= CYBER CUBES ================= */
+const cyberCubesContainer = document.getElementById("cyber-cubes");
+
 function spawnCubes(amount) {
     for (let i = 0; i < amount; i++) {
         const cube = document.createElement("div");
@@ -35,40 +51,18 @@ function spawnCubes(amount) {
         cyberCubesContainer.appendChild(cube);
     }
 }
+
 spawnCubes(40);
 
-// ================= TYPING INTRO =================
-const introText = introBox.querySelector("p").innerHTML;
-introBox.innerHTML = "";
-let charIndex = 0;
-
-function typeIntro() {
-    if (charIndex < introText.length) {
-        introBox.innerHTML += introText.charAt(charIndex);
-        charIndex++;
-        setTimeout(typeIntro, 50); // controls typing speed (~10s for full text)
-    } else {
-        // After typing, fade out text and show start button
-        setTimeout(() => {
-            introBox.classList.add("fade-out");
-            startBtn.classList.remove("hidden");
-            startBtn.classList.add("show");
-        }, 500); // small delay before fade
-    }
-}
-typeIntro();
-
-// ================= START GAME =================
-startBtn.addEventListener("click", startGame);
-
-function startGame() {
+/* ================= START GAME ================= */
+startBtn.addEventListener("click", () => {
     startScreen.style.display = "none";
     gameUI.classList.remove("hidden");
+    startTimer();
     updateEmail();
-    timer = setInterval(countdown, 1000);
-}
+});
 
-// ================= GAME LOGIC =================
+/* ================= GAME LOGIC ================= */
 const emails = [
     {subject:"Class Update",from:"School Admin",blocks:["Schedule updated.","Check portal.","Attached document included.","Review all classes.","Contact admin if questions.","Do not ignore."],correct:"safe",penalty:10000},
     {subject:"Urgent Password Reset",from:"IT Dept",blocks:["Your account was compromised.","Reset password immediately.","Ignore at your own risk.","Link expires soon.","Confirm identity.","Do not share credentials."],correct:"infected",penalty:50000},
@@ -81,19 +75,26 @@ const emails = [
     {subject:"Project Deadline",from:"Manager",blocks:["Project submission due.","Check attached timeline.","Ensure tasks complete.","Contact manager if late.","Do not skip steps.","Submit on time."],correct:"safe",penalty:10000},
     {subject:"Win a Prize!",from:"Unknown",blocks:["You won a prize!","Click link to claim.","Provide details quickly.","Offer expires soon.","Do not miss this.","Be cautious!"],correct:"infected",penalty:50000}
 ];
+
+/* Shuffle emails */
 emails.sort(() => Math.random() - 0.5);
 
-function countdown() {
-    if (time <= 0) return endGame();
-    time--;
-    let min = Math.floor(time / 60), sec = time % 60;
-    timerDisplay.textContent = `${min}:${sec < 10 ? "0" + sec : sec}`;
+/* ================= GAME FUNCTIONS ================= */
+function startTimer() {
+    timer = setInterval(() => {
+        if (time <= 0) return endGame();
+        time--;
+        let min = Math.floor(time / 60), sec = time % 60;
+        timerDisplay.textContent = `${min}:${sec < 10 ? "0" + sec : sec}`;
+    }, 1000);
 }
 
 function updateEmail() {
     if (currentIndex >= emails.length) return endGame();
     const e = emails[currentIndex];
-    emailContainer.innerHTML = `<h2>${e.subject}</h2><h3>From: ${e.from}</h3>` + e.blocks.map(b => `<p>${b}</p>`).join("");
+    emailContainer.innerHTML =
+        `<h2>${e.subject}</h2><h3>From: ${e.from}</h3>` +
+        e.blocks.map(b => `<p>${b}</p>`).join("");
 }
 
 infectedBtn.addEventListener("click", () => checkAnswer("infected"));
@@ -111,21 +112,10 @@ function checkAnswer(choice) {
     updateEmail();
 }
 
-// ================= END SCREEN =================
+/* ================= END SCREEN ================= */
 function endGame() {
     clearInterval(timer);
     gameUI.classList.add("hidden");
     endScreen.style.display = "flex";
     finalBudget.textContent = `${budget.toLocaleString()} USD`;
-    endMessage.style.transform = "translateY(0)";
-    endDetails.style.opacity = 0;
-    endDetails.style.display = "flex";
-    setTimeout(() => {
-        endMessage.style.transform = "translateY(-20%)";
-        endDetails.style.opacity = 1;
-    }, 3000);
 }
-
-restartBtn.addEventListener("click", () => location.reload());
-backBtn.addEventListener("click", () => window.location.href = "index.html");
-
