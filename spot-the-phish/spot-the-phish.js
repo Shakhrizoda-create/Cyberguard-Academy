@@ -15,24 +15,25 @@ const restartBtn = document.getElementById("restart-btn");
 const backBtn = document.getElementById("back-btn");
 
 let budget = 850000;
-let time = 100; // 1:40 in seconds
+let time = 100; // 1:40
 let currentIndex = 0;
 let timer;
+
 const emails = [
-    {subject:"Class Schedule Updated",from:"School Admin",blocks:["Your class schedule has been updated.","Check your portal for details.","Attached is the updated schedule.","Ensure to review timings.","Contact admin for questions.","Do not ignore this message."],correct:"safe",penalty:10000},
-    {subject:"Urgent Password Reset",from:"IT Dept",blocks:["Your account was compromised.","Reset your password immediately.","Ignore at your own risk.","Link expires in 1 hour.","Do not share password.","Confirm identity now."],correct:"infected",penalty:50000},
-    {subject:"Team Lunch Invite",from:"HR Team",blocks:["You are invited to team lunch.","Date: Friday 12PM.","RSVP required.","Check menu attached.","Bring your ID badge.","Enjoy the meal!"],correct:"safe",penalty:10000},
-    {subject:"Invoice Overdue",from:"Accounting",blocks:["Invoice #12345 overdue.","Immediate payment required.","Attached document has details.","Late fee may apply.","Contact finance.","Do not ignore."],correct:"infected",penalty:20000},
-    {subject:"Phishing Test",from:"Security Dept",blocks:["This is a phishing test.","Do not click links.","Report any suspicious email.","Your awareness counts.","No penalty this time.","Thank you."],correct:"safe",penalty:10000},
-    {subject:"Win a Prize!",from:"Unknown",blocks:["You won a prize!","Click the link to claim.","Provide details quickly.","Offer expires soon.","Do not miss this.","Be cautious!"],correct:"infected",penalty:50000},
-    {subject:"Project Deadline Reminder",from:"Manager",blocks:["Project submission due.","Check attached timeline.","Ensure all tasks complete.","Contact manager if late.","Do not skip steps.","Submit on time."],correct:"safe",penalty:10000},
-    {subject:"Suspicious Login Alert",from:"IT Security",blocks:["Unusual login detected.","Click link to verify.","Account may be at risk.","Do not ignore.","Confirm identity.","Report issues immediately."],correct:"infected",penalty:50000},
-    {subject:"Workshop Invitation",from:"HR Team",blocks:["Join the cybersecurity workshop.","Date: Monday 10AM.","RSVP online.","Materials attached.","Be on time.","Certificate provided."],correct:"safe",penalty:10000},
-    {subject:"Bank Account Notice",from:"Bank",blocks:["Suspicious activity detected.","Verify account now.","Attached form required.","Failure may cause lockout.","Do not ignore.","Contact support immediately."],correct:"infected",penalty:50000}
+    {subject:"Class Update",from:"School Admin",blocks:["Schedule updated.","Check portal.","Attached document included.","Review all classes.","Contact admin if questions.","Do not ignore."],correct:"safe",penalty:10000},
+    {subject:"Urgent Password Reset",from:"IT Dept",blocks:["Your account was compromised.","Reset password immediately.","Ignore at your own risk.","Link expires soon.","Confirm identity.","Do not share credentials."],correct:"infected",penalty:50000},
+    {subject:"Workshop Invite",from:"HR Team",blocks:["Join the cybersecurity workshop.","Monday 10AM.","RSVP online.","Materials attached.","Be punctual.","Certificate provided."],correct:"safe",penalty:10000},
+    {subject:"Suspicious Login",from:"IT Security",blocks:["Unusual login detected.","Click link to verify.","Account may be at risk.","Do not ignore.","Confirm identity.","Report issues."],correct:"infected",penalty:50000},
+    {subject:"Invoice Notice",from:"Accounting",blocks:["Invoice #12345 overdue.","Immediate payment required.","Attached document has details.","Late fee may apply.","Contact finance.","Do not ignore."],correct:"infected",penalty:20000},
+    {subject:"Team Lunch",from:"HR Team",blocks:["You are invited to lunch.","Date: Friday 12PM.","RSVP required.","Check menu attached.","Bring ID badge.","Enjoy the meal!"],correct:"safe",penalty:10000},
+    {subject:"Phishing Test",from:"Security Dept",blocks:["This is a phishing test.","Do not click links.","Report suspicious emails.","Your awareness counts.","No penalty this time.","Thank you."],correct:"safe",penalty:10000},
+    {subject:"Bank Alert",from:"Bank",blocks:["Suspicious activity detected.","Verify account now.","Attached form required.","Failure may cause lockout.","Do not ignore.","Contact support."],correct:"infected",penalty:50000},
+    {subject:"Project Deadline",from:"Manager",blocks:["Project submission due.","Check attached timeline.","Ensure tasks complete.","Contact manager if late.","Do not skip steps.","Submit on time."],correct:"safe",penalty:10000},
+    {subject:"Win a Prize!",from:"Unknown",blocks:["You won a prize!","Click link to claim.","Provide details quickly.","Offer expires soon.","Do not miss this.","Be cautious!"],correct:"infected",penalty:50000}
 ];
 
 // Shuffle emails
-emails.sort(() => Math.random() - 0.5);
+emails.sort(()=>Math.random()-0.5);
 
 // ---------------- START BUTTON ----------------
 setTimeout(()=>{ startBtn.classList.remove("hidden"); },10000);
@@ -49,8 +50,7 @@ function startGame(){
 function countdown(){
     if(time<=0){ endGame(); return;}
     time--;
-    let min = Math.floor(time/60);
-    let sec = time%60;
+    let min=Math.floor(time/60), sec=time%60;
     timerDisplay.textContent=`${min}:${sec<10?'0'+sec:sec}`;
 }
 
