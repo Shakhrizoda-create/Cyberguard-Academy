@@ -3,116 +3,74 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Spot the Phish | Cybersecurity Threat Simulator</title>
+    <title>Spot the Phish Game</title>
 
-    <!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
-
-    <!-- Correct CSS Path -->
     <link rel="stylesheet" href="spot-the-phish/spot-the-phish.css">
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
 </head>
 
 <body>
 
-    <!-- ============================
-         START SCREEN / INTRO SECTION
-         ============================ -->
+    <!-- START SCREEN -->
     <div id="start-screen">
-        <h1 class="title">CYBERSECURITY EMAIL THREAT ASSESSMENT SIMULATOR</h1>
+        <h1 id="title">CYBERSECURITY EMAIL THREAT SIMULATOR</h1>
 
-        <div id="intro-box">
-            <p>
-                Welcome to the <strong>Cybersecurity Email Threat Assessment Simulator</strong>. 
-                In this module, you will evaluate a series of emails and login prompts to determine whether they are 
-                <strong>safe</strong>, <strong>suspicious</strong>, or <strong>malicious</strong>. 
-                Your task is to identify threats by analyzing authenticity, language cues, and structural indicators 
-                commonly associated with phishing attacks and digital compromise.
-            </p>
+        <p id="intro-text">
+            You have a budget of <strong>850,000 USD</strong>.  
+            Identify whether each email is <span class="safe">SAFE</span>  
+            or <span class="malicious">INFECTED / VIRUS</span>.  
+            Wrong answers subtract money based on difficulty.  
+            You have <strong>2:30 minutes</strong> to finish 10 questions.
+        </p>
 
-            <p>
-                You are allocated a security response budget of <strong>850,000 USD</strong>. 
-                Misclassifying a threat will result in financial losses based on its sophistication:
-            </p>
-
-            <ul>
-                <li>Easy / low‑risk deception: <strong>−10,000 USD</strong></li>
-                <li>Moderate‑low complexity: <strong>−20,000 USD</strong></li>
-                <li>Moderate complexity: <strong>−50,000 USD</strong></li>
-                <li>High complexity: <strong>−100,000 USD</strong></li>
-                <li>Advanced high‑risk threat: <strong>−200,000 USD</strong></li>
-            </ul>
-
-            <p>
-                You will be given <strong>10 email scenarios</strong> of varying difficulty.  
-                You have a total time limit of <strong>2 minutes and 30 seconds</strong>.  
-                If the timer expires before all scenarios are completed, the simulation ends automatically.
-            </p>
-
-            <p>
-                Your remaining budget will be visible at the top right of the interface.  
-                Your goal is simple: <strong>minimize losses and protect organizational security.</strong>
-            </p>
-        </div>
-
-        <!-- START BUTTON -->
-        <button id="start-btn">▶ START SIMULATION</button>
+        <button id="start-btn">▶ START</button>
     </div>
 
 
 
-    <!-- ============================
-           GAME UI SECTION
-         ============================ -->
+    <!-- GAME UI -->
     <div id="game-ui" class="hidden">
-
         <!-- Timer -->
-        <div id="timer-box">
-            <span>⏱</span>
-            <span id="timer">2:30</span>
-        </div>
+        <div id="timer-box">⏱ <span id="timer">2:30</span></div>
 
-        <!-- Budget Box -->
-        <div id="budget-box">
-            <span>💰 Budget:</span>
-            <span id="budget-amount">850,000 USD</span>
-        </div>
+        <!-- Budget -->
+        <div id="budget-box">💰 <span id="budget-amount">850,000 USD</span></div>
 
-        <!-- Email Container -->
-        <div id="email-container">
-            <!-- JS inserts the email text here -->
-        </div>
+        <!-- Email Display -->
+        <div id="email-container"></div>
 
-        <!-- Choice Buttons -->
+        <!-- Buttons -->
         <div id="choice-buttons">
-            <button class="choice-btn" id="safe-btn">SAFE</button>
-            <button class="choice-btn" id="suspicious-btn">SUSPICIOUS</button>
-            <button class="choice-btn" id="malicious-btn">MALICIOUS</button>
+            <button id="infected-btn">INFECTED / VIRUS</button>
+            <button id="safe-btn">SAFE / RELIABLE</button>
         </div>
 
-        <!-- HACKED / PENALTY ANIMATION -->
+        <!-- Penalty Animation -->
         <div id="penalty-display"></div>
-
     </div>
 
 
 
-    <!-- ============================
-         END SCREEN
-         ============================ -->
+    <!-- END SCREEN -->
     <div id="end-screen" class="hidden">
         <h1 id="end-title">SIMULATION COMPLETE</h1>
 
-        <p id="final-budget-text">Your remaining budget: <span id="final-budget"></span></p>
+        <p>Your remaining budget:</p>
+        <p id="final-budget"></p>
 
         <button id="restart-btn">RESTART</button>
-        <button id="back-btn">BACK TO HOME</button>
+        <button id="back-btn">BACK</button>
     </div>
 
 
 
-    <!-- Correct JS Path -->
-    <script src="spot-the-phish/spot-the-phish.js"></script>
+    <!-- AUDIO -->
+    <audio id="bg-music" src="assets-3/music.mp3" preload="auto" loop></audio>
+    <audio id="click-sound" src="assets-3/click.wav" preload="auto"></audio>
+    <audio id="penalty-sound" src="assets-3/penalty.wav" preload="auto"></audio>
 
+    <script src="spot-the-phish/spot-the-phish.js" defer></script>
 </body>
 </html>
+
 
