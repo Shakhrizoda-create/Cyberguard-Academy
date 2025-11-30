@@ -1,5 +1,5 @@
 /* =========================
-   GLOBAL LAYOUT
+   GLOBAL
 ========================= */
 body {
     margin: 0;
@@ -7,12 +7,11 @@ body {
     font-family: "Share Tech Mono", monospace;
     background: url("../assets-3/background.jpg") no-repeat center center fixed;
     background-size: cover;
+    color: #ffeb3b;
 }
 
-/* UNIVERSAL YELLOW GLOW */
-html, body, p, div, span, strong, li, ul, h1, h2, h3, h4, h5 {
-    color: #ffeb3b !important;
-    text-shadow: 0 0 10px #ffeb3b, 0 0 20px #ffeb3b !important;
+h1, h2, h3, h4, h5, p, span, strong {
+    text-shadow: 0 0 10px #ffeb3b, 0 0 20px #ffeb3b;
 }
 
 /* =========================
@@ -22,10 +21,16 @@ html, body, p, div, span, strong, li, ul, h1, h2, h3, h4, h5 {
     height: 100vh;
     width: 100vw;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
     padding: 40px;
+}
+
+#game-title {
+    font-size: 60px;
+    margin-bottom: 20px;
 }
 
 #intro-text {
@@ -34,27 +39,41 @@ html, body, p, div, span, strong, li, ul, h1, h2, h3, h4, h5 {
     line-height: 1.6;
 }
 
+.glow-line {
+    width: 60%;
+    border: 2px solid #ffeb3b;
+    box-shadow: 0 0 15px #ffeb3b;
+    margin: 20px 0;
+}
+
 /* =========================
    START BUTTON SCREEN
 ========================= */
 #start-screen {
+    display: none;
     height: 100vh;
     width: 100vw;
-    display: none;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
 }
 
 #big-start-btn {
-    width: 200px;
+    width: 220px;
     height: 100px;
     background: black;
     border: 4px solid #ffeb3b;
     color: #ffeb3b;
-    text-shadow: 0 0 15px #ffeb3b;
-    font-size: 32px;
+    font-size: 36px;
     cursor: pointer;
+    text-shadow: 0 0 15px #ffeb3b;
     box-shadow: 0 0 20px #ffeb3b;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+#big-start-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 40px #ffeb3b;
 }
 
 /* =========================
@@ -67,179 +86,70 @@ html, body, p, div, span, strong, li, ul, h1, h2, h3, h4, h5 {
 #timer-box, #budget-box {
     position: absolute;
     top: 20px;
-    font-size: 26px;
+    font-size: 28px;
+    text-shadow: 0 0 15px #ffeb3b;
 }
 
 #timer-box { left: 20px; }
 #budget-box { right: 20px; }
 
-/* EMAIL CONTAINER */
+/* EMAILS */
 #email-container {
-    width: 70%;
+    width: 80%;
     margin: 150px auto 0;
-    font-size: 24px;
-    line-height: 1.7;
+    font-size: 38px;
+    text-align: center;
+    line-height: 1.8;
 }
 
 /* CHOICE BUTTONS */
-#choice-buttons button {
-    background: black !important;
-    border: 3px solid #ffeb3b !important;
-    color: #ffeb3b !important;
-    text-shadow: 0 0 10px #ffeb3b !important;
-    padding: 14px 35px;
-    font-size: 26px;
-    cursor: pointer;
-    border-radius: 10px;
-    margin: 0 20px;
-    box-shadow: 0 0 20px #ffeb3b;
-}
-
-/* PENALTY ANIMATION */
-#penalty-display {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    font-size: 55px;
-    opacity: 0;
-    transform: translate(-50%, -50%) scale(1);
-    transition: 0.6s;
-    color: red !important;
-    text-shadow: 0 0 20px red !important;
-}
-
-/* END SCREEN */
-#end-screen {
-    display: none;
-    height: 100vh;
-    text-align: center;
-    margin-top: 140px;
-}
-/* =========================
-   GLOBAL LAYOUT
-========================= */
-body {
-    margin: 0;
-    padding: 0;
-    font-family: "Share Tech Mono", monospace;
-    background: url("../assets-3/background.jpg") no-repeat center center fixed;
-    background-size: cover;
-}
-
-/* UNIVERSAL YELLOW GLOW */
-html, body, p, div, span, strong, li, ul, h1, h2, h3, h4, h5 {
-    color: #ffeb3b !important;
-    text-shadow: 0 0 10px #ffeb3b, 0 0 20px #ffeb3b !important;
-}
-
-/* =========================
-   INTRO SCREEN
-========================= */
-#intro-screen {
-    height: 100vh;
-    width: 100vw;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    padding: 40px;
-}
-
-#intro-text {
-    font-size: 36px;
-    width: 70%;
-    line-height: 1.6;
-}
-
-/* =========================
-   START BUTTON SCREEN
-========================= */
-#start-screen {
-    height: 100vh;
-    width: 100vw;
-    display: none;
-    justify-content: center;
-    align-items: center;
-}
-
-#big-start-btn {
-    width: 200px;
-    height: 100px;
-    background: black;
-    border: 4px solid #ffeb3b;
-    color: #ffeb3b;
-    text-shadow: 0 0 15px #ffeb3b;
-    font-size: 32px;
-    cursor: pointer;
-    box-shadow: 0 0 20px #ffeb3b;
-}
-
-/* =========================
-   GAME UI
-========================= */
-#game-ui {
-    display: none;
-}
-
-#timer-box, #budget-box {
-    position: absolute;
-    top: 20px;
-    font-size: 26px;
-}
-
-#timer-box { left: 20px; }
-#budget-box { right: 20px; }
-
-/* EMAIL CONTAINER - bigger text */
-#email-container {
-    width: 80%;
-    margin: 100px auto 0;
-    font-size: 36px; /* bigger */
-    line-height: 1.8;
-    text-align: center;
-}
-
-/* CHOICE BUTTONS - bottom corners */
 #choice-buttons {
     position: fixed;
     bottom: 40px;
     width: 100%;
     display: flex;
     justify-content: space-between;
-    padding: 0 50px;
+    padding: 0 80px;
 }
 
-/* SAFE BUTTON - green glow */
-#choice-buttons #safe-btn {
+#safe-btn {
     background: black;
-    border: 4px solid #00ff00;
+    border: 4px solid #ffeb3b;
     color: #00ff00;
-    text-shadow: 0 0 15px #00ff00;
+    text-shadow: 0 0 15px #00ff00, 0 0 30px #00ff00;
     font-size: 28px;
     padding: 15px 40px;
     border-radius: 10px;
     cursor: pointer;
-    transition: transform 0.2s;
-    box-shadow: 0 0 20px #00ff00;
+    transition: transform 0.2s, text-shadow 0.2s, box-shadow 0.2s;
+    box-shadow: 0 0 15px #00ff00;
 }
 
-/* INFECTED BUTTON - red glow */
-#choice-buttons #infected-btn {
+#infected-btn {
     background: black;
-    border: 4px solid red;
+    border: 4px solid #ffeb3b;
     color: red;
-    text-shadow: 0 0 15px red;
+    text-shadow: 0 0 15px red, 0 0 30px red;
     font-size: 28px;
     padding: 15px 40px;
     border-radius: 10px;
     cursor: pointer;
-    transition: transform 0.2s;
-    box-shadow: 0 0 20px red;
+    transition: transform 0.2s, text-shadow 0.2s, box-shadow 0.2s;
+    box-shadow: 0 0 15px red;
 }
 
-/* Button press animation - scale */
-#choice-buttons button:active {
-    transform: scale(1.1);
+#choice-buttons button:hover {
+    transform: scale(1.15);
+}
+
+#safe-btn:hover {
+    text-shadow: 0 0 25px #00ff00, 0 0 45px #00ff00;
+    box-shadow: 0 0 35px #00ff00;
+}
+
+#infected-btn:hover {
+    text-shadow: 0 0 25px red, 0 0 45px red;
+    box-shadow: 0 0 35px red;
 }
 
 /* PENALTY ANIMATION */
@@ -247,19 +157,40 @@ html, body, p, div, span, strong, li, ul, h1, h2, h3, h4, h5 {
     position: absolute;
     top: 50%;
     left: 50%;
-    font-size: 55px;
+    font-size: 60px;
+    color: red;
+    text-shadow: 0 0 20px red;
     opacity: 0;
     transform: translate(-50%, -50%) scale(1);
     transition: 0.6s;
-    color: red !important;
-    text-shadow: 0 0 20px red !important;
 }
 
-/* END SCREEN */
+/* =========================
+   END SCREEN
+========================= */
 #end-screen {
     display: none;
     height: 100vh;
     text-align: center;
     margin-top: 140px;
 }
+
+#restart-btn, #home-btn {
+    background: black;
+    border: 4px solid #ffeb3b;
+    color: #ffeb3b;
+    font-size: 28px;
+    padding: 15px 40px;
+    margin: 20px;
+    cursor: pointer;
+    text-shadow: 0 0 15px #ffeb3b;
+    box-shadow: 0 0 20px #ffeb3b;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+#restart-btn:hover, #home-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 40px #ffeb3b;
+}
+
 
