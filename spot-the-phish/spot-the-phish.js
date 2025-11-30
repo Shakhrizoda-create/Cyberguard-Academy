@@ -1,9 +1,8 @@
-/* ================= ELEMENTS ================= */
+// Elements
 const startScreen = document.getElementById("start-screen");
 const startBtn = document.getElementById("start-btn");
-const introBox = document.querySelector("#intro-box p"); // target <p>
-const introContainer = document.getElementById("intro-box"); // fade container
-const title = document.querySelector(".game-title");
+const introBox = document.getElementById("intro-box");
+const gameTitle = document.querySelector(".game-title");
 const gameUI = document.getElementById("game-ui");
 const timerDisplay = document.getElementById("timer");
 const budgetDisplay = document.getElementById("budget-amount");
@@ -16,65 +15,84 @@ const finalBudget = document.getElementById("final-budget");
 const restartBtn = document.getElementById("restart-btn");
 const backBtn = document.getElementById("back-btn");
 
-/* ================= VARIABLES ================= */
+// Game variables
 let budget = 850000;
 let time = 100;
 let currentIndex = 0;
 let timer;
 
-/* ================= CYBER CUBES ================= */
+// Cyber cubes
 const cyberCubesContainer = document.getElementById("cyber-cubes");
-
-function spawnCubes(amount) {
-    for (let i = 0; i < amount; i++) {
+function spawnCubes(amount){
+    for(let i=0;i<amount;i++){
         const cube = document.createElement("div");
         cube.classList.add("cube");
-        cube.style.left = Math.random() * 100 + "vw";
-        cube.style.animationDuration = 6 + Math.random() * 4 + "s";
-        cube.style.width = cube.style.height = (15 + Math.random() * 30) + "px";
-        cube.style.opacity = 0.2 + Math.random() * 0.6;
+        cube.style.left = Math.random()*100 + "vw";
+        cube.style.animationDuration = (6+Math.random()*4) + "s";
+        cube.style.width = cube.style.height = (15+Math.random()*30)+"px";
+        cube.style.opacity = 0.2+Math.random()*0.6;
         cyberCubesContainer.appendChild(cube);
     }
 }
-
 spawnCubes(40);
 
-/* ================= TYPING EFFECT ================= */
-function typeText(element, speed = 30, callback) {
-    const text = element.innerHTML;
-    element.innerHTML = "";
+// ================= TYPING ANIMATION =================
+function typeHTML(element, html, speed=20, callback){
     let i = 0;
-    const typer = setInterval(() => {
-        element.innerHTML += text.charAt(i);
-        i++;
-        if (i >= text.length) {
-            clearInterval(typer);
-            if (callback) callback();
+    function typeNext(){
+        if(i>=html.length){
+            if(callback) callback();
+            return;
         }
-    }, speed);
+        // Check for tag start
+        if(html[i]==="<"){
+            let tagEnd = html.indexOf(">", i);
+            element.innerHTML += html.substring(i, tagEnd+1);
+            i = tagEnd+1;
+            typeNext();
+        } else {
+            element.innerHTML += html[i];
+            i++;
+            setTimeout(typeNext, speed);
+        }
+    }
+    element.innerHTML = "";
+    typeNext();
 }
 
-typeText(introBox, 20, () => {
-    introContainer.classList.add("fade-out"); // fade text
-    title.classList.add("top"); // move title
-
+// ================= START SCREEN LOGIC =================
+const introHTML = introBox.innerHTML;
+introBox.innerHTML = "";
+typeHTML(introBox, introHTML, 30, () => {
+    // After typing finishes, fade out text & show start button
     setTimeout(() => {
+        introBox.classList.add("fade-out");
+        gameTitle.style.transform = "translateY(-40px)";
         startBtn.classList.remove("hidden");
         startBtn.classList.add("show");
-    }, 1200);
+    }, 800); // small delay after typing
 });
 
-/* ================= START GAME ================= */
+// START GAME
 startBtn.addEventListener("click", startGame);
-
-function startGame() {
+function startGame(){
     startScreen.style.display = "none";
     gameUI.classList.remove("hidden");
+    startTimer();
     updateEmail();
-    timer = setInterval(countdown, 1000);
 }
 
-/* ================= GAME LOGIC ================= */
+// Timer
+function startTimer(){
+    timer = setInterval(() => {
+        if(time<=0) return endGame();
+        time--;
+        let min=Math.floor(time/60), sec=time%60;
+        timerDisplay.textContent = `${min}:${sec<10?"0"+sec:sec}`;
+    },1000);
+}
+
+// Email logic
 const emails = [
     {subject:"Class Update",from:"School Admin",blocks:["Schedule updated.","Check portal.","Attached document included.","Review all classes.","Contact admin if questions.","Do not ignore."],correct:"safe",penalty:10000},
     {subject:"Urgent Password Reset",from:"IT Dept",blocks:["Your account was compromised.","Reset password immediately.","Ignore at your own risk.","Link expires soon.","Confirm identity.","Do not share credentials."],correct:"infected",penalty:50000},
@@ -87,48 +105,38 @@ const emails = [
     {subject:"Project Deadline",from:"Manager",blocks:["Project submission due.","Check attached timeline.","Ensure tasks complete.","Contact manager if late.","Do not skip steps.","Submit on time."],correct:"safe",penalty:10000},
     {subject:"Win a Prize!",from:"Unknown",blocks:["You won a prize!","Click link to claim.","Provide details quickly.","Offer expires soon.","Do not miss this.","Be cautious!"],correct:"infected",penalty:50000}
 ];
+emails.sort(()=>Math.random()-0.5);
 
-emails.sort(() => Math.random() - 0.5);
-
-function countdown() {
-    if (time <= 0) return endGame();
-    time--;
-    let min = Math.floor(time / 60), sec = time % 60;
-    timerDisplay.textContent = `${min}:${sec < 10 ? "0" + sec : sec}`;
+function updateEmail(){
+    if(currentIndex>=emails.length) return endGame();
+    const e=emails[currentIndex];
+    emailContainer.innerHTML = `<h2>${e.subject}</h2><h3>From: ${e.from}</h3>` +
+        e.blocks.map(b=>`<p>${b}</p>`).join("");
 }
 
-function updateEmail() {
-    if (currentIndex >= emails.length) return endGame();
-    const e = emails[currentIndex];
-    emailContainer.innerHTML =
-        `<h2>${e.subject}</h2><h3>From: ${e.from}</h3>` +
-        e.blocks.map(b => `<p>${b}</p>`).join("");
-}
+infectedBtn.addEventListener("click", ()=>checkAnswer("infected"));
+safeBtn.addEventListener("click", ()=>checkAnswer("safe"));
 
-infectedBtn.addEventListener("click", () => checkAnswer("infected"));
-safeBtn.addEventListener("click", () => checkAnswer("safe"));
-
-function checkAnswer(choice) {
-    const e = emails[currentIndex];
-    if (choice !== e.correct) {
+function checkAnswer(choice){
+    const e=emails[currentIndex];
+    if(choice!==e.correct){
         budget -= e.penalty;
         penaltyDisplay.textContent = `-${e.penalty.toLocaleString()} USD`;
-        setTimeout(() => penaltyDisplay.textContent = "", 1000);
+        setTimeout(()=>penaltyDisplay.textContent="",1000);
     }
     budgetDisplay.textContent = `${budget.toLocaleString()} USD`;
     currentIndex++;
     updateEmail();
 }
 
-/* ================= END SCREEN ================= */
-function endGame() {
+// End Screen
+function endGame(){
     clearInterval(timer);
     gameUI.classList.add("hidden");
     endScreen.style.display = "flex";
     finalBudget.textContent = `${budget.toLocaleString()} USD`;
 }
 
-restartBtn.addEventListener("click", () => location.reload());
-backBtn.addEventListener("click", () => window.location.href="index.html");
-
+restartBtn.addEventListener("click", ()=>location.reload());
+backBtn.addEventListener("click", ()=>window.location.href="index.html");
 
