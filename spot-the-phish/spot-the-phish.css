@@ -5,74 +5,85 @@ body {
     background: #000;
     color: #fff;
     overflow: hidden;
+    height: 100vh;
 }
 
-/* Hidden class */
+/* Hidden helper */
 .hidden { display: none; }
 
 /* ================= START SCREEN ================= */
 #start-screen {
     position: relative;
     height: 100vh;
-    width: 100vw;
     text-align: center;
     overflow: hidden;
 }
 
-/* Background blur */
+/* Blurred background */
 #bg-overlay {
     position: absolute;
     inset: 0;
     background: url("../assets-3/computer-background.spot-the-phish.jpg") center/cover no-repeat;
-    filter: blur(5px) brightness(0.6);
+    filter: blur(4px) brightness(0.6);
     z-index: 1;
 }
 
-/* CRT overlay for scanlines effect */
+/* CRT Scanlines overlay */
 #crt-overlay {
     position: absolute;
     inset: 0;
     background: repeating-linear-gradient(
         to bottom,
-        rgba(255,255,255,0.03) 0,
-        rgba(255,255,255,0.03) 1px,
+        rgba(255,255,255,0.02),
+        rgba(255,255,255,0.02) 1px,
         transparent 1px,
-        transparent 3px
+        transparent 2px
     );
-    z-index: 2;
+    z-index: 10;
     pointer-events: none;
 }
 
-/* Title glow and lag */
+/* Lagging / flickering title */
 .game-title {
     position: relative;
-    top: 20px;
-    z-index: 10;
-    font-size: 4rem;
+    z-index: 20;
+    font-size: 4.5rem;
     color: #ffeb3b;
-    text-shadow: 0 0 15px #ffeb3b, 0 0 35px #fff200, 0 0 55px #fff200;
-    animation: titleLag 1.5s infinite alternate;
+    margin-top: 40px;
+    text-shadow:
+        0 0 5px #ffeb3b,
+        0 0 10px #fff200,
+        0 0 15px #fff200;
+    animation: titleGlitch 2s infinite;
 }
 
-/* Typing animation for title lag */
-@keyframes titleLag {
-    0% { transform: translateX(0px) scale(1); }
-    50% { transform: translateX(2px) scale(1.02); }
-    100% { transform: translateX(-2px) scale(1); }
+/* Shadow flicker animation */
+@keyframes titleGlitch {
+    0%, 100% { text-shadow: 0 0 5px #ffeb3b, 0 0 10px #fff200, 0 0 15px #fff200; }
+    25% { text-shadow: 2px 2px 10px #fff200, -2px -2px 15px #ffeb3b; }
+    50% { text-shadow: -2px 2px 12px #ffeb3b, 2px -2px 15px #fff200; }
+    75% { text-shadow: 2px -2px 10px #fff200, -2px 2px 15px #ffeb3b; }
 }
 
-/* Intro text */
+/* Intro text box */
 #intro-box {
     position: relative;
-    top: 80px;
-    z-index: 10;
+    z-index: 20;
     width: 70%;
     margin: 0 auto;
+    margin-top: 20px;
     font-size: 1.8rem;
     color: #ffeb3b;
     text-shadow: 0 0 10px #ffeb3b;
     line-height: 1.7em;
-    min-height: 150px;
+    opacity: 1;
+    transition: opacity 1.5s;
+}
+
+/* Fade out class */
+#intro-box.fade-out {
+    opacity: 0;
+    pointer-events: none;
 }
 
 /* START button */
@@ -85,20 +96,28 @@ body {
     border-radius: 15px;
     cursor: pointer;
     text-shadow: 0 0 15px #ffeb3b;
-    margin-top: 40px;
+    margin-top: 50px;
     opacity: 0;
-    z-index: 20;
+    z-index: 30;
     position: relative;
-    transition: opacity 1s, transform 0.3s;
+    transition: opacity 1.5s, transform 0.3s;
 }
 
 #start-btn.show {
     opacity: 1;
+    animation: startBtnGlow 1.5s infinite alternate;
 }
 
+/* Glowing hover animation */
 #start-btn:hover {
-    transform: scale(1.15);
+    transform: scale(1.1);
     text-shadow: 0 0 30px #fff200, 0 0 60px #ffeb3b;
+}
+
+/* Start button glow animation */
+@keyframes startBtnGlow {
+    0% { text-shadow: 0 0 15px #ffeb3b, 0 0 30px #fff200; box-shadow: 0 0 15px #ffeb3b; }
+    100% { text-shadow: 0 0 25px #fff200, 0 0 50px #ffeb3b; box-shadow: 0 0 25px #fff200; }
 }
 
 /* Cyber cubes */
@@ -111,10 +130,8 @@ body {
 
 .cube {
     position: absolute;
-    width: 20px;
-    height: 20px;
     background: #ffeb3b;
-    opacity: 0.4;
+    opacity: 0.3;
     border-radius: 4px;
     animation: cubeMove linear infinite;
 }
@@ -134,3 +151,5 @@ body {
     margin-top: 20px;
     text-shadow: 0 0 10px #ffeb3b;
 }
+
+/* Other buttons remain same as previous styling */
