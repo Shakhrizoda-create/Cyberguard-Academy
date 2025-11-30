@@ -1,8 +1,6 @@
 // ================= ELEMENTS =================
 const startScreen = document.getElementById("start-screen");
 const startBtn = document.getElementById("start-btn");
-const introBox = document.getElementById("intro-box");
-const cyberCubesContainer = document.getElementById("cyber-cubes");
 const gameUI = document.getElementById("game-ui");
 const timerDisplay = document.getElementById("timer");
 const budgetDisplay = document.getElementById("budget-amount");
@@ -16,10 +14,12 @@ const endDetails = document.getElementById("end-details");
 const finalBudget = document.getElementById("final-budget");
 const restartBtn = document.getElementById("restart-btn");
 const backBtn = document.getElementById("back-btn");
+const cyberCubesContainer = document.getElementById("cyber-cubes");
+const introBox = document.getElementById("intro-box");
 
-// ================= GAME VARIABLES =================
+// ================= VARIABLES =================
 let budget = 850000;
-let time = 100; // 1:40
+let time = 100;
 let currentIndex = 0;
 let timer;
 
@@ -37,31 +37,45 @@ function spawnCubes(amount) {
 }
 spawnCubes(40);
 
-// ================= START SCREEN LOGIC =================
-// Typewriter/lagging effect
-const fullText = introBox.innerHTML;
-introBox.innerHTML = "";
-let index = 0;
+// ================= TYPING ANIMATION =================
+const introText = `Welcome! Your task is to evaluate incoming emails and determine which are 
+safe or malicious.
 
-function typeWriter() {
-    if (index < fullText.length) {
-        introBox.innerHTML += fullText.charAt(index);
-        index++;
-        setTimeout(typeWriter, 30 + Math.random() * 50); // random lag
+You are provided with a security budget of 850,000 USD.
+
+Incorrect decisions reduce your funds depending on the threat level.
+
+Protect your organization—your cybersecurity awareness is the key.`;
+
+let charIndex = 0;
+function typeIntro() {
+    if(charIndex < introText.length) {
+        const currentChar = introText[charIndex];
+        introBox.innerHTML += currentChar === "\n" ? "<br>" : currentChar;
+        charIndex++;
+        setTimeout(typeIntro, 50); // adjust speed for ~10 sec total
+    } else {
+        showStartBtn();
     }
 }
-typeWriter();
-
-// Show start button after text
-setTimeout(() => {
-    introBox.classList.add("fade-out");
+function showStartBtn() {
     startBtn.classList.remove("hidden");
     startBtn.classList.add("show");
-}, 10000);
+    introBox.style.opacity = 0; // fade text
+}
+typeIntro();
 
+// ================= START GAME =================
 startBtn.addEventListener("click", startGame);
 
-// ================= EMAILS =================
+function startGame() {
+    startScreen.style.display = "none";
+    gameUI.classList.remove("hidden");
+    updateEmail();
+    timer = setInterval(countdown, 1000);
+}
+
+// ================= GAME LOGIC =================
 const emails = [
     {subject:"Class Update",from:"School Admin",blocks:["Schedule updated.","Check portal.","Attached document included.","Review all classes.","Contact admin if questions.","Do not ignore."],correct:"safe",penalty:10000},
     {subject:"Urgent Password Reset",from:"IT Dept",blocks:["Your account was compromised.","Reset password immediately.","Ignore at your own risk.","Link expires soon.","Confirm identity.","Do not share credentials."],correct:"infected",penalty:50000},
@@ -76,14 +90,6 @@ const emails = [
 ];
 emails.sort(() => Math.random() - 0.5);
 
-// ================= GAME FUNCTIONS =================
-function startGame() {
-    startScreen.style.display = "none";
-    gameUI.classList.remove("hidden");
-    updateEmail();
-    timer = setInterval(countdown, 1000);
-}
-
 function countdown() {
     if (time <= 0) return endGame();
     time--;
@@ -92,11 +98,9 @@ function countdown() {
 }
 
 function updateEmail() {
-    if (currentIndex >= emails.length) return endGame();
+    if(currentIndex >= emails.length) return endGame();
     const e = emails[currentIndex];
-    emailContainer.innerHTML =
-        `<h2>${e.subject}</h2><h3>From: ${e.from}</h3>` +
-        e.blocks.map(b => `<p>${b}</p>`).join("");
+    emailContainer.innerHTML = `<h2>${e.subject}</h2><h3>From: ${e.from}</h3>` + e.blocks.map(b => `<p>${b}</p>`).join("");
 }
 
 infectedBtn.addEventListener("click", () => checkAnswer("infected"));
@@ -104,7 +108,7 @@ safeBtn.addEventListener("click", () => checkAnswer("safe"));
 
 function checkAnswer(choice) {
     const e = emails[currentIndex];
-    if (choice !== e.correct) {
+    if(choice !== e.correct){
         budget -= e.penalty;
         penaltyDisplay.textContent = `-${e.penalty.toLocaleString()} USD`;
         setTimeout(() => penaltyDisplay.textContent = "", 1000);
