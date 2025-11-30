@@ -1,6 +1,9 @@
 /* ================= ELEMENTS ================= */
 const startScreen = document.getElementById("start-screen");
 const startBtn = document.getElementById("start-btn");
+const introBox = document.querySelector("#intro-box p"); // target <p>
+const introContainer = document.getElementById("intro-box"); // fade container
+const title = document.querySelector(".game-title");
 const gameUI = document.getElementById("game-ui");
 const timerDisplay = document.getElementById("timer");
 const budgetDisplay = document.getElementById("budget-amount");
@@ -9,15 +12,11 @@ const infectedBtn = document.getElementById("infected-btn");
 const safeBtn = document.getElementById("safe-btn");
 const penaltyDisplay = document.getElementById("penalty-display");
 const endScreen = document.getElementById("end-screen");
-const endMessage = document.getElementById("end-message");
-const endDetails = document.getElementById("end-details");
 const finalBudget = document.getElementById("final-budget");
 const restartBtn = document.getElementById("restart-btn");
 const backBtn = document.getElementById("back-btn");
-const introBox = document.getElementById("intro-box");
-const title = document.querySelector(".game-title");
 
-/* ================= GAME VARIABLES ================= */
+/* ================= VARIABLES ================= */
 let budget = 850000;
 let time = 100;
 let currentIndex = 0;
@@ -56,15 +55,13 @@ function typeText(element, speed = 30, callback) {
 }
 
 typeText(introBox, 20, () => {
-    // After typing finishes, fade out intro and move title
-    introBox.classList.add("fade-out");
-    title.classList.add("top");
+    introContainer.classList.add("fade-out"); // fade text
+    title.classList.add("top"); // move title
 
-    // Show START button after small delay
     setTimeout(() => {
         startBtn.classList.remove("hidden");
         startBtn.classList.add("show");
-    }, 1000);
+    }, 1200);
 });
 
 /* ================= START GAME ================= */
@@ -77,15 +74,7 @@ function startGame() {
     timer = setInterval(countdown, 1000);
 }
 
-/* ================= TIMER ================= */
-function countdown() {
-    if (time <= 0) return endGame();
-    time--;
-    let min = Math.floor(time / 60), sec = time % 60;
-    timerDisplay.textContent = `${min}:${sec < 10 ? "0" + sec : sec}`;
-}
-
-/* ================= EMAIL LOGIC ================= */
+/* ================= GAME LOGIC ================= */
 const emails = [
     {subject:"Class Update",from:"School Admin",blocks:["Schedule updated.","Check portal.","Attached document included.","Review all classes.","Contact admin if questions.","Do not ignore."],correct:"safe",penalty:10000},
     {subject:"Urgent Password Reset",from:"IT Dept",blocks:["Your account was compromised.","Reset password immediately.","Ignore at your own risk.","Link expires soon.","Confirm identity.","Do not share credentials."],correct:"infected",penalty:50000},
@@ -99,8 +88,14 @@ const emails = [
     {subject:"Win a Prize!",from:"Unknown",blocks:["You won a prize!","Click link to claim.","Provide details quickly.","Offer expires soon.","Do not miss this.","Be cautious!"],correct:"infected",penalty:50000}
 ];
 
-// Shuffle emails
 emails.sort(() => Math.random() - 0.5);
+
+function countdown() {
+    if (time <= 0) return endGame();
+    time--;
+    let min = Math.floor(time / 60), sec = time % 60;
+    timerDisplay.textContent = `${min}:${sec < 10 ? "0" + sec : sec}`;
+}
 
 function updateEmail() {
     if (currentIndex >= emails.length) return endGame();
@@ -131,13 +126,6 @@ function endGame() {
     gameUI.classList.add("hidden");
     endScreen.style.display = "flex";
     finalBudget.textContent = `${budget.toLocaleString()} USD`;
-    endMessage.style.transform = "translateY(0)";
-    endDetails.style.opacity = 0;
-    endDetails.style.display = "flex";
-    setTimeout(() => {
-        endMessage.style.transform = "translateY(-20%)";
-        endDetails.style.opacity = 1;
-    }, 3000);
 }
 
 restartBtn.addEventListener("click", () => location.reload());
