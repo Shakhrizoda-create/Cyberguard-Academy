@@ -1,5 +1,5 @@
 // ========================
-// GAME QUESTIONS
+// GAME DATA
 // ========================
 const emails = [
     {
@@ -19,7 +19,7 @@ const emails = [
         date: "Thu, 14 Nov 2025 13:55 PM",
         attachments: [],
         body: "Unusual activity detected. Verify your identity.",
-        correct: "malicious",
+        correct: "infected",
         difficulty: "Hardest"
     },
     {
@@ -29,7 +29,7 @@ const emails = [
         date: "Fri, 15 Nov 2025 11:30 AM",
         attachments: [],
         body: "Your password expired today. Reset using the link below.",
-        correct: "malicious",
+        correct: "infected",
         difficulty: "Medium Hard"
     },
     {
@@ -49,9 +49,9 @@ const emails = [
         date: "Tue, 19 Nov 2025 14:15 PM",
         attachments: [],
         body: "Claim your prize by clicking here.",
-        correct: "malicious",
+        correct: "infected",
         difficulty: "Hardest"
-    },
+    }
 ];
 
 const penalties = {
@@ -67,8 +67,8 @@ let timeLeft = 150;
 let timer;
 
 // DOM
-const intro = document.getElementById("start-screen");
-const startButtonScreen = document.getElementById("start-button-screen");
+const introScreen = document.getElementById("intro-screen");
+const startScreen = document.getElementById("start-screen");
 const bigStartBtn = document.getElementById("big-start-btn");
 const gameUI = document.getElementById("game-ui");
 const endScreen = document.getElementById("end-screen");
@@ -82,11 +82,9 @@ const bgMusic = document.getElementById("bg-music");
 const clickSound = document.getElementById("click-sound");
 const penaltySound = document.getElementById("penalty-sound");
 
-// After 10 seconds → show big START PAGE
-setTimeout(() => {
-    intro.style.display = "none";
-    startButtonScreen.style.display = "flex";
-}, 10000);
+// ========================
+// FUNCTIONS
+// ========================
 
 // Shuffle
 function shuffle(a) {
@@ -96,7 +94,7 @@ function shuffle(a) {
     }
 }
 
-// Load an email
+// Load email
 function loadEmail() {
     const m = emails[index];
     let att = "";
@@ -127,7 +125,6 @@ function startTimer() {
     }, 1000);
 }
 
-// Format mm:ss
 function format(t) {
     let m = Math.floor(t / 60);
     let s = t % 60;
@@ -150,7 +147,6 @@ function showPenalty(val) {
 // Answering
 function answer(type) {
     clickSound.play();
-
     let q = emails[index];
     let pen = penalties[q.difficulty];
 
@@ -169,7 +165,7 @@ function answer(type) {
     }
 }
 
-// END GAME
+// End game
 function endGame() {
     clearInterval(timer);
     bgMusic.pause();
@@ -180,9 +176,19 @@ function endGame() {
     document.getElementById("final-budget").textContent = `${budget} USD`;
 }
 
-// BIG START BUTTON CLICK
+// ========================
+// EVENTS
+// ========================
+
+// After 10s → show start screen
+setTimeout(() => {
+    introScreen.style.display = "none";
+    startScreen.style.display = "flex";
+}, 10000);
+
+// Start button
 bigStartBtn.onclick = () => {
-    startButtonScreen.style.display = "none";
+    startScreen.style.display = "none";
     gameUI.style.display = "block";
 
     shuffle(emails);
@@ -193,7 +199,11 @@ bigStartBtn.onclick = () => {
     bgMusic.play();
 };
 
-// Buttons
-document.getElementById("infected-btn").onclick = () => answer("malicious");
+// Choice buttons
 document.getElementById("safe-btn").onclick = () => answer("safe");
+document.getElementById("infected-btn").onclick = () => answer("infected");
+
+// Restart button
+document.getElementById("restart-btn").onclick = () => location.reload();
+
 
