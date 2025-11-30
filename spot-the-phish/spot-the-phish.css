@@ -190,26 +190,56 @@ html, body, p, div, span, strong, li, ul, h1, h2, h3, h4, h5 {
 #timer-box { left: 20px; }
 #budget-box { right: 20px; }
 
-/* EMAIL CONTAINER */
+/* EMAIL CONTAINER - bigger text */
 #email-container {
-    width: 70%;
-    margin: 150px auto 0;
-    font-size: 24px;
-    line-height: 1.7;
+    width: 80%;
+    margin: 100px auto 0;
+    font-size: 36px; /* bigger */
+    line-height: 1.8;
+    text-align: center;
 }
 
-/* CHOICE BUTTONS */
-#choice-buttons button {
-    background: black !important;
-    border: 3px solid #ffeb3b !important;
-    color: #ffeb3b !important;
-    text-shadow: 0 0 10px #ffeb3b !important;
-    padding: 14px 35px;
-    font-size: 26px;
-    cursor: pointer;
+/* CHOICE BUTTONS - bottom corners */
+#choice-buttons {
+    position: fixed;
+    bottom: 40px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 50px;
+}
+
+/* SAFE BUTTON - green glow */
+#choice-buttons #safe-btn {
+    background: black;
+    border: 4px solid #00ff00;
+    color: #00ff00;
+    text-shadow: 0 0 15px #00ff00;
+    font-size: 28px;
+    padding: 15px 40px;
     border-radius: 10px;
-    margin: 0 20px;
-    box-shadow: 0 0 20px #ffeb3b;
+    cursor: pointer;
+    transition: transform 0.2s;
+    box-shadow: 0 0 20px #00ff00;
+}
+
+/* INFECTED BUTTON - red glow */
+#choice-buttons #infected-btn {
+    background: black;
+    border: 4px solid red;
+    color: red;
+    text-shadow: 0 0 15px red;
+    font-size: 28px;
+    padding: 15px 40px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: transform 0.2s;
+    box-shadow: 0 0 20px red;
+}
+
+/* Button press animation - scale */
+#choice-buttons button:active {
+    transform: scale(1.1);
 }
 
 /* PENALTY ANIMATION */
