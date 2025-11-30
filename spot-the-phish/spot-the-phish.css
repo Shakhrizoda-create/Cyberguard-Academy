@@ -1,209 +1,168 @@
 body {
     margin: 0;
-    padding: 0;
-    background-color: black;
     font-family: 'Share Tech Mono', monospace;
+    background-color: black;
     color: yellow;
     overflow: hidden;
 }
 
-/* HIDDEN CLASS */
-.hidden { display: none; }
-
-/* ==========================
-   INTRO SCREEN
-=========================== */
-#intro-screen {
+/* ================= START SCREEN ================= */
+#start-screen {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     height: 100vh;
     text-align: center;
-    padding: 30px;
 }
 
-#game-title {
-    font-size: 4.5em;
-    text-shadow: 0 0 30px yellow, 0 0 50px yellow;
-    margin-bottom: 20px;
+.game-title {
+    font-size: 4em;
+    text-shadow: 0 0 20px yellow, 0 0 40px yellow;
+    margin-bottom: 40px;
 }
 
-#intro-box {
-    font-size: 1.8em;
-    line-height: 1.6em;
-    color: yellow;
-    text-shadow: 0 0 15px yellow;
-    margin-bottom: 50px;
+#intro-box p {
+    font-size: 2em;
+    line-height: 1.5em;
+    text-shadow: 0 0 10px yellow;
 }
 
-#big-start-btn {
-    padding: 25px 60px;
-    font-size: 2.5em;
+#start-btn {
+    padding: 25px 80px;
+    font-size: 2em;
+    margin-top: 30px;
     background-color: black;
     color: yellow;
     border: 3px solid yellow;
     cursor: pointer;
-    text-shadow: 0 0 25px yellow;
-    transition: all 0.3s ease;
+    text-shadow: 0 0 10px yellow;
+    transition: transform 0.3s, text-shadow 0.3s;
 }
 
-#big-start-btn:hover {
+#start-btn:hover {
     transform: scale(1.1);
-    text-shadow: 0 0 50px yellow;
+    text-shadow: 0 0 20px cyan, 0 0 40px yellow;
 }
 
-/* ==========================
-   GAME UI
-=========================== */
+.hidden { display: none; }
+
+/* ================= GAME UI ================= */
 #game-ui {
-    position: relative;
-    width: 100%;
-    height: 100vh;
-    padding: 20px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: flex-start;
+    align-items: center;
+    height: 100vh;
+    padding: 20px;
 }
 
-#timer-box {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    font-size: 1.5em;
-    color: yellow;
-    text-shadow: 0 0 10px yellow;
-}
-
-#budget-box {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    font-size: 1.5em;
-    color: yellow;
+#timer-box, #budget-box {
+    font-size: 2em;
+    margin-bottom: 20px;
     text-shadow: 0 0 10px yellow;
 }
 
 #email-container {
-    flex: 1;
-    margin: 100px 20px 150px 20px;
-    overflow-y: auto;
+    flex-grow: 1;
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    margin-bottom: 30px;
     font-size: 1.8em;
-    line-height: 1.5em;
-    color: yellow;
+    line-height: 2em;
     text-shadow: 0 0 15px yellow;
 }
 
-/* Choice buttons */
 #choice-buttons {
+    width: 100%;
     display: flex;
-    justify-content: space-between;
-    margin-bottom: 40px;
-    padding: 0 20px;
+    justify-content: space-around;
+    margin-bottom: 30px;
 }
 
 .choice-btn {
-    width: 45%;
-    padding: 25px;
-    font-size: 1.8em;
-    border: 2px solid yellow;
+    padding: 25px 60px;
+    font-size: 2em;
+    border: 3px solid yellow;
     cursor: pointer;
-    text-shadow: 0 0 10px yellow;
-    transition: all 0.3s ease;
-    background-color: black;
-}
-
-#safe-btn {
-    color: #00ff00;
-    text-shadow: 0 0 15px #00ff00, 0 0 30px #00ff00;
-}
-
-#safe-btn:hover {
-    transform: scale(1.1);
-    text-shadow: 0 0 30px #00ff00, 0 0 60px #00ff00;
+    transition: transform 0.3s, text-shadow 0.3s;
 }
 
 #infected-btn {
+    background-color: black;
     color: red;
-    text-shadow: 0 0 15px red, 0 0 30px red;
+    text-shadow: 0 0 10px red, 0 0 20px red;
 }
 
-#infected-btn:hover {
+#safe-btn {
+    background-color: black;
+    color: green;
+    text-shadow: 0 0 10px green, 0 0 20px green;
+}
+
+.choice-btn:hover {
     transform: scale(1.1);
-    text-shadow: 0 0 30px red, 0 0 60px red;
+    text-shadow: 0 0 25px cyan, 0 0 50px yellow;
 }
 
-/* Penalty display */
 #penalty-display {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
     font-size: 3em;
     color: red;
-    text-shadow: 0 0 20px red, 0 0 40px red;
-    opacity: 0;
-    pointer-events: none;
-    transition: all 0.5s ease;
+    text-shadow: 0 0 20px red;
 }
 
-/* ==========================
-   END SCREEN
-=========================== */
+/* ================= END SCREEN ================= */
 #end-screen {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    width: 100%;
-    text-align: center;
-    color: yellow;
-    text-shadow: 0 0 10px yellow;
     background-color: black;
-    overflow: hidden;
-    position: relative;
-}
-
-#end-message {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    width: 100%;
-    transition: transform 1s ease, opacity 1s ease;
+    color: yellow;
+    text-align: center;
 }
 
 #end-message h1 {
     font-size: 5em;
-    text-shadow: 0 0 20px yellow, 0 0 40px yellow;
+    text-shadow: 0 0 20px yellow, 0 0 40px cyan;
 }
 
 #end-details {
     opacity: 0;
-    text-align: center;
-    transition: opacity 1s ease;
+    transition: opacity 1s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
 }
 
 #end-details p {
     font-size: 2em;
-    margin-bottom: 50px;
-    text-shadow: 0 0 10px yellow;
+    margin-bottom: 30px;
+}
+
+#end-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
 }
 
 #end-buttons button {
-    margin: 20px;
-    padding: 25px 70px;
+    padding: 20px 70px;
     font-size: 2em;
+    border: 3px solid yellow;
     background-color: black;
     color: yellow;
-    border: 2px solid yellow;
-    cursor: pointer;
     text-shadow: 0 0 10px yellow;
+    cursor: pointer;
 }
 
 #end-buttons button:hover {
     transform: scale(1.1);
-    text-shadow: 0 0 20px yellow, 0 0 40px yellow;
+    text-shadow: 0 0 20px cyan, 0 0 40px yellow;
 }
+
 
