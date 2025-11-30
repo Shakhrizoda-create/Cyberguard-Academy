@@ -9,34 +9,28 @@
 </head>
 <body>
 
-<!-- ==========================
-     INTRO / START SCREEN
-=========================== -->
+<!-- INTRO SCREEN -->
 <div id="intro-screen">
     <h1 id="game-title">CYBERSECURITY EMAIL THREAT SIMULATOR</h1>
     <div id="intro-box">
         <p>
-            Welcome to the <strong>Cybersecurity Email Threat Assessment Simulator</strong>. 
-            You will analyze a series of emails and decide whether each is <strong>safe</strong> or <strong>infected</strong>.
+            Welcome to the <strong>Cybersecurity Email Threat Assessment Simulator</strong>!  
+            Your mission is to analyze emails and determine whether they are <strong>SAFE</strong> or <strong>INFECTED</strong>.  
+            Protect your organization's budget from phishing attacks and malware threats.
         </p>
-        <p>Your total security budget is <strong>850,000 USD</strong>. Misclassifying emails will result in penalties:</p>
+        <p>Your starting budget is <strong>850,000 USD</strong>. Misclassifying emails results in the following penalties:</p>
         <ul>
             <li>Easy: -10,000 USD</li>
             <li>Medium: -50,000 USD</li>
             <li>Medium Hard: -100,000 USD</li>
             <li>Hardest: -200,000 USD</li>
         </ul>
-        <p>You have a total of 1 minute 40 seconds for 10 emails. Protect your budget!</p>
+        <p>You have <strong>1:40</strong> to complete 10 emails. Make wise decisions and protect your budget!</p>
     </div>
-</div>
-
-<div id="start-screen" class="hidden">
     <button id="big-start-btn">START</button>
 </div>
 
-<!-- ==========================
-     GAME UI
-=========================== -->
+<!-- GAME UI -->
 <div id="game-ui" class="hidden">
     <div id="timer-box">⏱ <span id="timer">1:40</span></div>
     <div id="budget-box">💰 Budget: <span id="budget-amount">850,000 USD</span></div>
@@ -44,16 +38,14 @@
     <div id="email-container"></div>
 
     <div id="choice-buttons">
-        <button class="choice-btn" id="safe-btn">SAFE</button>
         <button class="choice-btn" id="infected-btn">INFECTED</button>
+        <button class="choice-btn" id="safe-btn">SAFE</button>
     </div>
 
     <div id="penalty-display"></div>
 </div>
 
-<!-- ==========================
-     END SCREEN
-=========================== -->
+<!-- END SCREEN -->
 <div id="end-screen" class="hidden">
     <div id="end-message">
         <h1 id="end-title">SIMULATION COMPLETE</h1>
@@ -67,7 +59,7 @@
     </div>
 </div>
 
-<!-- Audio (replace src with your files in assets-3 folder) -->
+<!-- Audio (add your files in assets-3 folder) -->
 <audio id="bg-music" src="assets-3/music.mp3" loop></audio>
 <audio id="click-sound" src="assets-3/click.mp3"></audio>
 <audio id="penalty-sound" src="assets-3/penalty.mp3"></audio>
