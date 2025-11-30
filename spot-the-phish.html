@@ -17,10 +17,11 @@
          INTRO SCREEN
     ========================= -->
     <div id="intro-screen">
+        <h1 id="game-title">CYBERSECURITY EMAIL THREAT SIMULATOR</h1>
+        <hr class="glow-line">
         <p id="intro-text">
-            Welcome to the Cybersecurity Email Threat Assessment Simulator.<br>
-            You will evaluate emails and identify whether they are safe or malicious.<br>
-            Your goal is to protect your organization's budget of <strong>850,000 USD</strong>.
+            Welcome to the simulator!<br>
+            Identify emails as safe or malicious to protect your organization's budget of <strong>850,000 USD</strong>.
         </p>
     </div>
 
@@ -28,6 +29,7 @@
          START BUTTON SCREEN
     ========================= -->
     <div id="start-screen" class="hidden">
+        <hr class="glow-line">
         <button id="big-start-btn">START</button>
     </div>
 
@@ -35,14 +37,14 @@
          GAME UI
     ========================= -->
     <div id="game-ui" class="hidden">
-        <div id="timer-box">⏱ <span id="timer">2:30</span></div>
+        <div id="timer-box">⏱ <span id="timer">1:40</span></div>
         <div id="budget-box">💰 Budget: <span id="budget-amount">850,000 USD</span></div>
 
         <div id="email-container"></div>
 
         <div id="choice-buttons">
-            <button id="safe-btn">SAFE / RELIABLE</button>
             <button id="infected-btn">INFECTED / VIRUS</button>
+            <button id="safe-btn">SAFE / RELIABLE</button>
         </div>
 
         <div id="penalty-display"></div>
@@ -55,6 +57,7 @@
         <h1 id="end-title">SIMULATION COMPLETE</h1>
         <p id="final-budget-text">Your remaining budget: <span id="final-budget"></span></p>
         <button id="restart-btn">RESTART</button>
+        <button id="home-btn">BACK TO HOME</button>
     </div>
 
     <!-- Background music and sounds -->
