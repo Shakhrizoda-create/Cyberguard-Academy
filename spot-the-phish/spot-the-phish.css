@@ -15,6 +15,7 @@ body {
     height: 100vh;
     text-align: center;
     overflow: hidden;
+    z-index: 0;
 }
 
 /* Blurred background */
@@ -23,17 +24,41 @@ body {
     inset: 0;
     background: url("../assets-3/computer-background.spot-the-phish.jpg") center/cover no-repeat;
     filter: blur(5px) brightness(0.6);
-    z-index: 1;
+    z-index: -1;
 }
 
-/* Title glow */
+/* Hex grid canvas */
+#hex-grid {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* CRT overlay */
+#crt-overlay {
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+        0deg,
+        rgba(255,255,255,0.02) 0,
+        rgba(255,255,255,0.02) 1px,
+        transparent 1px,
+        transparent 3px
+    );
+    z-index: 2;
+    pointer-events: none;
+}
+
+/* Title glow + glitch */
 .game-title {
     position: relative;
     z-index: 10;
-    font-size: 5rem;
+    font-size: 6rem;
     color: #ffeb3b;
     margin-top: 60px;
     text-shadow: 0 0 15px #ffeb3b, 0 0 35px #fff200, 0 0 55px #fff200;
+    animation: glitch 1.5s infinite;
 }
 
 /* Intro text */
@@ -65,8 +90,8 @@ body {
     text-shadow: 0 0 15px #ffeb3b;
     margin-top: 60px;
     opacity: 0;
-    z-index: 2000;  /* FIXED → shows above cubes & intro box */
-    position: relative; /* make z-index work */
+    z-index: 2000;
+    position: relative;
     transition: opacity 1.5s, transform 0.3s;
 }
 
@@ -74,7 +99,6 @@ body {
     opacity: 1;
 }
 
-/* Make intro box fully invisible & non-blocking */
 #intro-box.fade-out {
     opacity: 0;
     pointer-events: none;
@@ -108,7 +132,25 @@ body {
     100% { transform: translateY(110vh) translateX(40vw) rotate(360deg); }
 }
 
-/* ================= GAME UI & END SCREEN (unchanged) ================= */
+/* Glitch animation */
+@keyframes glitch {
+    0% { text-shadow: 2px 2px #fff200, -2px -2px #ffeb3b; }
+    20% { text-shadow: -2px -2px #fff200, 2px 2px #ffeb3b; }
+    40% { text-shadow: 2px -2px #fff200, -2px 2px #ffeb3b; }
+    60% { text-shadow: -2px 2px #fff200, 2px -2px #ffeb3b; }
+    80% { text-shadow: 2px 2px #fff200, -2px -2px #ffeb3b; }
+    100% { text-shadow: 2px -2px #fff200, -2px 2px #ffeb3b; }
+}
+
+/* Particle canvas */
+#particles {
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    pointer-events: none;
+}
+
+/* ================= GAME UI & END SCREEN ================= */
 #game-ui, #end-screen {
     background: #000000a0;
 }
@@ -118,7 +160,5 @@ body {
     margin-top: 20px;
     text-shadow: 0 0 10px #ffeb3b;
 }
-
-/* Button styling and game UI kept same as original */
 
 
