@@ -1,6 +1,11 @@
-// ==========================
-// GAME DATA - 10 QUESTIONS
-// ==========================
+/* =========================================================
+   CYBERSECURITY EMAIL THREAT GAME (FINAL VERSION)
+   Slide-style gameplay — 10 questions — Timer ends game
+   ========================================================= */
+
+// =========================
+//  QUESTIONS (10 total)
+// =========================
 const emails = [
     {
         fromName: "School Admin",
@@ -14,162 +19,164 @@ const emails = [
     },
     {
         fromName: "Bank Alert",
-        fromEmail: "alert@fakesbank.com",
-        subject: "Urgent: Verify Your Account",
-        date: "Thu, 14 Nov 2025 10:20 AM",
+        fromEmail: "alert@bank-verify-secure.com",
+        subject: "Important: Account Verification Required",
+        date: "Thu, 14 Nov 2025 10:24 AM",
         attachments: [],
-        body: "Your account has been compromised. Click the link to verify immediately!",
+        body: "Suspicious activity detected. Please verify your identity to avoid suspension.",
         correct: "malicious",
-        difficulty: "Hardest Hardest"
+        difficulty: "Hardest"
     },
     {
         fromName: "IT Support",
-        fromEmail: "support@school.edu",
-        subject: "Password Reset Required",
+        fromEmail: "it-help@school.edu",
+        subject: "Password Expiry Notice",
         date: "Fri, 15 Nov 2025 11:30 AM",
         attachments: [],
-        body: "Please reset your password using the link provided.",
+        body: "Your password expires today. Reset it using the link provided.",
         correct: "malicious",
-        difficulty: "Medium harder"
+        difficulty: "Medium Hard"
     },
     {
         fromName: "HR Department",
         fromEmail: "hr@school.edu",
-        subject: "Mandatory Survey",
+        subject: "Mandatory Policy Update",
         date: "Mon, 18 Nov 2025 08:00 AM",
-        attachments: [{ name: "survey.docx", size: "12 KB" }],
-        body: "Please fill out the attached employee survey.",
+        attachments: [{ name: "policy_update.docx", size: "22 KB" }],
+        body: "Please read and acknowledge the updated school policies.",
         correct: "safe",
         difficulty: "Easy"
     },
     {
-        fromName: "Unknown Sender",
-        fromEmail: "prize@lottery.win",
-        subject: "You Won a Prize!",
+        fromName: "Lottery Notification",
+        fromEmail: "winner@lucky-prize.net",
+        subject: "Congratulations! You Won!",
         date: "Tue, 19 Nov 2025 14:15 PM",
         attachments: [],
-        body: "Click here to claim your $1,000,000 prize now.",
+        body: "Claim your $500,000 reward by clicking the secure link below.",
         correct: "malicious",
-        difficulty: "Hardest Hardest"
+        difficulty: "Hardest"
     },
     {
         fromName: "Library Admin",
         fromEmail: "library@school.edu",
-        subject: "Overdue Books Notice",
+        subject: "Reminder: Overdue Books",
         date: "Wed, 20 Nov 2025 09:45 AM",
         attachments: [],
-        body: "Your books are overdue. Please return them immediately.",
+        body: "You have overdue library books. Please return them as soon as possible.",
         correct: "safe",
         difficulty: "Easy"
     },
     {
         fromName: "Social Media Team",
-        fromEmail: "notify@socialmedia.fake",
-        subject: "Account Suspended",
+        fromEmail: "support@socialmedia-security.com",
+        subject: "Your Account Has Been Locked",
         date: "Thu, 21 Nov 2025 16:00 PM",
         attachments: [],
-        body: "Your account has been suspended. Click here to reactivate.",
+        body: "Your account violated the terms. Log in to restore access.",
         correct: "malicious",
-        difficulty: "Medium harder"
+        difficulty: "Medium Hard"
     },
     {
         fromName: "Finance Dept",
         fromEmail: "finance@school.edu",
         subject: "Invoice Payment Due",
         date: "Fri, 22 Nov 2025 10:30 AM",
-        attachments: [{ name: "invoice.pdf", size: "45 KB" }],
-        body: "Please pay the attached invoice by the due date.",
+        attachments: [{ name: "invoice_2025.pdf", size: "45 KB" }],
+        body: "Attached is the invoice that must be settled by the end of the week.",
         correct: "safe",
-        difficulty: "A bit harder"
+        difficulty: "Medium"
     },
     {
-        fromName: "Unknown Sender",
-        fromEmail: "security@secure-login.net",
-        subject: "Security Alert",
+        fromName: "Security Alert",
+        fromEmail: "security@secure-login-auth.net",
+        subject: "Unusual Login Attempt",
         date: "Sat, 23 Nov 2025 12:00 PM",
         attachments: [],
-        body: "We noticed suspicious activity on your account. Log in to secure your account.",
+        body: "Your account was accessed from a new device. Confirm it was you.",
         correct: "malicious",
-        difficulty: "Medium harder"
+        difficulty: "Medium Hard"
     },
     {
         fromName: "Course Coordinator",
         fromEmail: "courses@school.edu",
-        subject: "New Lecture Material",
+        subject: "New Material Available",
         date: "Sun, 24 Nov 2025 09:00 AM",
-        attachments: [{ name: "lecture1.pptx", size: "32 MB" }],
-        body: "Please find the new lecture materials attached.",
+        attachments: [{ name: "Lecture_12.pptx", size: "32 MB" }],
+        body: "The newest lecture slides have been uploaded. See attachment.",
         correct: "safe",
         difficulty: "Easy"
     }
 ];
 
-// ==========================
-// DIFFICULTY PENALTIES
-// ==========================
-const difficultyPenalties = {
+
+// =========================
+//  DIFFICULTY PENALTIES
+// =========================
+const penalties = {
     "Easy": 10000,
-    "A bit harder": 20000,
     "Medium": 50000,
-    "Medium harder": 100000,
-    "Hardest Hardest": 200000
+    "Medium Hard": 100000,
+    "Hardest": 200000
 };
 
-// ==========================
-// GAME STATE
-// ==========================
-let currentEmailIndex = 0;
-let budget = 850000;
-let timerSeconds = 150;
-let timerInterval;
 
-// ==========================
-// AUDIO ELEMENTS
-// ==========================
+// =========================
+//  GAME STATE
+// =========================
+let current = 0;
+let budget = 850000;
+let timeLeft = 150; // 2:30
+let timerInterval = null;
+
+
+// =========================
+//  SOUNDS
+// =========================
 const bgMusic = document.getElementById("bg-music");
 const clickSound = document.getElementById("click-sound");
 const penaltySound = document.getElementById("penalty-sound");
 
-// ==========================
-// DOM ELEMENTS
-// ==========================
-const startScreen = document.getElementById("start-screen");
-const startBtn = document.getElementById("start-btn");
-const gameUI = document.getElementById("game-ui");
-const emailContainer = document.getElementById("email-container");
-const infectedBtn = document.getElementById("infected-btn");
-const safeBtn = document.getElementById("safe-btn");
-const budgetAmount = document.getElementById("budget-amount");
-const timerDisplay = document.getElementById("timer");
-const penaltyDisplay = document.getElementById("penalty-display");
-const endScreen = document.getElementById("end-screen");
-const finalBudget = document.getElementById("final-budget");
-const restartBtn = document.getElementById("restart-btn");
-const backBtn = document.getElementById("back-btn");
 
-// ==========================
-// UTILITY FUNCTIONS
-// ==========================
-function shuffleArray(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
+// =========================
+//  DOM ELEMENTS
+// =========================
+const startScreen = document.getElementById("start-screen");
+const gameUI = document.getElementById("game-ui");
+const endScreen = document.getElementById("end-screen");
+
+const emailContainer = document.getElementById("email-container");
+const timerBox = document.getElementById("timer");
+const budgetBox = document.getElementById("budget-amount");
+const penaltyDisplay = document.getElementById("penalty-display");
+
+
+// =========================
+//  UTILS
+// =========================
+function shuffle(arr) {
+    for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.random() * (i + 1) | 0;
+        [arr[i], arr[j]] = [arr[j], arr[i]];
     }
 }
 
-function formatTime(seconds) {
-    const m = Math.floor(seconds / 60).toString().padStart(2, "0");
-    const s = (seconds % 60).toString().padStart(2, "0");
+function format(sec) {
+    const m = String(Math.floor(sec / 60)).padStart(2, "0");
+    const s = String(sec % 60).padStart(2, "0");
     return `${m}:${s}`;
 }
 
-function showPenaltyGhost(amount) {
+
+// =========================
+//  PENALTY ANIMATION
+// =========================
+function showPenalty(amount) {
     penaltyDisplay.textContent = `-${amount.toLocaleString()}$`;
     penaltyDisplay.style.opacity = "1";
-    penaltyDisplay.style.transform = "translate(-50%, -50%) scale(1.6)";
+    penaltyDisplay.style.transform = "translate(-50%, -50%) scale(1.5)";
 
-    // Play penalty audio
-    if (penaltySound) penaltySound.play();
+    penaltySound.play();
 
     setTimeout(() => {
         penaltyDisplay.style.opacity = "0";
@@ -177,69 +184,79 @@ function showPenaltyGhost(amount) {
     }, 1200);
 }
 
-// ==========================
-// GAME LOGIC
-// ==========================
-function showEmail() {
-    const email = emails[currentEmailIndex];
-    let attachmentsHTML = "";
 
-    if (email.attachments.length > 0) {
-        attachmentsHTML = "<ul>";
-        email.attachments.forEach(a => {
+// =========================
+//  RENDER EMAIL
+// =========================
+function loadEmail() {
+    const q = emails[current];
+
+    let attachmentsHTML = "";
+    if (q.attachments.length > 0) {
+        attachmentsHTML = "<strong>Attachments:</strong><ul>";
+        q.attachments.forEach(a => {
             attachmentsHTML += `<li>${a.name} (${a.size})</li>`;
         });
         attachmentsHTML += "</ul>";
     }
 
     emailContainer.innerHTML = `
-        <p><strong>From:</strong> ${email.fromName} &lt;${email.fromEmail}&gt;</p>
-        <p><strong>Subject:</strong> ${email.subject}</p>
-        <p><strong>Date:</strong> ${email.date}</p>
-        <p><strong>Body:</strong> ${email.body}</p>
+        <p><strong>From:</strong> ${q.fromName} &lt;${q.fromEmail}&gt;</p>
+        <p><strong>Subject:</strong> ${q.subject}</p>
+        <p><strong>Date:</strong> ${q.date}</p>
+        <p><strong>Message:</strong> ${q.body}</p>
         ${attachmentsHTML}
     `;
 
-    budgetAmount.textContent = `${budget.toLocaleString()} USD`;
+    budgetBox.textContent = `${budget.toLocaleString()} USD`;
 }
 
-function handleChoice(choice) {
-    clickSound.play();
 
-    const email = emails[currentEmailIndex];
-    const penaltyAmount = difficultyPenalties[email.difficulty];
-
-    if (choice !== email.correct) {
-        budget -= penaltyAmount;
-        if (budget < 0) budget = 0;
-        showPenaltyGhost(penaltyAmount);
-    }
-
-    budgetAmount.textContent = `${budget.toLocaleString()} USD`;
-
-    currentEmailIndex++;
-
-    if (currentEmailIndex >= emails.length) {
-        endGame();
-    } else {
-        showEmail();
-    }
-}
-
+// =========================
+//  TIMER LOGIC
+// =========================
 function startTimer() {
-    timerDisplay.textContent = formatTime(timerSeconds);
+    timerBox.textContent = format(timeLeft);
 
     timerInterval = setInterval(() => {
-        timerSeconds--;
-        timerDisplay.textContent = formatTime(timerSeconds);
+        timeLeft--;
+        timerBox.textContent = format(timeLeft);
 
-        if (timerSeconds <= 0) {
-            clearInterval(timerInterval);
+        if (timeLeft <= 0) {
             endGame();
         }
     }, 1000);
 }
 
+
+// =========================
+//  HANDLE ANSWER
+// =========================
+function handleAnswer(type) {
+    clickSound.play();
+
+    const q = emails[current];
+    const penalty = penalties[q.difficulty];
+
+    if (type !== q.correct) {
+        budget -= penalty;
+        if (budget < 0) budget = 0;
+        showPenalty(penalty);
+    }
+
+    current++;
+
+    if (current >= emails.length) {
+        endGame();
+    } else {
+        loadEmail();
+    }
+}
+
+
+// =========================
+//  END GAME
+// =========================
 function endGame() {
     clearInterval(timerInterval);
     bgMusic.pause();
@@ -247,346 +264,39 @@ function endGame() {
     gameUI.classList.add("hidden");
     endScreen.classList.remove("hidden");
 
-    finalBudget.textContent = `${budget.toLocaleString()} USD`;
+    document.getElementById("final-budget").textContent =
+        `${budget.toLocaleString()} USD`;
 }
 
-// ==========================
-// EVENT LISTENERS
-// ==========================
-startBtn.addEventListener("click", () => {
+
+// =========================
+//  START GAME
+// =========================
+document.getElementById("start-btn").onclick = () => {
     bgMusic.volume = 0.5;
     bgMusic.play();
 
-    shuffleArray(emails);
-    currentEmailIndex = 0;
+    shuffle(emails);
+
+    current = 0;
     budget = 850000;
-    timerSeconds = 150;
+    timeLeft = 150;
 
     startScreen.classList.add("hidden");
     gameUI.classList.remove("hidden");
 
-    showEmail();
+    loadEmail();
     startTimer();
-});
-
-infectedBtn.addEventListener("click", () => handleChoice("malicious"));
-safeBtn.addEventListener("click", () => handleChoice("safe"));
-
-restartBtn.addEventListener("click", () => {
-    bgMusic.currentTime = 0;
-    bgMusic.play();
-
-    shuffleArray(emails);
-    currentEmailIndex = 0;
-    budget = 850000;
-    timerSeconds = 150;
-
-    endScreen.classList.add("hidden");
-    gameUI.classList.remove("hidden");
-
-    showEmail();
-    startTimer();
-});
-
-backBtn.addEventListener("click", () => {
-    endScreen.classList.add("hidden");
-    startScreen.classList.remove("hidden");
-});
-// ==========================
-// GAME DATA - 10 QUESTIONS
-// ==========================
-const emails = [
-    {
-        fromName: "School Admin",
-        fromEmail: "admin@school.edu",
-        subject: "Class Schedule Updated",
-        date: "Wed, 13 Nov 2025 09:10 AM",
-        attachments: [{ name: "Schedule_Fall2025.docx", size: "56 KB" }],
-        body: "Your class schedule has been updated. Please review the changes on the school portal.",
-        correct: "safe",
-        difficulty: "Easy"
-    },
-    {
-        fromName: "Bank Alert",
-        fromEmail: "alert@fakesbank.com",
-        subject: "Urgent: Verify Your Account",
-        date: "Thu, 14 Nov 2025 10:20 AM",
-        attachments: [],
-        body: "Your account has been compromised. Click the link to verify immediately!",
-        correct: "malicious",
-        difficulty: "Hardest Hardest"
-    },
-    {
-        fromName: "IT Support",
-        fromEmail: "support@school.edu",
-        subject: "Password Reset Required",
-        date: "Fri, 15 Nov 2025 11:30 AM",
-        attachments: [],
-        body: "Please reset your password using the link provided.",
-        correct: "malicious",
-        difficulty: "Medium harder"
-    },
-    {
-        fromName: "HR Department",
-        fromEmail: "hr@school.edu",
-        subject: "Mandatory Survey",
-        date: "Mon, 18 Nov 2025 08:00 AM",
-        attachments: [{ name: "survey.docx", size: "12 KB" }],
-        body: "Please fill out the attached employee survey.",
-        correct: "safe",
-        difficulty: "Easy"
-    },
-    {
-        fromName: "Unknown Sender",
-        fromEmail: "prize@lottery.win",
-        subject: "You Won a Prize!",
-        date: "Tue, 19 Nov 2025 14:15 PM",
-        attachments: [],
-        body: "Click here to claim your $1,000,000 prize now.",
-        correct: "malicious",
-        difficulty: "Hardest Hardest"
-    },
-    {
-        fromName: "Library Admin",
-        fromEmail: "library@school.edu",
-        subject: "Overdue Books Notice",
-        date: "Wed, 20 Nov 2025 09:45 AM",
-        attachments: [],
-        body: "Your books are overdue. Please return them immediately.",
-        correct: "safe",
-        difficulty: "Easy"
-    },
-    {
-        fromName: "Social Media Team",
-        fromEmail: "notify@socialmedia.fake",
-        subject: "Account Suspended",
-        date: "Thu, 21 Nov 2025 16:00 PM",
-        attachments: [],
-        body: "Your account has been suspended. Click here to reactivate.",
-        correct: "malicious",
-        difficulty: "Medium harder"
-    },
-    {
-        fromName: "Finance Dept",
-        fromEmail: "finance@school.edu",
-        subject: "Invoice Payment Due",
-        date: "Fri, 22 Nov 2025 10:30 AM",
-        attachments: [{ name: "invoice.pdf", size: "45 KB" }],
-        body: "Please pay the attached invoice by the due date.",
-        correct: "safe",
-        difficulty: "A bit harder"
-    },
-    {
-        fromName: "Unknown Sender",
-        fromEmail: "security@secure-login.net",
-        subject: "Security Alert",
-        date: "Sat, 23 Nov 2025 12:00 PM",
-        attachments: [],
-        body: "We noticed suspicious activity on your account. Log in to secure your account.",
-        correct: "malicious",
-        difficulty: "Medium harder"
-    },
-    {
-        fromName: "Course Coordinator",
-        fromEmail: "courses@school.edu",
-        subject: "New Lecture Material",
-        date: "Sun, 24 Nov 2025 09:00 AM",
-        attachments: [{ name: "lecture1.pptx", size: "32 MB" }],
-        body: "Please find the new lecture materials attached.",
-        correct: "safe",
-        difficulty: "Easy"
-    }
-];
-
-// ==========================
-// DIFFICULTY PENALTIES
-// ==========================
-const difficultyPenalties = {
-    "Easy": 10000,
-    "A bit harder": 20000,
-    "Medium": 50000,
-    "Medium harder": 100000,
-    "Hardest Hardest": 200000
 };
 
-// ==========================
-// GAME STATE
-// ==========================
-let currentEmailIndex = 0;
-let budget = 850000;
-let timerSeconds = 150;
-let timerInterval;
 
-// ==========================
-// AUDIO ELEMENTS
-// ==========================
-const bgMusic = document.getElementById("bg-music");
-const clickSound = document.getElementById("click-sound");
-const penaltySound = document.getElementById("penalty-sound");
+// =========================
+//  BUTTON EVENTS
+// =========================
+document.getElementById("infected-btn").onclick = () => handleAnswer("malicious");
+document.getElementById("safe-btn").onclick = () => handleAnswer("safe");
 
-// ==========================
-// DOM ELEMENTS
-// ==========================
-const startScreen = document.getElementById("start-screen");
-const startBtn = document.getElementById("start-btn");
-const gameUI = document.getElementById("game-ui");
-const emailContainer = document.getElementById("email-container");
-const infectedBtn = document.getElementById("infected-btn");
-const safeBtn = document.getElementById("safe-btn");
-const budgetAmount = document.getElementById("budget-amount");
-const timerDisplay = document.getElementById("timer");
-const penaltyDisplay = document.getElementById("penalty-display");
-const endScreen = document.getElementById("end-screen");
-const finalBudget = document.getElementById("final-budget");
-const restartBtn = document.getElementById("restart-btn");
-const backBtn = document.getElementById("back-btn");
-
-// ==========================
-// UTILITY FUNCTIONS
-// ==========================
-function shuffleArray(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
-    }
-}
-
-function formatTime(seconds) {
-    const m = Math.floor(seconds / 60).toString().padStart(2, "0");
-    const s = (seconds % 60).toString().padStart(2, "0");
-    return `${m}:${s}`;
-}
-
-function showPenaltyGhost(amount) {
-    penaltyDisplay.textContent = `-${amount.toLocaleString()}$`;
-    penaltyDisplay.style.opacity = "1";
-    penaltyDisplay.style.transform = "translate(-50%, -50%) scale(1.6)";
-
-    // Play penalty audio
-    if (penaltySound) penaltySound.play();
-
-    setTimeout(() => {
-        penaltyDisplay.style.opacity = "0";
-        penaltyDisplay.style.transform = "translate(-50%, -50%) scale(1)";
-    }, 1200);
-}
-
-// ==========================
-// GAME LOGIC
-// ==========================
-function showEmail() {
-    const email = emails[currentEmailIndex];
-    let attachmentsHTML = "";
-
-    if (email.attachments.length > 0) {
-        attachmentsHTML = "<ul>";
-        email.attachments.forEach(a => {
-            attachmentsHTML += `<li>${a.name} (${a.size})</li>`;
-        });
-        attachmentsHTML += "</ul>";
-    }
-
-    emailContainer.innerHTML = `
-        <p><strong>From:</strong> ${email.fromName} &lt;${email.fromEmail}&gt;</p>
-        <p><strong>Subject:</strong> ${email.subject}</p>
-        <p><strong>Date:</strong> ${email.date}</p>
-        <p><strong>Body:</strong> ${email.body}</p>
-        ${attachmentsHTML}
-    `;
-
-    budgetAmount.textContent = `${budget.toLocaleString()} USD`;
-}
-
-function handleChoice(choice) {
-    clickSound.play();
-
-    const email = emails[currentEmailIndex];
-    const penaltyAmount = difficultyPenalties[email.difficulty];
-
-    if (choice !== email.correct) {
-        budget -= penaltyAmount;
-        if (budget < 0) budget = 0;
-        showPenaltyGhost(penaltyAmount);
-    }
-
-    budgetAmount.textContent = `${budget.toLocaleString()} USD`;
-
-    currentEmailIndex++;
-
-    if (currentEmailIndex >= emails.length) {
-        endGame();
-    } else {
-        showEmail();
-    }
-}
-
-function startTimer() {
-    timerDisplay.textContent = formatTime(timerSeconds);
-
-    timerInterval = setInterval(() => {
-        timerSeconds--;
-        timerDisplay.textContent = formatTime(timerSeconds);
-
-        if (timerSeconds <= 0) {
-            clearInterval(timerInterval);
-            endGame();
-        }
-    }, 1000);
-}
-
-function endGame() {
-    clearInterval(timerInterval);
-    bgMusic.pause();
-
-    gameUI.classList.add("hidden");
-    endScreen.classList.remove("hidden");
-
-    finalBudget.textContent = `${budget.toLocaleString()} USD`;
-}
-
-// ==========================
-// EVENT LISTENERS
-// ==========================
-startBtn.addEventListener("click", () => {
-    bgMusic.volume = 0.5;
-    bgMusic.play();
-
-    shuffleArray(emails);
-    currentEmailIndex = 0;
-    budget = 850000;
-    timerSeconds = 150;
-
-    startScreen.classList.add("hidden");
-    gameUI.classList.remove("hidden");
-
-    showEmail();
-    startTimer();
-});
-
-infectedBtn.addEventListener("click", () => handleChoice("malicious"));
-safeBtn.addEventListener("click", () => handleChoice("safe"));
-
-restartBtn.addEventListener("click", () => {
-    bgMusic.currentTime = 0;
-    bgMusic.play();
-
-    shuffleArray(emails);
-    currentEmailIndex = 0;
-    budget = 850000;
-    timerSeconds = 150;
-
-    endScreen.classList.add("hidden");
-    gameUI.classList.remove("hidden");
-
-    showEmail();
-    startTimer();
-});
-
-backBtn.addEventListener("click", () => {
-    endScreen.classList.add("hidden");
-    startScreen.classList.remove("hidden");
-});
-
-
+document.getElementById("restart-btn").onclick = () => location.reload();
+document.getElementById("back-btn").onclick = () => location.reload();
 
 
