@@ -20,27 +20,21 @@ body {
     align-items: center;
     height: 100vh;
     text-align: center;
-    padding: 20px;
+    padding: 30px;
 }
 
 #game-title {
-    font-size: 4em;
-    text-shadow: 0 0 20px yellow, 0 0 40px yellow;
-    margin-bottom: 30px;
+    font-size: 4.5em;
+    text-shadow: 0 0 30px yellow, 0 0 50px yellow;
+    margin-bottom: 20px;
 }
 
 #intro-box {
-    font-size: 1.7em;
-    line-height: 1.5em;
+    font-size: 1.8em;
+    line-height: 1.6em;
     color: yellow;
-    text-shadow: 0 0 10px yellow;
-}
-
-#start-screen {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+    text-shadow: 0 0 15px yellow;
+    margin-bottom: 50px;
 }
 
 #big-start-btn {
@@ -50,13 +44,13 @@ body {
     color: yellow;
     border: 3px solid yellow;
     cursor: pointer;
-    text-shadow: 0 0 20px yellow;
+    text-shadow: 0 0 25px yellow;
     transition: all 0.3s ease;
 }
 
 #big-start-btn:hover {
     transform: scale(1.1);
-    text-shadow: 0 0 40px yellow;
+    text-shadow: 0 0 50px yellow;
 }
 
 /* ==========================
@@ -92,52 +86,54 @@ body {
 
 #email-container {
     flex: 1;
-    margin: 80px 20px 120px 20px;
+    margin: 100px 20px 150px 20px;
     overflow-y: auto;
     font-size: 1.8em;
-    line-height: 1.4em;
+    line-height: 1.5em;
     color: yellow;
     text-shadow: 0 0 15px yellow;
 }
 
+/* Choice buttons */
 #choice-buttons {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 30px;
+    margin-bottom: 40px;
+    padding: 0 20px;
 }
 
 .choice-btn {
     width: 45%;
-    padding: 20px;
+    padding: 25px;
     font-size: 1.8em;
-    background-color: black;
     border: 2px solid yellow;
     cursor: pointer;
     text-shadow: 0 0 10px yellow;
     transition: all 0.3s ease;
+    background-color: black;
 }
 
 #safe-btn {
     color: #00ff00;
-    text-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00;
+    text-shadow: 0 0 15px #00ff00, 0 0 30px #00ff00;
 }
 
 #safe-btn:hover {
     transform: scale(1.1);
-    text-shadow: 0 0 20px #00ff00, 0 0 40px #00ff00;
+    text-shadow: 0 0 30px #00ff00, 0 0 60px #00ff00;
 }
 
 #infected-btn {
     color: red;
-    text-shadow: 0 0 10px red, 0 0 20px red;
+    text-shadow: 0 0 15px red, 0 0 30px red;
 }
 
 #infected-btn:hover {
     transform: scale(1.1);
-    text-shadow: 0 0 20px red, 0 0 40px red;
+    text-shadow: 0 0 30px red, 0 0 60px red;
 }
 
-/* PENALTY DISPLAY */
+/* Penalty display */
 #penalty-display {
     position: absolute;
     top: 50%;
@@ -210,5 +206,4 @@ body {
     transform: scale(1.1);
     text-shadow: 0 0 20px yellow, 0 0 40px yellow;
 }
-
 
