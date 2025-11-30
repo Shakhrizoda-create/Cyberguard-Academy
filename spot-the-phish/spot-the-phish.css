@@ -30,45 +30,30 @@ body {
 .game-title {
     position: relative;
     z-index: 10;
-    font-size: 4rem; /* slightly smaller to fit intro */
+    font-size: 4rem;
     color: #ffeb3b;
     margin-top: 20px;
-    text-shadow: 0 0 10px #ffeb3b, 0 0 25px #fff200;
-    animation: flicker 0.2s infinite;
-    transition: all 1s ease;
+    text-shadow: 0 0 5px #ffeb3b, 0 0 15px #fff200;
+    animation: flicker 0.15s infinite alternate;
 }
 
-.game-title.top {
-    transform: translateY(-30%);
-}
-
-/* Flicker effect */
 @keyframes flicker {
-    0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% { opacity: 1; }
-    20%, 24%, 55% { opacity: 0.4; }
+    0% { text-shadow: 0 0 5px #ffeb3b, 0 0 15px #fff200; opacity:1; }
+    50% { text-shadow: 0 0 10px #ffeb3b, 0 0 20px #fff200; opacity:0.8; }
+    100% { text-shadow: 0 0 5px #ffeb3b, 0 0 15px #fff200; opacity:1; }
 }
 
 /* Intro text */
 #intro-box {
     position: relative;
     z-index: 10;
-    width: 80%;
+    width: 75%;
     margin: 0 auto;
-    margin-top: 20px;
-    transition: opacity 1s ease;
-}
-
-#intro-box p {
+    margin-top: 80px;
+    transition: opacity 1.5s;
     font-size: 1.8rem;
-    color: #ffeb3b;
-    text-shadow: 0 0 10px #ffeb3b;
     line-height: 1.7em;
-}
-
-/* Fade out intro */
-#intro-box.fade-out {
-    opacity: 0;
-    pointer-events: none;
+    color: #ffeb3b;
 }
 
 /* START button */
@@ -83,15 +68,13 @@ body {
     text-shadow: 0 0 15px #ffeb3b;
     margin-top: 60px;
     opacity: 0;
-    transform: translateY(50px);
     z-index: 2000;
     position: relative;
-    transition: opacity 1s ease, transform 1s ease;
+    transition: opacity 1.5s, transform 0.3s;
 }
 
 #start-btn.show {
     opacity: 1;
-    transform: translateY(0);
 }
 
 #start-btn:hover {
@@ -122,6 +105,12 @@ body {
     100% { transform: translateY(110vh) translateX(40vw) rotate(360deg); }
 }
 
+/* Fade out intro */
+#intro-box.fade-out {
+    opacity: 0;
+    pointer-events: none;
+}
+
 /* ================= GAME UI & END SCREEN ================= */
 #game-ui, #end-screen {
     background: #000000a0;
@@ -132,3 +121,4 @@ body {
     margin-top: 20px;
     text-shadow: 0 0 10px #ffeb3b;
 }
+
