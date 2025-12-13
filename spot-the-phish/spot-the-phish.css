@@ -2,7 +2,7 @@
 body {
     margin: 0;
     font-family: 'Share Tech Mono', monospace;
-    background: #000;
+    background: url("../assets-3/computer-background.spot-the-phish.jpg") center/cover no-repeat;
     color: #fff;
     overflow: hidden;
 }
