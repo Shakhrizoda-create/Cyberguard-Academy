@@ -23,7 +23,7 @@ body {
     overflow: hidden;
 }
 
-/* KEEP OVERLAY FOR BLUR EFFECT (DO NOT REMOVE) */
+/* KEEP OVERLAY FOR BLUR EFFECT */
 #bg-overlay {
     position: absolute;
     inset: 0;
@@ -159,11 +159,41 @@ body {
 #end-screen {
     position: fixed;
     inset: 0;
-    background: rgba(0,0,0,0.85);
-    display: flex;
+    background: rgba(0,0,0,0.95);
+    display: flex;          /* display none removed, controlled by JS */
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    z-index: 5000;
+    text-align: center;
+    color: #ffeb3b;
 }
 
+#end-message h1 {
+    font-size: 4rem;
+    text-shadow: 0 0 10px #ffeb3b, 0 0 20px #fff200;
+    margin-bottom: 20px;
+}
 
+#end-details p {
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+#end-buttons button {
+    font-size: 1.8rem;
+    padding: 12px 30px;
+    margin: 0 10px;
+    border: 3px solid #ffeb3b;
+    border-radius: 8px;
+    background: transparent;
+    color: #ffeb3b;
+    cursor: pointer;
+    text-shadow: 0 0 10px #ffeb3b;
+    transition: transform 0.2s ease;
+}
+
+#end-buttons button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 15px #ffeb3b;
+}
