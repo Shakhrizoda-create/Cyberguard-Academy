@@ -1,4 +1,4 @@
-// ================= ELEMENTS =================
+// Elements
 const startScreen = document.getElementById("start-screen");
 const startBtn = document.getElementById("start-btn");
 const introBox = document.getElementById("intro-box");
@@ -15,13 +15,13 @@ const finalBudget = document.getElementById("final-budget");
 const restartBtn = document.getElementById("restart-btn");
 const backBtn = document.getElementById("back-btn");
 
-// ================= GAME VARIABLES =================
+// Game variables
 let budget = 850000;
 let time = 100;
 let currentIndex = 0;
 let timer;
 
-// ================= CYBER CUBES =================
+// Cyber cubes
 const cyberCubesContainer = document.getElementById("cyber-cubes");
 function spawnCubes(amount){
     for(let i=0;i<amount;i++){
@@ -29,15 +29,14 @@ function spawnCubes(amount){
         cube.classList.add("cube");
         cube.style.left = Math.random()*100 + "vw";
         cube.style.animationDuration = (6+Math.random()*4) + "s";
-        let size = 15+Math.random()*30;
-        cube.style.width = cube.style.height = size+"px";
+        cube.style.width = cube.style.height = (15+Math.random()*30)+"px";
         cube.style.opacity = 0.2+Math.random()*0.6;
         cyberCubesContainer.appendChild(cube);
     }
 }
 spawnCubes(40);
 
-// ================= TYPING ANIMATION =================
+// Typing animation
 function typeHTML(element, html, speed=20, callback){
     let i = 0;
     function typeNext(){
@@ -60,7 +59,7 @@ function typeHTML(element, html, speed=20, callback){
     typeNext();
 }
 
-// ================= START SCREEN LOGIC =================
+// Start screen typing
 const introHTML = introBox.innerHTML;
 introBox.innerHTML = "";
 typeHTML(introBox, introHTML, 30, () => {
@@ -72,28 +71,26 @@ typeHTML(introBox, introHTML, 30, () => {
     }, 800);
 });
 
-// ================= START GAME =================
+// Start game
 startBtn.addEventListener("click", startGame);
-
 function startGame(){
-    startScreen.style.display = "none";   // hide start screen
-    gameUI.classList.remove("hidden");    // show game UI
+    startScreen.style.display = "none";
+    gameUI.classList.remove("hidden");
     startTimer();
     updateEmail();
 }
 
-// ================= TIMER =================
+// Timer
 function startTimer(){
     timer = setInterval(() => {
         if(time<=0) return endGame();
         time--;
-        let min = Math.floor(time/60);
-        let sec = time % 60;
+        let min=Math.floor(time/60), sec=time%60;
         timerDisplay.textContent = `${min}:${sec<10?"0"+sec:sec}`;
-    }, 1000);
+    },1000);
 }
 
-// ================= EMAILS =================
+// Emails
 const emails = [
     {subject:"Class Update",from:"School Admin",blocks:["Schedule updated.","Check portal.","Attached document included.","Review all classes.","Contact admin if questions.","Do not ignore."],correct:"safe",penalty:10000},
     {subject:"Urgent Password Reset",from:"IT Dept",blocks:["Your account was compromised.","Reset password immediately.","Ignore at your own risk.","Link expires soon.","Confirm identity.","Do not share credentials."],correct:"infected",penalty:50000},
@@ -108,20 +105,21 @@ const emails = [
 ];
 emails.sort(()=>Math.random()-0.5);
 
+// Update email
 function updateEmail(){
     if(currentIndex>=emails.length) return endGame();
-    const e = emails[currentIndex];
+    const e=emails[currentIndex];
     emailContainer.innerHTML = `<h2>${e.subject}</h2><h3>From: ${e.from}</h3>` +
         e.blocks.map(b=>`<p>${b}</p>`).join("");
 }
 
-// ================= BUTTON LOGIC =================
+// Buttons
 infectedBtn.addEventListener("click", ()=>checkAnswer("infected"));
 safeBtn.addEventListener("click", ()=>checkAnswer("safe"));
 
 function checkAnswer(choice){
-    const e = emails[currentIndex];
-    if(choice !== e.correct){
+    const e=emails[currentIndex];
+    if(choice!==e.correct){
         budget -= e.penalty;
         penaltyDisplay.textContent = `-${e.penalty.toLocaleString()} USD`;
         setTimeout(()=>penaltyDisplay.textContent="",1000);
@@ -131,22 +129,16 @@ function checkAnswer(choice){
     updateEmail();
 }
 
-// ================= END GAME =================
+// End game
 function endGame(){
     clearInterval(timer);
-
-    // hide start screen (important fix)
-    startScreen.style.display = "none";
-
-    // hide game UI
     gameUI.classList.add("hidden");
-
-    // show end screen
+    startScreen.style.display = "none";
     endScreen.classList.remove("hidden");
     finalBudget.textContent = `${budget.toLocaleString()} USD`;
 }
 
-// ================= RESTART / BACK =================
+// Restart / Back
 restartBtn.addEventListener("click", ()=>location.reload());
 backBtn.addEventListener("click", ()=>window.location.href="index.html");
 
