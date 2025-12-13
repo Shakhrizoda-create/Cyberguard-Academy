@@ -74,8 +74,14 @@ typeHTML(introBox, introHTML, 30, () => {
 // Start game
 startBtn.addEventListener("click", startGame);
 function startGame(){
-    startScreen.style.display = "none";
+    // Hide only start UI elements, keep background
+    startScreen.querySelectorAll('.game-title, #intro-box, #start-btn').forEach(el=>el.style.display='none');
+
     gameUI.classList.remove("hidden");
+
+    // Make background clearer after start
+    document.getElementById("bg-overlay").classList.add("clear");
+
     startTimer();
     updateEmail();
 }
@@ -133,7 +139,7 @@ function checkAnswer(choice){
 function endGame(){
     clearInterval(timer);
     gameUI.classList.add("hidden");
-    startScreen.style.display = "none";
+    startScreen.querySelectorAll('.game-title, #intro-box, #start-btn').forEach(el=>el.style.display='none');
     endScreen.classList.remove("hidden");
     finalBudget.textContent = `${budget.toLocaleString()} USD`;
 }
