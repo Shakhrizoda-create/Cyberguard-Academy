@@ -2,13 +2,17 @@
 body {
     margin: 0;
     font-family: 'Share Tech Mono', monospace;
-    background: #000;
     color: #fff;
     overflow: hidden;
+
+    /* GLOBAL BACKGROUND (ENTIRE GAME) */
+    background:
+        linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.75)),
+        url("../assets-3/computer-background.spot-the-phish.jpg") center/cover no-repeat fixed;
 }
 
-.hidden { 
-    display: none; 
+.hidden {
+    display: none;
 }
 
 /* ================= START SCREEN ================= */
@@ -19,11 +23,11 @@ body {
     overflow: hidden;
 }
 
-/* Blurred background */
+/* KEEP OVERLAY FOR BLUR EFFECT (DO NOT REMOVE) */
 #bg-overlay {
     position: absolute;
     inset: 0;
-    background: url("../assets-3/computer-background.spot-the-phish.jpg") center/cover no-repeat;
+    background: inherit;
     filter: blur(5px) brightness(0.6);
     z-index: 1;
 }
@@ -40,9 +44,9 @@ body {
 }
 
 @keyframes flicker {
-    0% { text-shadow: 0 0 5px #ffeb3b, 0 0 15px #fff200; opacity:1; }
-    50% { text-shadow: 0 0 10px #ffeb3b, 0 0 20px #fff200; opacity:0.8; }
-    100% { text-shadow: 0 0 5px #ffeb3b, 0 0 15px #fff200; opacity:1; }
+    0% { opacity: 1; }
+    50% { opacity: 0.8; }
+    100% { opacity: 1; }
 }
 
 /* Intro text */
@@ -51,14 +55,23 @@ body {
     z-index: 10;
     width: 75%;
     margin: 80px auto 0;
-    transition: opacity 1.5s;
     font-size: 1.8rem;
     line-height: 1.7em;
     color: #ffeb3b;
+    transition: opacity 1.5s;
+}
+
+#intro-box.fade-out {
+    opacity: 0;
+    pointer-events: none;
 }
 
 /* START button */
 #start-btn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     padding: 25px 100px;
     font-size: 3rem;
     border: 4px solid #ffeb3b;
@@ -69,10 +82,6 @@ body {
     text-shadow: 0 0 15px #ffeb3b;
     opacity: 0;
     z-index: 2000;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
     transition: opacity 1.5s ease, transform 0.3s ease;
 }
 
@@ -82,7 +91,6 @@ body {
 
 #start-btn:hover {
     transform: translate(-50%, -50%) scale(1.1);
-    text-shadow: 0 0 30px #fff200, 0 0 60px #ffeb3b;
 }
 
 /* Cyber cubes */
@@ -102,23 +110,14 @@ body {
 }
 
 @keyframes cubeMove {
-    0% { transform: translateY(-50px) translateX(0) rotate(0deg); }
-    100% { transform: translateY(110vh) translateX(40vw) rotate(360deg); }
-}
-
-/* Fade out intro */
-#intro-box.fade-out {
-    opacity: 0;
-    pointer-events: none;
+    from { transform: translateY(-50px) rotate(0deg); }
+    to { transform: translateY(110vh) rotate(360deg); }
 }
 
 /* ================= GAME UI ================= */
 #game-ui {
     position: relative;
     min-height: 100vh;
-    background:
-        linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.85)),
-        url("../assets-3/computer-background.spot-the-phish.jpg") center/cover no-repeat;
 }
 
 /* ================= TIMER ================= */
@@ -126,19 +125,13 @@ body {
     position: fixed;
     top: 25px;
     left: 30px;
-
     font-size: 1.6rem;
     padding: 12px 25px;
-
     color: #ffeb3b;
-    background: rgba(0, 0, 0, 0.6);
-
+    background: rgba(0,0,0,0.6);
     border: 2px solid #ffeb3b;
     border-radius: 8px;
-
     box-shadow: 0 0 10px #ffeb3b;
-    text-shadow: 0 0 10px #ffeb3b;
-
     z-index: 1000;
 }
 
@@ -147,24 +140,13 @@ body {
     position: fixed;
     top: 25px;
     right: 30px;
-
     font-size: 1.8rem;
     padding: 15px 30px;
-
     color: #ffeb3b;
-    background: rgba(0, 0, 0, 0.6);
-
+    background: rgba(0,0,0,0.6);
     border: 3px solid #ffeb3b;
     border-radius: 8px;
-
-    box-shadow:
-        0 0 10px #ffeb3b,
-        0 0 25px rgba(255, 235, 59, 0.8);
-
-    text-shadow:
-        0 0 5px #ffeb3b,
-        0 0 15px #fff200;
-
+    box-shadow: 0 0 20px #ffeb3b;
     z-index: 1000;
 }
 
@@ -177,11 +159,11 @@ body {
 #end-screen {
     position: fixed;
     inset: 0;
-    background: rgba(0, 0, 0, 0.85);
+    background: rgba(0,0,0,0.85);
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
 }
 
 
