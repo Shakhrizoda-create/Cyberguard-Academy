@@ -8,7 +8,7 @@ body {
 }
 
 .hidden {
-    display: none !important; /* ensure hidden works */
+    display: none !important;
 }
 
 /* ================= START SCREEN ================= */
@@ -27,7 +27,7 @@ body {
     z-index: 1;
 }
 
-/* ===== FIX: Clear background after game starts ===== */
+/* ===== FIX: Clear background after start ===== */
 #bg-overlay.clear {
     filter: blur(0px) brightness(0.85);
     transition: filter 1s ease;
@@ -179,12 +179,14 @@ body {
 #end-screen {
     position: fixed;
     inset: 0;
-    background: rgba(0, 0, 0, 0.95);
+    background: rgba(0,0,0,0.35); /* semi-transparent to show background */
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    z-index: 3000; /* always on top */
+    z-index: 3000;
     text-align: center;
 }
+
+   
 
