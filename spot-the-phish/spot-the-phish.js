@@ -1,4 +1,4 @@
-// Elements
+// ================= ELEMENTS =================
 const startScreen = document.getElementById("start-screen");
 const startBtn = document.getElementById("start-btn");
 const introBox = document.getElementById("intro-box");
@@ -15,13 +15,13 @@ const finalBudget = document.getElementById("final-budget");
 const restartBtn = document.getElementById("restart-btn");
 const backBtn = document.getElementById("back-btn");
 
-// Game variables
+// ================= GAME VARIABLES =================
 let budget = 850000;
 let time = 100;
 let currentIndex = 0;
 let timer;
 
-// Cyber cubes
+// ================= CYBER CUBES =================
 const cyberCubesContainer = document.getElementById("cyber-cubes");
 function spawnCubes(amount){
     for(let i=0;i<amount;i++){
@@ -29,7 +29,8 @@ function spawnCubes(amount){
         cube.classList.add("cube");
         cube.style.left = Math.random()*100 + "vw";
         cube.style.animationDuration = (6+Math.random()*4) + "s";
-        cube.style.width = cube.style.height = (15+Math.random()*30)+"px";
+        let size = 15+Math.random()*30;
+        cube.style.width = cube.style.height = size+"px";
         cube.style.opacity = 0.2+Math.random()*0.6;
         cyberCubesContainer.appendChild(cube);
     }
@@ -44,7 +45,6 @@ function typeHTML(element, html, speed=20, callback){
             if(callback) callback();
             return;
         }
-        // Check for tag start
         if(html[i]==="<"){
             let tagEnd = html.indexOf(">", i);
             element.innerHTML += html.substring(i, tagEnd+1);
@@ -64,35 +64,36 @@ function typeHTML(element, html, speed=20, callback){
 const introHTML = introBox.innerHTML;
 introBox.innerHTML = "";
 typeHTML(introBox, introHTML, 30, () => {
-    // After typing finishes, fade out text & show start button
     setTimeout(() => {
         introBox.classList.add("fade-out");
         gameTitle.style.transform = "translateY(-40px)";
         startBtn.classList.remove("hidden");
         startBtn.classList.add("show");
-    }, 800); // small delay after typing
+    }, 800);
 });
 
-// START GAME
+// ================= START GAME =================
 startBtn.addEventListener("click", startGame);
+
 function startGame(){
-    startScreen.style.display = "none";
-    gameUI.classList.remove("hidden");
+    startScreen.style.display = "none";   // hide start screen
+    gameUI.classList.remove("hidden");    // show game UI
     startTimer();
     updateEmail();
 }
 
-// Timer
+// ================= TIMER =================
 function startTimer(){
     timer = setInterval(() => {
         if(time<=0) return endGame();
         time--;
-        let min=Math.floor(time/60), sec=time%60;
+        let min = Math.floor(time/60);
+        let sec = time % 60;
         timerDisplay.textContent = `${min}:${sec<10?"0"+sec:sec}`;
-    },1000);
+    }, 1000);
 }
 
-// Email logic
+// ================= EMAILS =================
 const emails = [
     {subject:"Class Update",from:"School Admin",blocks:["Schedule updated.","Check portal.","Attached document included.","Review all classes.","Contact admin if questions.","Do not ignore."],correct:"safe",penalty:10000},
     {subject:"Urgent Password Reset",from:"IT Dept",blocks:["Your account was compromised.","Reset password immediately.","Ignore at your own risk.","Link expires soon.","Confirm identity.","Do not share credentials."],correct:"infected",penalty:50000},
@@ -109,17 +110,18 @@ emails.sort(()=>Math.random()-0.5);
 
 function updateEmail(){
     if(currentIndex>=emails.length) return endGame();
-    const e=emails[currentIndex];
+    const e = emails[currentIndex];
     emailContainer.innerHTML = `<h2>${e.subject}</h2><h3>From: ${e.from}</h3>` +
         e.blocks.map(b=>`<p>${b}</p>`).join("");
 }
 
+// ================= BUTTON LOGIC =================
 infectedBtn.addEventListener("click", ()=>checkAnswer("infected"));
 safeBtn.addEventListener("click", ()=>checkAnswer("safe"));
 
 function checkAnswer(choice){
-    const e=emails[currentIndex];
-    if(choice!==e.correct){
+    const e = emails[currentIndex];
+    if(choice !== e.correct){
         budget -= e.penalty;
         penaltyDisplay.textContent = `-${e.penalty.toLocaleString()} USD`;
         setTimeout(()=>penaltyDisplay.textContent="",1000);
@@ -129,14 +131,23 @@ function checkAnswer(choice){
     updateEmail();
 }
 
-// End Screen
+// ================= END GAME =================
 function endGame(){
     clearInterval(timer);
+
+    // hide start screen (important fix)
+    startScreen.style.display = "none";
+
+    // hide game UI
     gameUI.classList.add("hidden");
-    endScreen.style.display = "flex";
+
+    // show end screen
+    endScreen.classList.remove("hidden");
     finalBudget.textContent = `${budget.toLocaleString()} USD`;
 }
 
+// ================= RESTART / BACK =================
 restartBtn.addEventListener("click", ()=>location.reload());
 backBtn.addEventListener("click", ()=>window.location.href="index.html");
+
 
