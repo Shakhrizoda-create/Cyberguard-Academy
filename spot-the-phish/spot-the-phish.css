@@ -27,6 +27,25 @@ body {
     z-index: 1;
 }
 
+/* ===== FIX: Clear background after game starts ===== */
+#bg-overlay.clear {
+    filter: blur(0px) brightness(0.85);
+    transition: filter 1s ease;
+}
+
+/* CRT Scanlines */
+#crt-overlay {
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+        rgba(255,255,255,0.02) 0 1px,
+        rgba(0,0,0,0.02) 1px 2px
+    );
+    z-index: 2;
+    pointer-events: none;
+}
+
+/* Title */
 .game-title {
     position: relative;
     z-index: 10;
@@ -168,3 +187,4 @@ body {
     z-index: 3000; /* always on top */
     text-align: center;
 }
+
