@@ -62,10 +62,15 @@
 <!-- ================= END SCREEN ================= -->
 <div id="end-screen" class="hidden">
     <div id="end-message">
-        <h1>SIMULATION COMPLETE</h1>
+        <h1 class="simulation-complete">SIMULATION COMPLETE</h1>
     </div>
     <div id="end-details">
-        <p>Your remaining budget: <span id="final-budget"></span></p>
+        <!-- Cyber Cyan label -->
+        <div class="remaining-budget-text">YOUR REMAINING BUDGET</div>
+        
+        <!-- Budget amount -->
+        <div id="final-budget">$0</div>
+
         <div id="end-buttons">
             <button id="restart-btn">RESTART</button>
             <button id="back-btn">BACK TO HOME</button>
@@ -76,4 +81,5 @@
 <script src="spot-the-phish/spot-the-phish.js"></script>
 </body>
 </html>
+
 
