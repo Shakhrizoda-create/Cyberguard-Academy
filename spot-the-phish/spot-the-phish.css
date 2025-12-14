@@ -111,7 +111,7 @@ body {
 /* Start button smooth fade in */
 #start-btn.show {
     opacity: 1;
-    transition: opacity 1s ease;
+    transition: opacity 2s ease;
 }
 
 /* ================= GAME UI ================= */
