@@ -67,6 +67,43 @@ body {
     100% { opacity: 1; }
 }
 
+/* NEW shake animation */
+@keyframes shakeHard {
+    0%   { transform: translate(0, 0) rotate(0deg); }
+    10%  { transform: translate(-3px, 2px) rotate(-0.5deg); }
+    20%  { transform: translate(4px, -2px) rotate(0.6deg); }
+    30%  { transform: translate(-5px, 3px) rotate(-0.7deg); }
+    40%  { transform: translate(5px, -3px) rotate(0.7deg); }
+    50%  { transform: translate(-4px, 2px) rotate(-0.5deg); }
+    60%  { transform: translate(4px, -2px) rotate(0.5deg); }
+    70%  { transform: translate(-3px, 1px) rotate(-0.3deg); }
+    80%  { transform: translate(3px, -1px) rotate(0.3deg); }
+    90%  { transform: translate(-2px, 1px) rotate(-0.2deg); }
+    100% { transform: translate(0, 0) rotate(0deg); }
+}
+
+/* NEW glow pulse animation */
+@keyframes pulseGlow {
+    0% {
+        text-shadow:
+            0 0 6px #ffeb3b,
+            0 0 18px #fff200,
+            0 0 40px rgba(255,235,59,0.9);
+    }
+    50% {
+        text-shadow:
+            0 0 10px #ffeb3b,
+            0 0 30px #fff200,
+            0 0 90px rgba(255,235,59,1);
+    }
+    100% {
+        text-shadow:
+            0 0 6px #ffeb3b,
+            0 0 18px #fff200,
+            0 0 40px rgba(255,235,59,0.9);
+    }
+}
+
 #intro-box {
     position: relative;
     z-index: 10;
