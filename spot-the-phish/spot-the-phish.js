@@ -14,6 +14,7 @@ const endScreen = document.getElementById("end-screen");
 const finalBudget = document.getElementById("final-budget");
 const restartBtn = document.getElementById("restart-btn");
 const backBtn = document.getElementById("back-btn");
+backBtn.addEventListener("click", ()=>window.location.href="index.html");
 
 // Game variables
 let budget = 850000;
