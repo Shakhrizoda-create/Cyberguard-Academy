@@ -210,9 +210,26 @@ body {
     text-shadow: 0 0 8px #ff0000;
 }
 
-.choice-btn:hover, #restart-btn:hover, #back-btn:hover {
+.choice-btn:hover,
+#restart-btn:hover,
+#back-btn:hover {
     transform: scale(1.1);
-    box-shadow: 0 0 20px #ffeb3b, 0 0 40px rgba(255,235,59,0.7);
+}
+
+/* SAFE button – green glow */
+#safe-btn:hover {
+    box-shadow:
+        0 0 20px #00ff00,
+        0 0 40px rgba(0, 255, 0, 0.8),
+        0 0 60px rgba(0, 255, 0, 0.6);
+}
+
+/* INFECTED button – red glow */
+#infected-btn:hover {
+    box-shadow:
+        0 0 20px #ff0000,
+        0 0 40px rgba(255, 0, 0, 0.8),
+        0 0 60px rgba(255, 0, 0, 0.6);
 }
 
 /* ================= END SCREEN ================= */
