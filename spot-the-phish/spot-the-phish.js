@@ -21,6 +21,7 @@ let time = 100;
 let currentIndex = 0;
 let timer;
 
+// ================= ENTRANCE SECTION FIX =================
 // Cyber cubes only for start
 const cyberCubesContainer = document.getElementById("cyber-cubes");
 function spawnCubes(amount){
@@ -28,16 +29,17 @@ function spawnCubes(amount){
         const cube = document.createElement("div");
         cube.classList.add("cube");
         cube.style.left = Math.random()*100 + "vw";
-        cube.style.animationDuration = (6+Math.random()*4) + "s";
         cube.style.width = cube.style.height = (15+Math.random()*30)+"px";
         cube.style.opacity = 0.2+Math.random()*0.6;
+        cube.style.animationDuration = (6+Math.random()*4) + "s";
+        cube.style.animationName = "cubeMove"; // original falling animation
         cyberCubesContainer.appendChild(cube);
     }
 }
 spawnCubes(40);
 
 // Typing animation
-function typeHTML(element, html, speed=20, callback){
+function typeHTML(element, html, speed=30, callback){
     let i = 0;
     function typeNext(){
         if(i>=html.length){
@@ -63,22 +65,26 @@ function typeHTML(element, html, speed=20, callback){
 const introHTML = introBox.innerHTML;
 introBox.innerHTML = "";
 typeHTML(introBox, introHTML, 30, () => {
+    // Wait 10 seconds before showing Start button
     setTimeout(() => {
-        introBox.classList.add("fade-out");
-        gameTitle.style.transform = "translateY(-40px)";
         startBtn.classList.remove("hidden");
         startBtn.classList.add("show");
-    }, 800);
+    }, 10000);
 });
 
-// Start game
-startBtn.addEventListener("click", startGame);
-function startGame(){
-    startScreen.style.display = "none";
-    gameUI.classList.remove("hidden");
-    startTimer();
-    updateEmail();
-}
+// Start button click
+startBtn.addEventListener("click", () => {
+    // Fade out intro text and cubes gradually
+    introBox.classList.add("fade-out");
+    cyberCubesContainer.style.opacity = "0";
+    setTimeout(() => {
+        startScreen.style.display = "none";
+        gameUI.classList.remove("hidden");
+        startTimer();
+        updateEmail();
+    }, 800);
+});
+// ==========================================================
 
 // Timer
 function startTimer(){
@@ -180,7 +186,7 @@ emails.sort(()=>Math.random()-0.5);
 function updateEmail(){
     if(currentIndex>=emails.length) return endGame();
     const e=emails[currentIndex];
-    emailContainer.innerHTML = `<h2>${e.subject}</h2><h3>From: ${e.from}</h3>` +
+    emailContainer.innerHTML = `<h2>${e.subject}</h2><h3>From: ${e.from} | ${e.time}</h3>` +
         e.blocks.map(b=>`<p>${b}</p>`).join("");
 }
 
@@ -240,4 +246,12 @@ function createCyberEffect(){
             ctx.beginPath();
             ctx.strokeStyle=`rgba(0,255,255,${l.opacity})`;
             ctx.moveTo(l.x,l.y);
-            ctx.lineTo(l.x
+            ctx.lineTo(l.x,l.y+l.length);
+            ctx.stroke();
+            l.y += l.speed;
+            if(l.y>canvas.height) l.y=-l.length;
+        });
+        requestAnimationFrame(animate);
+    }
+    animate();
+}
