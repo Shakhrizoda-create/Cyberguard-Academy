@@ -22,99 +22,123 @@ let time = 100;
 let currentIndex = 0;
 let timer;
 
-// Spawn cubes (START SCREEN ONLY)
-function spawnCubes(amount){
-    for(let i=0;i<amount;i++){
+/* ===== ORIGINAL typing logic RESTORED ===== */
+function typeHTML(element, html, speed = 20, callback) {
+    let i = 0;
+    element.innerHTML = "";
+    function typeNext() {
+        if (i >= html.length) {
+            if (callback) callback();
+            return;
+        }
+        if (html[i] === "<") {
+            const tagEnd = html.indexOf(">", i);
+            element.innerHTML += html.substring(i, tagEnd + 1);
+            i = tagEnd + 1;
+            typeNext();
+        } else {
+            element.innerHTML += html[i++];
+            setTimeout(typeNext, speed);
+        }
+    }
+    typeNext();
+}
+
+// Spawn cubes (intro only)
+function spawnCubes(amount) {
+    for (let i = 0; i < amount; i++) {
         const cube = document.createElement("div");
         cube.classList.add("cube");
-        cube.style.left = Math.random()*100 + "vw";
-        cube.style.width = cube.style.height = (15+Math.random()*30)+"px";
-        cube.style.animationDuration = (6+Math.random()*4)+"s";
+        cube.style.left = Math.random() * 100 + "vw";
+        cube.style.width = cube.style.height = (15 + Math.random() * 30) + "px";
+        cube.style.animationDuration = (6 + Math.random() * 4) + "s";
         cyberCubesContainer.appendChild(cube);
     }
 }
 spawnCubes(40);
 
-// Typing animation
-function typeHTML(el, html, speed, cb){
-    let i=0;
-    el.innerHTML="";
-    function t(){
-        if(i>=html.length){ if(cb)cb(); return; }
-        el.innerHTML+=html[i++];
-        setTimeout(t,speed);
-    }
-    t();
-}
-
+// Intro typing
 const introHTML = introBox.innerHTML;
-typeHTML(introBox, introHTML, 30, ()=>{
-    setTimeout(()=>{
+typeHTML(introBox, introHTML, 30, () => {
+    setTimeout(() => {
         introBox.classList.add("fade-out");
         startBtn.classList.remove("hidden");
         startBtn.classList.add("show");
-    },800);
+    }, 800);
 });
 
 // START GAME
-startBtn.addEventListener("click", ()=>{
-    // hide intro UI only
-    introBox.style.display="none";
-    gameTitle.style.display="none";
-    startBtn.style.display="none";
+startBtn.addEventListener("click", () => {
 
-    // hide cubes after start
+    // RESET STATE (CRITICAL FIX)
+    budget = 850000;
+    time = 100;
+    currentIndex = 0;
+
+    introBox.style.display = "none";
+    gameTitle.style.display = "none";
+    startBtn.style.display = "none";
+
     cyberCubesContainer.classList.add("hide");
 
-    // clear background
     document.getElementById("bg-overlay").classList.add("clear");
 
     gameUI.classList.remove("hidden");
+
     startTimer();
     updateEmail();
 });
 
 // Timer
-function startTimer(){
-    timer=setInterval(()=>{
-        if(time<=0) return endGame();
+function startTimer() {
+    timer = setInterval(() => {
+        if (time <= 0) return endGame();
         time--;
-        timerDisplay.textContent=`${Math.floor(time/60)}:${(time%60).toString().padStart(2,"0")}`;
-    },1000);
+        timerDisplay.textContent =
+            `${Math.floor(time / 60)}:${String(time % 60).padStart(2, "0")}`;
+    }, 1000);
 }
 
-// Emails
-const emails=[ /* unchanged */ ];
-emails.sort(()=>Math.random()-0.5);
+// Emails (UNCHANGED)
+const emails = [ /* your original email array stays here */ ];
+emails.sort(() => Math.random() - 0.5);
 
-function updateEmail(){
-    if(currentIndex>=emails.length) return endGame();
-    const e=emails[currentIndex];
-    emailContainer.innerHTML=`<h2>${e.subject}</h2><h3>From: ${e.from}</h3>`+
-        e.blocks.map(b=>`<p>${b}</p>`).join("");
-}
-
-infectedBtn.onclick=()=>answer("infected");
-safeBtn.onclick=()=>answer("safe");
-
-function answer(c){
-    const e=emails[currentIndex];
-    if(c!==e.correct){
-        budget-=e.penalty;
-        penaltyDisplay.textContent=`-${e.penalty.toLocaleString()} USD`;
-        setTimeout(()=>penaltyDisplay.textContent="",1000);
+// Update email
+function updateEmail() {
+    if (currentIndex >= emails.length) {
+        endGame();
+        return;
     }
-    budgetDisplay.textContent=`${budget.toLocaleString()} USD`;
+    const e = emails[currentIndex];
+    emailContainer.innerHTML =
+        `<h2>${e.subject}</h2><h3>From: ${e.from}</h3>` +
+        e.blocks.map(b => `<p>${b}</p>`).join("");
+}
+
+// Buttons
+infectedBtn.onclick = () => answer("infected");
+safeBtn.onclick = () => answer("safe");
+
+function answer(choice) {
+    const e = emails[currentIndex];
+    if (choice !== e.correct) {
+        budget -= e.penalty;
+        penaltyDisplay.textContent = `-${e.penalty.toLocaleString()} USD`;
+        setTimeout(() => penaltyDisplay.textContent = "", 1000);
+    }
+    budgetDisplay.textContent = `${budget.toLocaleString()} USD`;
     currentIndex++;
     updateEmail();
 }
 
-function endGame(){
+// End
+function endGame() {
     clearInterval(timer);
     gameUI.classList.add("hidden");
     endScreen.classList.remove("hidden");
-    finalBudget.textContent=`${budget.toLocaleString()} USD`;
+    finalBudget.textContent = `${budget.toLocaleString()} USD`;
 }
 
-restartBtn.onclick=()=>location.reload();
-backBtn.onclick=()=>location.href="index.html";
+// Restart / Back
+restartBtn.onclick = () => location.reload();
+backBtn.onclick = () => location.href = "index.html";
