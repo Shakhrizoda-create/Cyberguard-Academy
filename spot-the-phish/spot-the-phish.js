@@ -206,52 +206,82 @@ function checkAnswer(choice){
     updateEmail();
 }
 
-// End game
-function endGame(){
+// =================== END GAME & CYBER EFFECT FIX ===================
+function endGame() {
     clearInterval(timer);
+
+    // Hide game UI & start screen
     gameUI.classList.add("hidden");
     startScreen.style.display = "none";
+
+    // Show end screen
     endScreen.classList.remove("hidden");
+
+    // Add Cyber Cyan label dynamically if not already present
+    if (!document.querySelector("#end-screen .remaining-budget-text")) {
+        const label = document.createElement("div");
+        label.classList.add("remaining-budget-text");
+        label.textContent = "YOUR REMAINING BUDGET";
+        endScreen.querySelector("#end-details").insertBefore(label, finalBudget);
+    }
+
+    // Update final budget
     finalBudget.textContent = `${budget.toLocaleString()} USD`;
+
+    // Create subtle Cyber effect behind the end screen text
     createCyberEffect();
 }
 
-// Restart / Back
-restartBtn.addEventListener("click", ()=>location.reload());
-backBtn.addEventListener("click", ()=>window.location.href="index.html");
+function createCyberEffect() {
+    // Remove existing canvas if present (to prevent duplicates)
+    const existing = document.getElementById("cyber-effect");
+    if (existing) existing.remove();
 
-// =================== CYBER EFFECT (subtle) ===================
-function createCyberEffect(){
     const canvas = document.createElement("canvas");
-    canvas.id="cyber-effect";
+    canvas.id = "cyber-effect";
+    canvas.style.position = "fixed";
+    canvas.style.top = 0;
+    canvas.style.left = 0;
+    canvas.style.width = "100%";
+    canvas.style.height = "100%";
+    canvas.style.zIndex = "50"; // behind end screen text (z-index 3000)
     document.body.appendChild(canvas);
+
     const ctx = canvas.getContext("2d");
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
-    
+
     const lines = [];
-    for(let i=0;i<30;i++){
+    for (let i = 0; i < 30; i++) {
         lines.push({
-            x: Math.random()*canvas.width,
-            y: Math.random()*canvas.height,
-            length: 50+Math.random()*150,
-            speed: 0.5+Math.random(),
-            opacity: 0.1+Math.random()*0.3
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            length: 50 + Math.random() * 150,
+            speed: 0.5 + Math.random(),
+            opacity: 0.1 + Math.random() * 0.3
         });
     }
 
-    function animate(){
-        ctx.clearRect(0,0,canvas.width,canvas.height);
-        lines.forEach(l=>{
+    function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        lines.forEach(l => {
             ctx.beginPath();
-            ctx.strokeStyle=`rgba(0,255,255,${l.opacity})`;
-            ctx.moveTo(l.x,l.y);
-            ctx.lineTo(l.x,l.y+l.length);
+            ctx.strokeStyle = `rgba(0, 229, 255, ${l.opacity})`;
+            ctx.moveTo(l.x, l.y);
+            ctx.lineTo(l.x, l.y + l.length);
             ctx.stroke();
             l.y += l.speed;
-            if(l.y>canvas.height) l.y=-l.length;
+            if (l.y > canvas.height) l.y = -l.length;
         });
         requestAnimationFrame(animate);
     }
+
     animate();
+
+    // Make canvas responsive on window resize
+    window.addEventListener("resize", () => {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    });
 }
+
