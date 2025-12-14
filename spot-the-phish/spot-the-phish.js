@@ -14,131 +14,230 @@ const endScreen = document.getElementById("end-screen");
 const finalBudget = document.getElementById("final-budget");
 const restartBtn = document.getElementById("restart-btn");
 const backBtn = document.getElementById("back-btn");
-const cyberCubesContainer = document.getElementById("cyber-cubes");
 
-// Game state
+// Game variables
 let budget = 850000;
 let time = 100;
 let currentIndex = 0;
 let timer;
 
-/* ===== ORIGINAL typing logic RESTORED ===== */
-function typeHTML(element, html, speed = 20, callback) {
-    let i = 0;
-    element.innerHTML = "";
-    function typeNext() {
-        if (i >= html.length) {
-            if (callback) callback();
-            return;
-        }
-        if (html[i] === "<") {
-            const tagEnd = html.indexOf(">", i);
-            element.innerHTML += html.substring(i, tagEnd + 1);
-            i = tagEnd + 1;
-            typeNext();
-        } else {
-            element.innerHTML += html[i++];
-            setTimeout(typeNext, speed);
-        }
-    }
-    typeNext();
-}
-
-// Spawn cubes (intro only)
-function spawnCubes(amount) {
-    for (let i = 0; i < amount; i++) {
+// Cyber cubes only for start
+const cyberCubesContainer = document.getElementById("cyber-cubes");
+function spawnCubes(amount){
+    for(let i=0;i<amount;i++){
         const cube = document.createElement("div");
         cube.classList.add("cube");
-        cube.style.left = Math.random() * 100 + "vw";
-        cube.style.width = cube.style.height = (15 + Math.random() * 30) + "px";
-        cube.style.animationDuration = (6 + Math.random() * 4) + "s";
+        cube.style.left = Math.random()*100 + "vw";
+        cube.style.animationDuration = (6+Math.random()*4) + "s";
+        cube.style.width = cube.style.height = (15+Math.random()*30)+"px";
+        cube.style.opacity = 0.2+Math.random()*0.6;
         cyberCubesContainer.appendChild(cube);
     }
 }
 spawnCubes(40);
 
-// Intro typing
+// Typing animation
+function typeHTML(element, html, speed=20, callback){
+    let i = 0;
+    function typeNext(){
+        if(i>=html.length){
+            if(callback) callback();
+            return;
+        }
+        if(html[i]==="<"){
+            let tagEnd = html.indexOf(">", i);
+            element.innerHTML += html.substring(i, tagEnd+1);
+            i = tagEnd+1;
+            typeNext();
+        } else {
+            element.innerHTML += html[i];
+            i++;
+            setTimeout(typeNext, speed);
+        }
+    }
+    element.innerHTML = "";
+    typeNext();
+}
+
+// Start screen typing
 const introHTML = introBox.innerHTML;
+introBox.innerHTML = "";
 typeHTML(introBox, introHTML, 30, () => {
     setTimeout(() => {
         introBox.classList.add("fade-out");
+        gameTitle.style.transform = "translateY(-40px)";
         startBtn.classList.remove("hidden");
         startBtn.classList.add("show");
     }, 800);
 });
 
-// START GAME
-startBtn.addEventListener("click", () => {
-
-    // RESET STATE (CRITICAL FIX)
-    budget = 850000;
-    time = 100;
-    currentIndex = 0;
-
-    introBox.style.display = "none";
-    gameTitle.style.display = "none";
-    startBtn.style.display = "none";
-
-    cyberCubesContainer.classList.add("hide");
-
-    document.getElementById("bg-overlay").classList.add("clear");
-
+// Start game
+startBtn.addEventListener("click", startGame);
+function startGame(){
+    startScreen.style.display = "none";
     gameUI.classList.remove("hidden");
-
     startTimer();
     updateEmail();
-});
-
-// Timer
-function startTimer() {
-    timer = setInterval(() => {
-        if (time <= 0) return endGame();
-        time--;
-        timerDisplay.textContent =
-            `${Math.floor(time / 60)}:${String(time % 60).padStart(2, "0")}`;
-    }, 1000);
 }
 
-// Emails (UNCHANGED)
-const emails = [ /* your original email array stays here */ ];
-emails.sort(() => Math.random() - 0.5);
+// Timer
+function startTimer(){
+    timer = setInterval(() => {
+        if(time<=0) return endGame();
+        time--;
+        let min=Math.floor(time/60), sec=time%60;
+        timerDisplay.textContent = `${min}:${sec<10?"0"+sec:sec}`;
+    },1000);
+}
+
+// Emails (hacker-style, longer, shuffled)
+const emails = [
+    {subject:"Urgent: Verify Your Bank Account", time:"02:50 PM", from:"security@yourbank.com",
+     blocks:["We detected unusual activity in your account.",
+             "Please verify your identity immediately to avoid suspension.",
+             "Click the link below to confirm your details.",
+             "Failure to comply may result in account lockout.",
+             "Do NOT ignore this message."],
+     correct:"infected", penalty:750000, difficulty:"hard"},
+
+    {subject:"Team Lunch Invitation", time:"09:10 AM", from:"HR Team",
+     blocks:["You are invited to the team lunch next Friday at 12PM.",
+             "RSVP is required via our portal.",
+             "Menu options and dietary requirements attached.",
+             "Looking forward to seeing everyone.",
+             "Enjoy your meal!"],
+     correct:"safe", penalty:150000, difficulty:"easy"},
+
+    {subject:"Suspicious Login Attempt", time:"08:10 AM", from:"IT Security",
+     blocks:["Unusual login detected from a new device.",
+             "Verify your credentials immediately to avoid account compromise.",
+             "Click the verification link provided.",
+             "Report any suspicious activity immediately.",
+             "Do not ignore."],
+     correct:"infected", penalty:300000, difficulty:"medium"},
+
+    {subject:"Workshop Reminder", time:"12:00 AM", from:"Cybersecurity Dept",
+     blocks:["Cybersecurity workshop is scheduled for Monday 10AM.",
+             "Ensure you RSVP online.",
+             "Materials and agenda attached.",
+             "Participation is highly recommended.",
+             "Certificate will be provided for attendees."],
+     correct:"safe", penalty:150000, difficulty:"easy"},
+
+    {subject:"Invoice Overdue Notice", time:"01:20 PM", from:"Accounting",
+     blocks:["Invoice #98765 is overdue.",
+             "Immediate payment required to avoid late fees.",
+             "Attached PDF contains payment details.",
+             "Please contact finance for questions.",
+             "Do not ignore this notice."],
+     correct:"infected", penalty:300000, difficulty:"medium"},
+
+    {subject:"Phishing Test", time:"11:45 AM", from:"Security Dept",
+     blocks:["This is a simulated phishing test.",
+             "Do not click any links.",
+             "Report suspicious emails as instructed.",
+             "Your awareness helps the organization.",
+             "No penalty for this test."],
+     correct:"safe", penalty:150000, difficulty:"easy"},
+
+    {subject:"Password Expiration Alert", time:"07:30 PM", from:"IT Dept",
+     blocks:["Your password will expire in 24 hours.",
+             "Reset your password immediately using the link below.",
+             "Failure to reset may lock your account.",
+             "Do not share credentials with anyone.",
+             "Contact IT if you face issues."],
+     correct:"infected", penalty:750000, difficulty:"hard"},
+
+    {subject:"Project Deadline", time:"05:59 PM", from:"Manager",
+     blocks:["Project submission is due Friday 5PM.",
+             "Check attached timeline and ensure all tasks are completed.",
+             "Contact manager if clarification is needed.",
+             "Do not skip steps in workflow.",
+             "Submit on time."],
+     correct:"safe", penalty:150000, difficulty:"easy"},
+
+    {subject:"Bank Account Alert", time:"08:30 AM", from:"Bank",
+     blocks:["Suspicious activity detected in your bank account.",
+             "Verify your account immediately to prevent lockout.",
+             "Attached form must be completed.",
+             "Failure may cause account suspension.",
+             "Do not ignore this alert."],
+     correct:"infected", penalty:300000, difficulty:"medium"},
+
+    {subject:"Congratulations! You won a prize!", time:"06:40 AM", from:"unknown@promo.com",
+     blocks:["You have won a grand prize!",
+             "Click the link to claim it immediately.",
+             "Provide personal details to proceed.",
+             "Offer expires soon.",
+             "Be cautious but hurry!"],
+     correct:"infected", penalty:750000, difficulty:"hard"}
+];
+
+// Shuffle emails
+emails.sort(()=>Math.random()-0.5);
 
 // Update email
-function updateEmail() {
-    if (currentIndex >= emails.length) {
-        endGame();
-        return;
-    }
-    const e = emails[currentIndex];
-    emailContainer.innerHTML =
-        `<h2>${e.subject}</h2><h3>From: ${e.from}</h3>` +
-        e.blocks.map(b => `<p>${b}</p>`).join("");
+function updateEmail(){
+    if(currentIndex>=emails.length) return endGame();
+    const e=emails[currentIndex];
+    emailContainer.innerHTML = `<h2>${e.subject}</h2><h3>From: ${e.from}</h3>` +
+        e.blocks.map(b=>`<p>${b}</p>`).join("");
 }
 
 // Buttons
-infectedBtn.onclick = () => answer("infected");
-safeBtn.onclick = () => answer("safe");
+infectedBtn.addEventListener("click", ()=>checkAnswer("infected"));
+safeBtn.addEventListener("click", ()=>checkAnswer("safe"));
 
-function answer(choice) {
-    const e = emails[currentIndex];
-    if (choice !== e.correct) {
+function checkAnswer(choice){
+    const e=emails[currentIndex];
+    if(choice!==e.correct){
         budget -= e.penalty;
         penaltyDisplay.textContent = `-${e.penalty.toLocaleString()} USD`;
-        setTimeout(() => penaltyDisplay.textContent = "", 1000);
+        setTimeout(()=>penaltyDisplay.textContent="",1000);
     }
     budgetDisplay.textContent = `${budget.toLocaleString()} USD`;
     currentIndex++;
     updateEmail();
 }
 
-// End
-function endGame() {
+// End game
+function endGame(){
     clearInterval(timer);
     gameUI.classList.add("hidden");
+    startScreen.style.display = "none";
     endScreen.classList.remove("hidden");
     finalBudget.textContent = `${budget.toLocaleString()} USD`;
+    createCyberEffect();
 }
 
 // Restart / Back
-restartBtn.onclick = () => location.reload();
-backBtn.onclick = () => location.href = "index.html";
+restartBtn.addEventListener("click", ()=>location.reload());
+backBtn.addEventListener("click", ()=>window.location.href="index.html");
+
+// =================== CYBER EFFECT (subtle) ===================
+function createCyberEffect(){
+    const canvas = document.createElement("canvas");
+    canvas.id="cyber-effect";
+    document.body.appendChild(canvas);
+    const ctx = canvas.getContext("2d");
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    
+    const lines = [];
+    for(let i=0;i<30;i++){
+        lines.push({
+            x: Math.random()*canvas.width,
+            y: Math.random()*canvas.height,
+            length: 50+Math.random()*150,
+            speed: 0.5+Math.random(),
+            opacity: 0.1+Math.random()*0.3
+        });
+    }
+
+    function animate(){
+        ctx.clearRect(0,0,canvas.width,canvas.height);
+        lines.forEach(l=>{
+            ctx.beginPath();
+            ctx.strokeStyle=`rgba(0,255,255,${l.opacity})`;
+            ctx.moveTo(l.x,l.y);
+            ctx.lineTo(l.x
