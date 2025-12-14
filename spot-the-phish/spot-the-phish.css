@@ -302,31 +302,20 @@ body {
     transition: opacity 0.8s ease, transform 0.8s ease;
 }
 
-/* ================= END SCREEN ENHANCEMENTS ================= */
-#end-screen h1, #final-budget {
-    font-size: 5rem; /* bigger */
-    color: #ffeb3b;
-    text-shadow:
-        0 0 10px #ffeb3b,
-        0 0 25px #fff200,
-        0 0 40px #ffeb3b;
+/* ================= END SCREEN ================= */
+#end-screen {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.25);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 3000;
+    text-align: center;
 }
 
-/* Digital glitch effect for final budget */
-@keyframes digital-glitch {
-    0% { transform: translate(0,0) skew(0deg); opacity: 1; }
-    20% { transform: translate(-2px,2px) skew(1deg); opacity: 0.8; }
-    40% { transform: translate(2px,-2px) skew(-1deg); opacity: 0.9; }
-    60% { transform: translate(-1px,1px) skew(1deg); opacity: 1; }
-    80% { transform: translate(1px,-1px) skew(-1deg); opacity: 0.85; }
-    100% { transform: translate(0,0) skew(0deg); opacity: 1; }
-}
-
-#final-budget {
-    animation: digital-glitch 0.5s infinite;
-}
-
-/* "Simulation Complete" text */
+/* Simulation Complete text – yellow glitch */
 #end-screen h1.simulation-complete {
     font-size: 4rem;
     color: #ffeb3b;
@@ -338,7 +327,17 @@ body {
     margin-bottom: 30px;
 }
 
-/* Remaining budget label – Cyber Cyan */
+/* Digital glitch animation */
+@keyframes digital-glitch {
+    0% { transform: translate(0,0) skew(0deg); opacity: 1; }
+    20% { transform: translate(-2px,2px) skew(1deg); opacity: 0.8; }
+    40% { transform: translate(2px,-2px) skew(-1deg); opacity: 0.9; }
+    60% { transform: translate(-1px,1px) skew(1deg); opacity: 1; }
+    80% { transform: translate(1px,-1px) skew(-1deg); opacity: 0.85; }
+    100% { transform: translate(0,0) skew(0deg); opacity: 1; }
+}
+
+/* Remaining budget label – Cyber Cyan glow */
 #end-screen .remaining-budget-text {
     font-size: 3rem;
     color: #00e5ff;
@@ -349,5 +348,37 @@ body {
     letter-spacing: 3px;
     margin-bottom: 10px;
 }
+
+/* Final budget number – yellow glitch */
+#final-budget {
+    font-size: 5.5rem;
+    color: #ffeb3b;
+    text-shadow:
+        0 0 15px #ffeb3b,
+        0 0 35px #fff200,
+        0 0 55px rgba(255, 235, 59, 0.8);
+    animation: digital-glitch 0.5s infinite;
+    margin-bottom: 30px;
+}
+
+/* End screen buttons */
+#end-buttons button {
+    margin: 20px;
+    color: #ffeb3b;
+    border: 3px solid #ffeb3b;
+    background: black;
+    padding: 20px 50px;
+    border-radius: 10px;
+    font-size: 2rem;
+    cursor: pointer;
+    text-shadow: 0 0 10px #000;
+    transition: all 0.3s ease;
+}
+
+#end-buttons button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 20px #ffeb3b, 0 0 40px rgba(255,235,59,0.7);
+}
+
 
 
