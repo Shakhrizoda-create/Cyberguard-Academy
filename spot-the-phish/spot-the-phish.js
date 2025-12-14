@@ -21,8 +21,7 @@ let time = 100;
 let currentIndex = 0;
 let timer;
 
-// ================= ENTRANCE SECTION FIX =================
-// Cyber cubes only for start
+// Cyber cubes for start screen
 const cyberCubesContainer = document.getElementById("cyber-cubes");
 function spawnCubes(amount){
     for(let i=0;i<amount;i++){
@@ -32,7 +31,6 @@ function spawnCubes(amount){
         cube.style.width = cube.style.height = (15+Math.random()*30)+"px";
         cube.style.opacity = 0.2+Math.random()*0.6;
         cube.style.animationDuration = (6+Math.random()*4) + "s";
-        cube.style.animationName = "cubeMove"; // original falling animation
         cyberCubesContainer.appendChild(cube);
     }
 }
@@ -61,21 +59,18 @@ function typeHTML(element, html, speed=30, callback){
     typeNext();
 }
 
-// Start screen typing
+// Entrance typing + Start button after 10s
 const introHTML = introBox.innerHTML;
 introBox.innerHTML = "";
 typeHTML(introBox, introHTML, 30, () => {
-    // After 10 seconds, fade out text and show Start button
     setTimeout(() => {
-        introBox.classList.add("fade-out"); // text fades out
-        startBtn.classList.remove("hidden");
-        startBtn.classList.add("show"); // button fades in
+        introBox.classList.add("fade-out");
+        startBtn.classList.add("show");
     }, 10000);
 });
 
 // Start button click
 startBtn.addEventListener("click", () => {
-    // Fade out intro text and cubes gradually
     introBox.classList.add("fade-out");
     cyberCubesContainer.style.opacity = "0";
     setTimeout(() => {
@@ -85,7 +80,6 @@ startBtn.addEventListener("click", () => {
         updateEmail();
     }, 800);
 });
-// ==========================================================
 
 // Timer
 function startTimer(){
@@ -199,12 +193,22 @@ function checkAnswer(choice){
     const e=emails[currentIndex];
     if(choice!==e.correct){
         budget -= e.penalty;
-        penaltyDisplay.textContent = `-${e.penalty.toLocaleString()} USD`;
-        setTimeout(()=>penaltyDisplay.textContent="",1000);
+        showPenalty(e.penalty);
     }
     budgetDisplay.textContent = `${budget.toLocaleString()} USD`;
     currentIndex++;
     updateEmail();
+}
+
+// Show penalty ghost
+function showPenalty(amount){
+    penaltyDisplay.textContent = `-${amount.toLocaleString()} USD`;
+    penaltyDisplay.style.opacity = "1";
+    penaltyDisplay.style.transform = "translate(-50%, -50%) scale(1.2)";
+    setTimeout(()=>{
+        penaltyDisplay.style.opacity = "0";
+        penaltyDisplay.style.transform = "translate(-50%, -50%) scale(1)";
+    },1000);
 }
 
 // End game
@@ -213,46 +217,32 @@ function endGame(){
     gameUI.classList.add("hidden");
     startScreen.style.display = "none";
     endScreen.classList.remove("hidden");
+
+    // Show budget + simulation complete
     finalBudget.textContent = `${budget.toLocaleString()} USD`;
-    createCyberEffect();
+    const simComplete = document.createElement("div");
+    simComplete.id="simulation-complete";
+    simComplete.textContent = "Simulation Complete";
+    endScreen.appendChild(simComplete);
+
+    createGlitchEffect();
 }
 
 // Restart / Back
 restartBtn.addEventListener("click", ()=>location.reload());
 backBtn.addEventListener("click", ()=>window.location.href="index.html");
 
-// =================== CYBER EFFECT (subtle) ===================
-function createCyberEffect(){
+// =================== DIGITAL GLITCH EFFECT ===================
+function createGlitchEffect(){
     const canvas = document.createElement("canvas");
     canvas.id="cyber-effect";
     document.body.appendChild(canvas);
     const ctx = canvas.getContext("2d");
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
-    
-    const lines = [];
-    for(let i=0;i<30;i++){
-        lines.push({
-            x: Math.random()*canvas.width,
-            y: Math.random()*canvas.height,
-            length: 50+Math.random()*150,
-            speed: 0.5+Math.random(),
-            opacity: 0.1+Math.random()*0.3
-        });
-    }
 
-    function animate(){
-        ctx.clearRect(0,0,canvas.width,canvas.height);
-        lines.forEach(l=>{
-            ctx.beginPath();
-            ctx.strokeStyle=`rgba(0,255,255,${l.opacity})`;
-            ctx.moveTo(l.x,l.y);
-            ctx.lineTo(l.x,l.y+l.length);
-            ctx.stroke();
-            l.y += l.speed;
-            if(l.y>canvas.height) l.y=-l.length;
-        });
-        requestAnimationFrame(animate);
-    }
-    animate();
-}
+    const glitches = [];
+    for(let i=0;i<50;i++){
+        glitches.push({
+            x: Math.random
+
