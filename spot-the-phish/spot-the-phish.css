@@ -37,12 +37,8 @@ body {
 #crt-overlay {
     position: absolute;
     inset: 0;
-    background: repeating-linear-gradient(
-        rgba(255,255,255,0.02) 0 1px,
-        rgba(0,0,0,0.02) 1px 2px
-    );
-    z-index: 2;
     pointer-events: none;
+    z-index: 2;
 }
 
 /* Title */
@@ -78,6 +74,7 @@ body {
     pointer-events: none;
 }
 
+/* Start Button */
 #start-btn {
     position: absolute;
     top: 50%;
@@ -123,9 +120,14 @@ body {
     animation: cubeMove linear infinite;
 }
 
+/* ORIGINAL diagonal movement RESTORED */
 @keyframes cubeMove {
-    0% { transform: translateY(-50px) rotate(0deg); }
-    100% { transform: translateY(110vh) rotate(360deg); }
+    0% {
+        transform: translateY(-50px) translateX(0) rotate(0deg);
+    }
+    100% {
+        transform: translateY(110vh) translateX(40vw) rotate(360deg);
+    }
 }
 
 /* ================= GAME UI ================= */
@@ -135,23 +137,18 @@ body {
     z-index: 10;
 }
 
-/* ================= TIMER ================= */
-#timer-box {
-    position: fixed;
-    top: 25px;
-    left: 30px;
-    z-index: 1000;
-}
-
-/* ================= BUDGET ================= */
+/* ================= TIMER / BUDGET ================= */
+#timer-box,
 #budget-box {
     position: fixed;
     top: 25px;
-    right: 30px;
     z-index: 1000;
 }
 
-/* ================= BUTTONS FIX ================= */
+#timer-box { left: 30px; }
+#budget-box { right: 30px; }
+
+/* ================= BUTTONS ================= */
 #choice-buttons {
     position: fixed;
     bottom: 50px;
@@ -182,7 +179,6 @@ body {
     inset: 0;
     background: rgba(0,0,0,0.35);
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
     z-index: 3000;
