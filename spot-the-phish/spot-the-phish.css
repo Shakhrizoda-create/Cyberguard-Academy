@@ -2,7 +2,7 @@
 body {
     margin: 0;
     font-family: 'Share Tech Mono', monospace;
-    background: url("assets-3/computer-background.spot-the-phish.jpg") center/cover no-repeat;
+    background: url("../assets-3/computer-background.spot-the-phish.jpg") center/cover no-repeat;
     color: #fff;
     overflow: hidden;
 }
@@ -22,7 +22,7 @@ body {
 #bg-overlay {
     position: absolute;
     inset: 0;
-    background: url("assets-3/computer-background.spot-the-phish.jpg") center/cover no-repeat;
+    background: url("../assets-3/computer-background.spot-the-phish.jpg") center/cover no-repeat;
     filter: blur(5px) brightness(0.6);
     z-index: 1;
 }
@@ -120,7 +120,7 @@ body {
     min-height: 100vh;
     background:
         linear-gradient(rgba(0,0,0,0.25), rgba(0,0,0,0.25)),
-        url("assets-3/computer-background.spot-the-phish.jpg") center/cover no-repeat;
+        url("../assets-3/computer-background.spot-the-phish.jpg") center/cover no-repeat;
 }
 
 /* ================= TIMER ================= */
