@@ -230,6 +230,9 @@ function endGame() {
 
     // Create subtle Cyber effect behind the end screen text
     createCyberEffect();
+    
+    // Create Matrix-style Cyber Cyan code rain
+    createMatrixRain();
 }
 
 function createCyberEffect() {
