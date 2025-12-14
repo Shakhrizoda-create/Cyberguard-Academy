@@ -1,3 +1,57 @@
+document.addEventListener("DOMContentLoaded", () => {
+    const startScreen = document.getElementById("start-screen");
+    const startBtn = document.getElementById("start-btn");
+    const introBox = document.getElementById("intro-box");
+    const cyberCubesContainer = document.getElementById("cyber-cubes");
+    
+    // Spawn cubes
+    function spawnCubes(amount){
+        for(let i=0;i<amount;i++){
+            const cube = document.createElement("div");
+            cube.classList.add("cube");
+            cube.style.left = Math.random()*100 + "vw";
+            cube.style.width = cube.style.height = (15+Math.random()*30)+"px";
+            cube.style.opacity = 0.2+Math.random()*0.6;
+            cube.style.animationDuration = (6+Math.random()*4) + "s";
+            cyberCubesContainer.appendChild(cube);
+        }
+    }
+    spawnCubes(40);
+
+    // Typing animation
+    function typeHTML(element, html, speed=30, callback){
+        let i = 0;
+        function typeNext(){
+            if(i>=html.length){ if(callback) callback(); return; }
+            if(html[i]==="<"){
+                let tagEnd = html.indexOf(">", i);
+                element.innerHTML += html.substring(i, tagEnd+1);
+                i = tagEnd+1;
+                typeNext();
+            } else {
+                element.innerHTML += html[i];
+                i++;
+                setTimeout(typeNext, speed);
+            }
+        }
+        element.innerHTML = "";
+        typeNext();
+    }
+
+    // Run typing and show start button after 10s
+    const introHTML = introBox.innerHTML;
+    introBox.innerHTML = "";
+    typeHTML(introBox, introHTML, 30, () => {
+        setTimeout(() => {
+            introBox.classList.add("fade-out");
+            startBtn.classList.remove("hidden");
+            startBtn.classList.add("show");
+        }, 10000);
+    });
+
+    // …rest of your JS code goes here…
+});
+
 // Elements
 const startScreen = document.getElementById("start-screen");
 const startBtn = document.getElementById("start-btn");
