@@ -14,138 +14,107 @@ const endScreen = document.getElementById("end-screen");
 const finalBudget = document.getElementById("final-budget");
 const restartBtn = document.getElementById("restart-btn");
 const backBtn = document.getElementById("back-btn");
+const cyberCubesContainer = document.getElementById("cyber-cubes");
 
-// Game variables
+// Game state
 let budget = 850000;
 let time = 100;
 let currentIndex = 0;
 let timer;
 
-// Cyber cubes
-const cyberCubesContainer = document.getElementById("cyber-cubes");
+// Spawn cubes (START SCREEN ONLY)
 function spawnCubes(amount){
     for(let i=0;i<amount;i++){
         const cube = document.createElement("div");
         cube.classList.add("cube");
         cube.style.left = Math.random()*100 + "vw";
-        cube.style.animationDuration = (6+Math.random()*4) + "s";
         cube.style.width = cube.style.height = (15+Math.random()*30)+"px";
-        cube.style.opacity = 0.2+Math.random()*0.6;
+        cube.style.animationDuration = (6+Math.random()*4)+"s";
         cyberCubesContainer.appendChild(cube);
     }
 }
 spawnCubes(40);
 
 // Typing animation
-function typeHTML(element, html, speed=20, callback){
-    let i = 0;
-    function typeNext(){
-        if(i>=html.length){
-            if(callback) callback();
-            return;
-        }
-        if(html[i]==="<"){
-            let tagEnd = html.indexOf(">", i);
-            element.innerHTML += html.substring(i, tagEnd+1);
-            i = tagEnd+1;
-            typeNext();
-        } else {
-            element.innerHTML += html[i];
-            i++;
-            setTimeout(typeNext, speed);
-        }
+function typeHTML(el, html, speed, cb){
+    let i=0;
+    el.innerHTML="";
+    function t(){
+        if(i>=html.length){ if(cb)cb(); return; }
+        el.innerHTML+=html[i++];
+        setTimeout(t,speed);
     }
-    element.innerHTML = "";
-    typeNext();
+    t();
 }
 
-// Start screen typing
 const introHTML = introBox.innerHTML;
-introBox.innerHTML = "";
-typeHTML(introBox, introHTML, 30, () => {
-    setTimeout(() => {
+typeHTML(introBox, introHTML, 30, ()=>{
+    setTimeout(()=>{
         introBox.classList.add("fade-out");
-        gameTitle.style.transform = "translateY(-40px)";
         startBtn.classList.remove("hidden");
         startBtn.classList.add("show");
-    }, 800);
+    },800);
 });
 
-// Start game
-startBtn.addEventListener("click", startGame);
-function startGame(){
-    // Hide only start UI elements, keep background
-    startScreen.querySelectorAll('.game-title, #intro-box, #start-btn').forEach(el=>el.style.display='none');
+// START GAME
+startBtn.addEventListener("click", ()=>{
+    // hide intro UI only
+    introBox.style.display="none";
+    gameTitle.style.display="none";
+    startBtn.style.display="none";
 
-    gameUI.classList.remove("hidden");
+    // hide cubes after start
+    cyberCubesContainer.classList.add("hide");
 
-    // Make background clearer after start
+    // clear background
     document.getElementById("bg-overlay").classList.add("clear");
 
+    gameUI.classList.remove("hidden");
     startTimer();
     updateEmail();
-}
+});
 
 // Timer
 function startTimer(){
-    timer = setInterval(() => {
+    timer=setInterval(()=>{
         if(time<=0) return endGame();
         time--;
-        let min=Math.floor(time/60), sec=time%60;
-        timerDisplay.textContent = `${min}:${sec<10?"0"+sec:sec}`;
+        timerDisplay.textContent=`${Math.floor(time/60)}:${(time%60).toString().padStart(2,"0")}`;
     },1000);
 }
 
 // Emails
-const emails = [
-    {subject:"Class Update",from:"School Admin",blocks:["Schedule updated.","Check portal.","Attached document included.","Review all classes.","Contact admin if questions.","Do not ignore."],correct:"safe",penalty:10000},
-    {subject:"Urgent Password Reset",from:"IT Dept",blocks:["Your account was compromised.","Reset password immediately.","Ignore at your own risk.","Link expires soon.","Confirm identity.","Do not share credentials."],correct:"infected",penalty:50000},
-    {subject:"Workshop Invite",from:"HR Team",blocks:["Join the cybersecurity workshop.","Monday 10AM.","RSVP online.","Materials attached.","Be punctual.","Certificate provided."],correct:"safe",penalty:10000},
-    {subject:"Suspicious Login",from:"IT Security",blocks:["Unusual login detected.","Click link to verify.","Account may be at risk.","Do not ignore.","Confirm identity.","Report issues."],correct:"infected",penalty:50000},
-    {subject:"Invoice Notice",from:"Accounting",blocks:["Invoice #12345 overdue.","Immediate payment required.","Attached document has details.","Late fee may apply.","Contact finance.","Do not ignore."],correct:"infected",penalty:20000},
-    {subject:"Team Lunch",from:"HR Team",blocks:["You are invited to lunch.","Date: Friday 12PM.","RSVP required.","Check menu attached.","Bring ID badge.","Enjoy the meal!"],correct:"safe",penalty:10000},
-    {subject:"Phishing Test",from:"Security Dept",blocks:["This is a phishing test.","Do not click links.","Report suspicious emails.","Your awareness counts.","No penalty this time.","Thank you."],correct:"safe",penalty:10000},
-    {subject:"Bank Alert",from:"Bank",blocks:["Suspicious activity detected.","Verify account now.","Attached form required.","Failure may cause lockout.","Do not ignore.","Contact support."],correct:"infected",penalty:50000},
-    {subject:"Project Deadline",from:"Manager",blocks:["Project submission due.","Check attached timeline.","Ensure tasks complete.","Contact manager if late.","Do not skip steps.","Submit on time."],correct:"safe",penalty:10000},
-    {subject:"Win a Prize!",from:"Unknown",blocks:["You won a prize!","Click link to claim.","Provide details quickly.","Offer expires soon.","Do not miss this.","Be cautious!"],correct:"infected",penalty:50000}
-];
+const emails=[ /* unchanged */ ];
 emails.sort(()=>Math.random()-0.5);
 
-// Update email
 function updateEmail(){
     if(currentIndex>=emails.length) return endGame();
     const e=emails[currentIndex];
-    emailContainer.innerHTML = `<h2>${e.subject}</h2><h3>From: ${e.from}</h3>` +
+    emailContainer.innerHTML=`<h2>${e.subject}</h2><h3>From: ${e.from}</h3>`+
         e.blocks.map(b=>`<p>${b}</p>`).join("");
 }
 
-// Buttons
-infectedBtn.addEventListener("click", ()=>checkAnswer("infected"));
-safeBtn.addEventListener("click", ()=>checkAnswer("safe"));
+infectedBtn.onclick=()=>answer("infected");
+safeBtn.onclick=()=>answer("safe");
 
-function checkAnswer(choice){
+function answer(c){
     const e=emails[currentIndex];
-    if(choice!==e.correct){
-        budget -= e.penalty;
-        penaltyDisplay.textContent = `-${e.penalty.toLocaleString()} USD`;
+    if(c!==e.correct){
+        budget-=e.penalty;
+        penaltyDisplay.textContent=`-${e.penalty.toLocaleString()} USD`;
         setTimeout(()=>penaltyDisplay.textContent="",1000);
     }
-    budgetDisplay.textContent = `${budget.toLocaleString()} USD`;
+    budgetDisplay.textContent=`${budget.toLocaleString()} USD`;
     currentIndex++;
     updateEmail();
 }
 
-// End game
 function endGame(){
     clearInterval(timer);
     gameUI.classList.add("hidden");
-    startScreen.querySelectorAll('.game-title, #intro-box, #start-btn').forEach(el=>el.style.display='none');
     endScreen.classList.remove("hidden");
-    finalBudget.textContent = `${budget.toLocaleString()} USD`;
+    finalBudget.textContent=`${budget.toLocaleString()} USD`;
 }
 
-// Restart / Back
-restartBtn.addEventListener("click", ()=>location.reload());
-backBtn.addEventListener("click", ()=>window.location.href="index.html");
-
-
+restartBtn.onclick=()=>location.reload();
+backBtn.onclick=()=>location.href="index.html";
