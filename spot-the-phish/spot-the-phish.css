@@ -216,20 +216,37 @@ body {
     transform: scale(1.1);
 }
 
-/* SAFE button – green glow */
+/* SAFE button – green glow on hover ONLY */
+#safe-btn {
+    color: #00ff00;
+    text-shadow: 0 0 8px #00ff00;
+}
+
 #safe-btn:hover {
     box-shadow:
         0 0 20px #00ff00,
-        0 0 40px rgba(0, 255, 0, 0.8),
-        0 0 60px rgba(0, 255, 0, 0.6);
+        0 0 40px rgba(0, 255, 0, 0.7);
 }
 
-/* INFECTED button – red glow */
+/* INFECTED button – red glow on hover ONLY */
+#infected-btn {
+    color: #ff0000;
+    text-shadow: 0 0 8px #ff0000;
+}
+
 #infected-btn:hover {
     box-shadow:
         0 0 20px #ff0000,
-        0 0 40px rgba(255, 0, 0, 0.8),
-        0 0 60px rgba(255, 0, 0, 0.6);
+        0 0 40px rgba(255, 0, 0, 0.7);
+}
+
+/* Reset after click (prevents sticky glow/scale) */
+#safe-btn:focus,
+#safe-btn:active,
+#infected-btn:focus,
+#infected-btn:active {
+    box-shadow: none;
+    transform: scale(1);
 }
 
 /* ================= END SCREEN ================= */
