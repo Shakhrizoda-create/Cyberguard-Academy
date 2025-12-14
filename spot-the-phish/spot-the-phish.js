@@ -1,57 +1,3 @@
-document.addEventListener("DOMContentLoaded", () => {
-    const startScreen = document.getElementById("start-screen");
-    const startBtn = document.getElementById("start-btn");
-    const introBox = document.getElementById("intro-box");
-    const cyberCubesContainer = document.getElementById("cyber-cubes");
-    
-    // Spawn cubes
-    function spawnCubes(amount){
-        for(let i=0;i<amount;i++){
-            const cube = document.createElement("div");
-            cube.classList.add("cube");
-            cube.style.left = Math.random()*100 + "vw";
-            cube.style.width = cube.style.height = (15+Math.random()*30)+"px";
-            cube.style.opacity = 0.2+Math.random()*0.6;
-            cube.style.animationDuration = (6+Math.random()*4) + "s";
-            cyberCubesContainer.appendChild(cube);
-        }
-    }
-    spawnCubes(40);
-
-    // Typing animation
-    function typeHTML(element, html, speed=30, callback){
-        let i = 0;
-        function typeNext(){
-            if(i>=html.length){ if(callback) callback(); return; }
-            if(html[i]==="<"){
-                let tagEnd = html.indexOf(">", i);
-                element.innerHTML += html.substring(i, tagEnd+1);
-                i = tagEnd+1;
-                typeNext();
-            } else {
-                element.innerHTML += html[i];
-                i++;
-                setTimeout(typeNext, speed);
-            }
-        }
-        element.innerHTML = "";
-        typeNext();
-    }
-
-    // Run typing and show start button after 10s
-    const introHTML = introBox.innerHTML;
-    introBox.innerHTML = "";
-    typeHTML(introBox, introHTML, 30, () => {
-        setTimeout(() => {
-            introBox.classList.add("fade-out");
-            startBtn.classList.remove("hidden");
-            startBtn.classList.add("show");
-        }, 10000);
-    });
-
-    // …rest of your JS code goes here…
-});
-
 // Elements
 const startScreen = document.getElementById("start-screen");
 const startBtn = document.getElementById("start-btn");
@@ -75,7 +21,8 @@ let time = 100;
 let currentIndex = 0;
 let timer;
 
-// Cyber cubes for start screen
+// ================= ENTRANCE SECTION FIX =================
+// Cyber cubes only for start
 const cyberCubesContainer = document.getElementById("cyber-cubes");
 function spawnCubes(amount){
     for(let i=0;i<amount;i++){
@@ -85,6 +32,7 @@ function spawnCubes(amount){
         cube.style.width = cube.style.height = (15+Math.random()*30)+"px";
         cube.style.opacity = 0.2+Math.random()*0.6;
         cube.style.animationDuration = (6+Math.random()*4) + "s";
+        cube.style.animationName = "cubeMove"; // original falling animation
         cyberCubesContainer.appendChild(cube);
     }
 }
@@ -113,13 +61,15 @@ function typeHTML(element, html, speed=30, callback){
     typeNext();
 }
 
-// Entrance typing + Start button after 10s
+// Start screen typing
 const introHTML = introBox.innerHTML;
 introBox.innerHTML = "";
 typeHTML(introBox, introHTML, 30, () => {
+    // After 10 seconds, fade out text and show Start button
     setTimeout(() => {
-        introBox.classList.add("fade-out");
-        startBtn.classList.add("show");
+        introBox.classList.add("fade-out"); // text fades out
+        startBtn.classList.remove("hidden");
+        startBtn.classList.add("show"); // button fades in
     }, 10000);
 });
 
@@ -145,7 +95,7 @@ function startTimer(){
     },1000);
 }
 
-// Emails (hacker-style, longer, shuffled)
+// Emails (all 10, realistic times)
 const emails = [
     {subject:"Urgent: Verify Your Bank Account", time:"02:50 PM", from:"security@yourbank.com",
      blocks:["We detected unusual activity in your account.",
@@ -154,7 +104,6 @@ const emails = [
              "Failure to comply may result in account lockout.",
              "Do NOT ignore this message."],
      correct:"infected", penalty:750000, difficulty:"hard"},
-
     {subject:"Team Lunch Invitation", time:"09:10 AM", from:"HR Team",
      blocks:["You are invited to the team lunch next Friday at 12PM.",
              "RSVP is required via our portal.",
@@ -162,7 +111,6 @@ const emails = [
              "Looking forward to seeing everyone.",
              "Enjoy your meal!"],
      correct:"safe", penalty:150000, difficulty:"easy"},
-
     {subject:"Suspicious Login Attempt", time:"08:10 AM", from:"IT Security",
      blocks:["Unusual login detected from a new device.",
              "Verify your credentials immediately to avoid account compromise.",
@@ -170,7 +118,6 @@ const emails = [
              "Report any suspicious activity immediately.",
              "Do not ignore."],
      correct:"infected", penalty:300000, difficulty:"medium"},
-
     {subject:"Workshop Reminder", time:"12:00 AM", from:"Cybersecurity Dept",
      blocks:["Cybersecurity workshop is scheduled for Monday 10AM.",
              "Ensure you RSVP online.",
@@ -178,7 +125,6 @@ const emails = [
              "Participation is highly recommended.",
              "Certificate will be provided for attendees."],
      correct:"safe", penalty:150000, difficulty:"easy"},
-
     {subject:"Invoice Overdue Notice", time:"01:20 PM", from:"Accounting",
      blocks:["Invoice #98765 is overdue.",
              "Immediate payment required to avoid late fees.",
@@ -186,7 +132,6 @@ const emails = [
              "Please contact finance for questions.",
              "Do not ignore this notice."],
      correct:"infected", penalty:300000, difficulty:"medium"},
-
     {subject:"Phishing Test", time:"11:45 AM", from:"Security Dept",
      blocks:["This is a simulated phishing test.",
              "Do not click any links.",
@@ -194,7 +139,6 @@ const emails = [
              "Your awareness helps the organization.",
              "No penalty for this test."],
      correct:"safe", penalty:150000, difficulty:"easy"},
-
     {subject:"Password Expiration Alert", time:"07:30 PM", from:"IT Dept",
      blocks:["Your password will expire in 24 hours.",
              "Reset your password immediately using the link below.",
@@ -202,7 +146,6 @@ const emails = [
              "Do not share credentials with anyone.",
              "Contact IT if you face issues."],
      correct:"infected", penalty:750000, difficulty:"hard"},
-
     {subject:"Project Deadline", time:"05:59 PM", from:"Manager",
      blocks:["Project submission is due Friday 5PM.",
              "Check attached timeline and ensure all tasks are completed.",
@@ -210,7 +153,6 @@ const emails = [
              "Do not skip steps in workflow.",
              "Submit on time."],
      correct:"safe", penalty:150000, difficulty:"easy"},
-
     {subject:"Bank Account Alert", time:"08:30 AM", from:"Bank",
      blocks:["Suspicious activity detected in your bank account.",
              "Verify your account immediately to prevent lockout.",
@@ -218,7 +160,6 @@ const emails = [
              "Failure may cause account suspension.",
              "Do not ignore this alert."],
      correct:"infected", penalty:300000, difficulty:"medium"},
-
     {subject:"Congratulations! You won a prize!", time:"06:40 AM", from:"unknown@promo.com",
      blocks:["You have won a grand prize!",
              "Click the link to claim it immediately.",
@@ -246,57 +187,5 @@ safeBtn.addEventListener("click", ()=>checkAnswer("safe"));
 function checkAnswer(choice){
     const e=emails[currentIndex];
     if(choice!==e.correct){
-        budget -= e.penalty;
-        showPenalty(e.penalty);
-    }
-    budgetDisplay.textContent = `${budget.toLocaleString()} USD`;
-    currentIndex++;
-    updateEmail();
-}
-
-// Show penalty ghost
-function showPenalty(amount){
-    penaltyDisplay.textContent = `-${amount.toLocaleString()} USD`;
-    penaltyDisplay.style.opacity = "1";
-    penaltyDisplay.style.transform = "translate(-50%, -50%) scale(1.2)";
-    setTimeout(()=>{
-        penaltyDisplay.style.opacity = "0";
-        penaltyDisplay.style.transform = "translate(-50%, -50%) scale(1)";
-    },1000);
-}
-
-// End game
-function endGame(){
-    clearInterval(timer);
-    gameUI.classList.add("hidden");
-    startScreen.style.display = "none";
-    endScreen.classList.remove("hidden");
-
-    // Show budget + simulation complete
-    finalBudget.textContent = `${budget.toLocaleString()} USD`;
-    const simComplete = document.createElement("div");
-    simComplete.id="simulation-complete";
-    simComplete.textContent = "Simulation Complete";
-    endScreen.appendChild(simComplete);
-
-    createGlitchEffect();
-}
-
-// Restart / Back
-restartBtn.addEventListener("click", ()=>location.reload());
-backBtn.addEventListener("click", ()=>window.location.href="index.html");
-
-// =================== DIGITAL GLITCH EFFECT ===================
-function createGlitchEffect(){
-    const canvas = document.createElement("canvas");
-    canvas.id="cyber-effect";
-    document.body.appendChild(canvas);
-    const ctx = canvas.getContext("2d");
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-
-    const glitches = [];
-    for(let i=0;i<50;i++){
-        glitches.push({
-            x: Math.random
+        budget -= e
 
