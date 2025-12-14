@@ -253,11 +253,55 @@ body {
     box-shadow: 0 0 20px #ffeb3b, 0 0 40px rgba(255,235,59,0.7);
 }
 
-/* Cyber effect at end screen */
-#cyber-effect {
+/* ================= PENALTY GHOST EFFECT ================= */
+#penalty-display {
     position: absolute;
-    inset: 0;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 5rem;
+    color: #ff0000;
+    text-shadow: 0 0 20px #ff0000, 0 0 40px #ff5555;
+    opacity: 0;
     pointer-events: none;
-    z-index: 2000;
+    z-index: 2500;
+    transition: opacity 0.8s ease, transform 0.8s ease;
 }
+
+/* ================= END SCREEN ENHANCEMENTS ================= */
+#end-screen h1, #final-budget {
+    font-size: 5rem; /* bigger */
+    color: #ffeb3b;
+    text-shadow:
+        0 0 10px #ffeb3b,
+        0 0 25px #fff200,
+        0 0 40px #ffeb3b;
+}
+
+/* Digital glitch effect for final budget */
+@keyframes digital-glitch {
+    0% { transform: translate(0,0) skew(0deg); opacity: 1; }
+    20% { transform: translate(-2px,2px) skew(1deg); opacity: 0.8; }
+    40% { transform: translate(2px,-2px) skew(-1deg); opacity: 0.9; }
+    60% { transform: translate(-1px,1px) skew(1deg); opacity: 1; }
+    80% { transform: translate(1px,-1px) skew(-1deg); opacity: 0.85; }
+    100% { transform: translate(0,0) skew(0deg); opacity: 1; }
+}
+
+#final-budget {
+    animation: digital-glitch 0.5s infinite;
+}
+
+/* "Simulation Complete" text */
+#end-screen h1.simulation-complete {
+    font-size: 4rem;
+    color: #ffeb3b;
+    text-shadow:
+        0 0 10px #ffeb3b,
+        0 0 25px #fff200,
+        0 0 40px #ffeb3b;
+    animation: digital-glitch 0.5s infinite;
+    margin-bottom: 30px;
+}
+
 
