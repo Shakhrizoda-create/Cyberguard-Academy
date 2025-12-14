@@ -65,10 +65,11 @@ function typeHTML(element, html, speed=30, callback){
 const introHTML = introBox.innerHTML;
 introBox.innerHTML = "";
 typeHTML(introBox, introHTML, 30, () => {
-    // Wait 10 seconds before showing Start button
+    // After 10 seconds, fade out text and show Start button
     setTimeout(() => {
+        introBox.classList.add("fade-out"); // text fades out
         startBtn.classList.remove("hidden");
-        startBtn.classList.add("show");
+        startBtn.classList.add("show"); // button fades in
     }, 10000);
 });
 
