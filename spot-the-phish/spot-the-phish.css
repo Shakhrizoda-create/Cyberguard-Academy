@@ -101,9 +101,17 @@ body {
     100% { transform: translateY(110vh) translateX(40vw) rotate(360deg); }
 }
 
+/* Text fade out */
 #intro-box.fade-out {
     opacity: 0;
     pointer-events: none;
+    transition: opacity 1s ease;
+}
+
+/* Start button smooth fade in */
+#start-btn.show {
+    opacity: 1;
+    transition: opacity 1s ease;
 }
 
 /* ================= GAME UI ================= */
