@@ -65,17 +65,20 @@ function typeHTML(element, html, speed=30, callback){
 const introHTML = introBox.innerHTML;
 introBox.innerHTML = "";
 typeHTML(introBox, introHTML, 30, () => {
-    // Wait 10 seconds before showing Start button
+    // Fade out intro text
+    introBox.classList.add("fade-out");
+
+    // Wait for fade-out to finish (1s as per CSS)
     setTimeout(() => {
+        // Show start button in the same place
         startBtn.classList.remove("hidden");
         startBtn.classList.add("show");
-    }, 10000);
+    }, 1000);
 });
 
-// Start button click
+// Start button click (no change)
 startBtn.addEventListener("click", () => {
-    // Fade out intro text and cubes gradually
-    introBox.classList.add("fade-out");
+    // Fade out cubes gradually
     cyberCubesContainer.style.opacity = "0";
     setTimeout(() => {
         startScreen.style.display = "none";
