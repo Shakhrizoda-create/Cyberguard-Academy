@@ -1,4 +1,12 @@
-// Elements
+// ================= BACKGROUND MUSIC =================
+const bgMusic = new Audio("assets-3/singularity-abstract-electronica-281092.mp3");
+bgMusic.loop = true;
+bgMusic.volume = 0.25;
+
+const clickSound = new Audio("assets-3/computer-mouse-click-352734.mp3");
+clickSound.volume = 0.5;
+
+// ================= ELEMENTS =================
 const startScreen = document.getElementById("start-screen");
 const startBtn = document.getElementById("start-btn");
 const introBox = document.getElementById("intro-box");
@@ -14,27 +22,8 @@ const endScreen = document.getElementById("end-screen");
 const finalBudget = document.getElementById("final-budget");
 const restartBtn = document.getElementById("restart-btn");
 const backBtn = document.getElementById("back-btn");
-backBtn.addEventListener("click", () => {
-    clickSound.currentTime = 0;
-    clickSound.play();
 
-    setTimeout(() => {
-        window.location.href = "index.html";
-    }, 150);
-});
-
-// ================= BACKGROUND MUSIC =================
-const bgMusic = new Audio("assets-3/singularity-abstract-electronica-281092.mp3");
-bgMusic.loop = true;
-bgMusic.volume = 0.25;
-
-const clickSound = new Audio("assets-3/computer-mouse-click-352734.mp3");
-clickSound.volume = 0.5;
-
-// ================= BUTTONS =================
-const restartBtn = document.getElementById("restart-btn");
-const backBtn = document.getElementById("back-btn");
-
+// ================= BUTTON LISTENERS =================
 backBtn.addEventListener("click", () => {
     clickSound.currentTime = 0;
     clickSound.play();
