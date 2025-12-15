@@ -93,34 +93,87 @@
       width: 60%;
     }
     
-   /* =========================
-   Honeycomb Cyber Glow Effect
-========================= */
-body::after {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: -0.5; /* behind content but above background */
-  
-  /* Hexagonal / honeycomb pattern using linear gradients */
-  background-color: transparent;
-  background-image:
-    repeating-linear-gradient(60deg, rgba(0,229,255,0.05) 0 10px, transparent 10px 20px),
-    repeating-linear-gradient(-60deg, rgba(0,229,255,0.05) 0 10px, transparent 10px 20px);
-  background-size: 40px 40px;
+<style>
+    
+  /* Full screen fixed container for the hex grid */
+  .honeycomb {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    pointer-events: none; /* don't block clicks */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: center;
+    gap: 6px;
+    padding: 40px;
+    background: transparent;
+    z-index: -1;
+  }
 
-  /* Glow effect overlay */
-  pointer-events: none;
-  animation: cyberHoneyGlow 3s infinite;
-}
+  /* Single hex cell */
+  .hex {
+    width: 60px;
+    height: 52px;
+    background: transparent;
+    clip-path: polygon(
+      25% 0%, 75% 0%, 100% 50%,
+      75% 100%, 25% 100%, 0% 50%
+    );
+    border: 2px solid #00e5ff;
+    box-shadow:
+      0 0 8px #00e5ff,
+      0 0 15px #00e5ff,
+      0 0 25px #00e5ff;
+    transform-origin: center;
+    animation: pulseHex 3s infinite ease-in-out;
+  }
 
-@keyframes cyberHoneyGlow {
-  0%   { filter: brightness(0.7) contrast(1); }
-  25%  { filter: brightness(1.2) contrast(1.1); }
-  50%  { filter: brightness(1.5) contrast(1.2); }
-  75%  { filter: brightness(1.2) contrast(1.1); }
-  100% { filter: brightness(0.7) contrast(1); }
-}
+  /* Offset every other row for honeycomb layout */
+  .hex-row {
+    display: flex;
+  }
+  .hex-row:nth-child(even) .hex {
+    margin-left: 30px; /* half hex width */
+  }
+
+  /* Animation: scale in and out */
+  @keyframes pulseHex {
+    0%, 100% {
+      transform: scale(1);
+      box-shadow:
+        0 0 8px #00e5ff,
+        0 0 15px #00e5ff,
+        0 0 25px #00e5ff;
+    }
+    50% {
+      transform: scale(0.85);
+      box-shadow:
+        0 0 4px #00a5cc,
+        0 0 10px #00a5cc,
+        0 0 15px #00a5cc;
+    }
+  }
+
+  /* Stagger animation delay for each hex */
+  .hex:nth-child(odd) {
+    animation-delay: 0s;
+  }
+  .hex:nth-child(even) {
+    animation-delay: 1.5s;
+  }
+</style>
+
+<div class="honeycomb" aria-hidden="true">
+  <div class="hex-row">
+    <div class="hex"></div><div class="hex"></div><div class="hex"></div><div class="hex"></div><div class="hex"></div>
+  </div>
+  <div class="hex-row">
+    <div class="hex"></div><div class="hex"></div><div class="hex"></div><div class="hex"></div><div class="hex"></div>
+  </div>
+  <div class="hex-row">
+    <div class="hex"></div><div class="hex"></div><div class="hex"></div><div class="hex"></div><div class="hex"></div>
+  </div>
+</div>
 
   </style>
 </head>
