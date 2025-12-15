@@ -207,8 +207,17 @@ function updateEmail(){
 }
 
 // Buttons
-infectedBtn.addEventListener("click", ()=>checkAnswer("infected"));
-safeBtn.addEventListener("click", ()=>checkAnswer("safe"));
+infectedBtn.addEventListener("click", () => {
+    clickSound.currentTime = 0;
+    clickSound.play();
+    checkAnswer("infected");
+});
+
+safeBtn.addEventListener("click", () => {
+    clickSound.currentTime = 0;
+    clickSound.play();
+    checkAnswer("safe");
+});
 
 function checkAnswer(choice){
     const e=emails[currentIndex];
