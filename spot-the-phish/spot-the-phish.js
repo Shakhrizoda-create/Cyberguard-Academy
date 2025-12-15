@@ -19,6 +19,8 @@ backBtn.addEventListener("click", ()=>window.location.href="index.html");
 const bgMusic = new Audio("../assets-3/singularity-abstract-electronica-281092.mp3");
 bgMusic.loop = true;
 bgMusic.volume = 0.25; // cyber ambient level
+const clickSound = new Audio("../assets-3/computer-mouse-click-352734.mp3");
+clickSound.volume = 0.5;
 
 // Game variables
 let budget = 850000;
@@ -82,10 +84,15 @@ typeHTML(introBox, introHTML, 30, () => {
 });
 
 startBtn.addEventListener("click", () => {
-    // ▶ Start background music ONLY after user clicks
+    // Click sound
+    clickSound.currentTime = 0;
+    clickSound.play();
+
+    // Start background music
     bgMusic.play().catch(() => {});
 
     cyberCubesContainer.style.opacity = "0";
+
     setTimeout(() => {
         startScreen.style.display = "none";
         gameUI.classList.remove("hidden");
