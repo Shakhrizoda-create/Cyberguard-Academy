@@ -16,26 +16,40 @@
       font-family: 'Share Tech Mono', monospace;
       color: #00ffe5;
       text-align: center;
-      background: #0a0f24; /* fallback dark */
+      background: url('assets/hacker-bg.png') no-repeat center center fixed;
+      background-size: cover;
       position: relative;
       overflow-x: hidden;
       overflow-y: auto;
       min-height: 100vh;
     }
 
-    /* =========== Honeycomb Background =========== */
+    /* Dark overlay + blur on background */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(5px);
+      z-index: -2;
+    }
+
+    /* =========== Honeycomb Background Overlay =========== */
     .honeycomb {
       position: fixed;
       top: 0; left: 0; right: 0; bottom: 0;
-      pointer-events: none; /* don't block clicks */
+      pointer-events: none; /* allow clicks through */
       display: flex;
       flex-direction: column;
       justify-content: center;
       gap: 6px;
       padding: 60px 10px;
       background: transparent;
-      z-index: 0;
+      z-index: -1; /* Above dark overlay but below content */
       user-select: none;
+      width: 100vw;
+      height: 100vh;
+      box-sizing: border-box;
     }
 
     .hex-row {
@@ -45,7 +59,7 @@
     }
 
     .hex-row:nth-child(even) {
-      margin-left: 30px; /* offset for honeycomb effect */
+      margin-left: 30px; /* offset for honeycomb */
     }
 
     .hex {
@@ -63,9 +77,10 @@
         0 0 25px #00e5ff;
       transform-origin: center;
       animation: pulseHex 3s ease-in-out infinite;
+      flex-shrink: 0;
     }
 
-    /* Alternate animation delays for stagger effect */
+    /* Alternate animation delays for staggered effect */
     .hex:nth-child(odd) {
       animation-delay: 0s;
     }
@@ -91,7 +106,7 @@
       }
     }
 
-    /* =========== Content on top =========== */
+    /* =========== Page Content Styles (No changes!) =========== */
     header {
       padding: 100px 20px;
       position: relative;
@@ -147,26 +162,26 @@
       justify-self: center;
       width: 60%;
     }
-
   </style>
 </head>
 <body>
   <!-- Honeycomb Grid Background -->
   <div class="honeycomb" aria-hidden="true">
+    <!-- Add enough hexes to fill the screen horizontally -->
     <div class="hex-row">
-      <div class="hex"></div><div class="hex"></div><div class="hex"></div><div class="hex"></div><div class="hex"></div><div class="hex"></div><div class="hex"></div><div class="hex"></div>
+      <div class="hex"></div><div class="hex"></div><div class="hex"></div><div class="hex"></div><div class="hex"></div><div class="hex"></div><div class="hex"></div><div class="hex"></div><div class="hex"></div><div class="hex"></div>
     </div>
     <div class="hex-row">
-      <div class="hex"></div><div class="hex"></div><div class="hex"></div><div class="hex"></div><div class="hex"></div><div class="hex"></div><div class="hex"></div>
+      <div class="hex"></div><div class="hex"></div><div class="hex"></div><div class="hex"></div><div class="hex"></div><div class="hex"></div><div class="hex"></div><div class="hex"></div><div class="hex"></div>
     </div>
     <div class="hex-row">
-      <div class="hex"></div><div class="hex"></div><div class="hex"></div><div class="hex"></div><div class="hex"></div><div class="hex"></div><div class="hex"></div><div class="hex"></div>
+      <div class="hex"></div><div class="hex"></div><div class="hex"></div><div class="hex"></div><div class="hex"></div><div class="hex"></div><div class="hex"></div><div class="hex"></div><div class="hex"></div><div class="hex"></div>
     </div>
     <div class="hex-row">
-      <div class="hex"></div><div class="hex"></div><div class="hex"></div><div class="hex"></div><div class="hex"></div><div class="hex"></div><div class="hex"></div>
+      <div class="hex"></div><div class="hex"></div><div class="hex"></div><div class="hex"></div><div class="hex"></div><div class="hex"></div><div class="hex"></div><div class="hex"></div><div class="hex"></div>
     </div>
     <div class="hex-row">
-      <div class="hex"></div><div class="hex"></div><div class="hex"></div><div class="hex"></div><div class="hex"></div><div class="hex"></div><div class="hex"></div><div class="hex"></div>
+      <div class="hex"></div><div class="hex"></div><div class="hex"></div><div class="hex"></div><div class="hex"></div><div class="hex"></div><div class="hex"></div><div class="hex"></div><div class="hex"></div><div class="hex"></div>
     </div>
   </div>
 
@@ -185,7 +200,7 @@
   </div>
 
   <!-- Click Sound -->
-  <audio id="click-sound" src="assets/computer-mouse-click-352734></audio>
+  <audio id="click-sound" src="assets/click.mp3"></audio>
 
   <script>
     function playClick() {
@@ -195,5 +210,3 @@
   </script>
 </body>
 </html>
-
-
