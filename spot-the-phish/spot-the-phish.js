@@ -15,6 +15,10 @@ const finalBudget = document.getElementById("final-budget");
 const restartBtn = document.getElementById("restart-btn");
 const backBtn = document.getElementById("back-btn");
 backBtn.addEventListener("click", ()=>window.location.href="index.html");
+// ================= BACKGROUND MUSIC =================
+const bgMusic = new Audio("../assets-3/singularity-abstract-electronica-281092.mp3");
+bgMusic.loop = true;
+bgMusic.volume = 0.25; // cyber ambient level
 
 // Game variables
 let budget = 850000;
@@ -77,9 +81,10 @@ typeHTML(introBox, introHTML, 30, () => {
     }, 1000);
 });
 
-// Start button click (no change)
 startBtn.addEventListener("click", () => {
-    // Fade out cubes gradually
+    // ▶ Start background music ONLY after user clicks
+    bgMusic.play().catch(() => {});
+
     cyberCubesContainer.style.opacity = "0";
     setTimeout(() => {
         startScreen.style.display = "none";
