@@ -14,7 +14,14 @@ const endScreen = document.getElementById("end-screen");
 const finalBudget = document.getElementById("final-budget");
 const restartBtn = document.getElementById("restart-btn");
 const backBtn = document.getElementById("back-btn");
-backBtn.addEventListener("click", ()=>window.location.href="index.html");
+backBtn.addEventListener("click", () => {
+    clickSound.currentTime = 0;
+    clickSound.play();
+
+    setTimeout(() => {
+        window.location.href = "index.html";
+    }, 150);
+});
 // ================= BACKGROUND MUSIC =================
 const bgMusic = new Audio("assets-3/singularity-abstract-electronica-281092.mp3");
 bgMusic.loop = true;
