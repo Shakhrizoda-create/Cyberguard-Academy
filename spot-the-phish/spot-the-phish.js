@@ -1,10 +1,10 @@
 // ================= BACKGROUND MUSIC =================
 const bgMusic = new Audio("assets-3/singularity-abstract-electronica-281092.mp3");
 bgMusic.loop = true;
-bgMusic.volume = 0.25;
+bgMusic.volume = 1;
 
 const clickSound = new Audio("assets-3/computer-mouse-click-352734.mp3");
-clickSound.volume = 0.5;
+clickSound.volume = 0.75;
 
 // ================= ELEMENTS =================
 const startScreen = document.getElementById("start-screen");
