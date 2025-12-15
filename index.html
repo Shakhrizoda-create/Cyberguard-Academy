@@ -64,6 +64,8 @@
       max-width: 650px;
       margin: 20px auto 60px auto;
       padding: 0 20px;
+      position: relative; /* so buttons appear above hex */
+      z-index: 10;
     }
 
     /* button style */
@@ -93,88 +95,74 @@
       width: 60%;
     }
     
-<style>
-    
-  /* Full screen fixed container for the hex grid */
-  .honeycomb {
-    position: fixed;
-    top: 0; left: 0; right: 0; bottom: 0;
-    pointer-events: none; /* don't block clicks */
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-content: center;
-    gap: 6px;
-    padding: 40px;
-    background: transparent;
-    z-index: -1;
-  }
+    /* =========================
+       Honeycomb Cyber Glow Effect
+    ========================= */
+    .honeycomb {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      pointer-events: none; /* don't block clicks */
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-content: center;
+      gap: 6px;
+      padding: 40px;
+      background: transparent;
+      z-index: 0; /* behind content but above background */
+    }
 
-  /* Single hex cell */
-  .hex {
-    width: 60px;
-    height: 52px;
-    background: transparent;
-    clip-path: polygon(
-      25% 0%, 75% 0%, 100% 50%,
-      75% 100%, 25% 100%, 0% 50%
-    );
-    border: 2px solid #00e5ff;
-    box-shadow:
-      0 0 8px #00e5ff,
-      0 0 15px #00e5ff,
-      0 0 25px #00e5ff;
-    transform-origin: center;
-    animation: pulseHex 3s infinite ease-in-out;
-  }
-
-  /* Offset every other row for honeycomb layout */
-  .hex-row {
-    display: flex;
-  }
-  .hex-row:nth-child(even) .hex {
-    margin-left: 30px; /* half hex width */
-  }
-
-  /* Animation: scale in and out */
-  @keyframes pulseHex {
-    0%, 100% {
-      transform: scale(1);
+    /* Single hex cell */
+    .hex {
+      width: 60px;
+      height: 52px;
+      background: transparent;
+      clip-path: polygon(
+        25% 0%, 75% 0%, 100% 50%,
+        75% 100%, 25% 100%, 0% 50%
+      );
+      border: 2px solid #00e5ff;
       box-shadow:
         0 0 8px #00e5ff,
         0 0 15px #00e5ff,
         0 0 25px #00e5ff;
+      transform-origin: center;
+      animation: pulseHex 3s infinite ease-in-out;
     }
-    50% {
-      transform: scale(0.85);
-      box-shadow:
-        0 0 4px #00a5cc,
-        0 0 10px #00a5cc,
-        0 0 15px #00a5cc;
+
+    /* Offset every other row for honeycomb layout */
+    .hex-row {
+      display: flex;
     }
-  }
+    .hex-row:nth-child(even) .hex {
+      margin-left: 30px; /* half hex width */
+    }
 
-  /* Stagger animation delay for each hex */
-  .hex:nth-child(odd) {
-    animation-delay: 0s;
-  }
-  .hex:nth-child(even) {
-    animation-delay: 1.5s;
-  }
-</style>
+    /* Animation: scale in and out */
+    @keyframes pulseHex {
+      0%, 100% {
+        transform: scale(1);
+        box-shadow:
+          0 0 8px #00e5ff,
+          0 0 15px #00e5ff,
+          0 0 25px #00e5ff;
+      }
+      50% {
+        transform: scale(0.85);
+        box-shadow:
+          0 0 4px #00a5cc,
+          0 0 10px #00a5cc,
+          0 0 15px #00a5cc;
+      }
+    }
 
-<div class="honeycomb" aria-hidden="true">
-  <div class="hex-row">
-    <div class="hex"></div><div class="hex"></div><div class="hex"></div><div class="hex"></div><div class="hex"></div>
-  </div>
-  <div class="hex-row">
-    <div class="hex"></div><div class="hex"></div><div class="hex"></div><div class="hex"></div><div class="hex"></div>
-  </div>
-  <div class="hex-row">
-    <div class="hex"></div><div class="hex"></div><div class="hex"></div><div class="hex"></div><div class="hex"></div>
-  </div>
-</div>
-
+    /* Stagger animation delay for each hex */
+    .hex:nth-child(odd) {
+      animation-delay: 0s;
+    }
+    .hex:nth-child(even) {
+      animation-delay: 1.5s;
+    }
   </style>
 </head>
 
@@ -192,6 +180,19 @@
     <button class="start-btn" onclick="playClick(); alert('Coming soon!')">🎯 Beginner CTF</button>
   </div>
 
+  <!-- Honeycomb background -->
+  <div class="honeycomb" aria-hidden="true">
+    <div class="hex-row">
+      <div class="hex"></div><div class="hex"></div><div class="hex"></div><div class="hex"></div><div class="hex"></div>
+    </div>
+    <div class="hex-row">
+      <div class="hex"></div><div class="hex"></div><div class="hex"></div><div class="hex"></div><div class="hex"></div>
+    </div>
+    <div class="hex-row">
+      <div class="hex"></div><div class="hex"></div><div class="hex"></div><div class="hex"></div><div class="hex"></div>
+    </div>
+  </div>
+
   <!-- Click Sound -->
   <audio id="click-sound" src="assets/click.mp3"></audio>
 
@@ -203,4 +204,5 @@
   </script>
 </body>
 </html>
+
 
