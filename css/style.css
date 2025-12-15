@@ -25,30 +25,33 @@ body::before {
 }
 
 /* =========================
-   Honeycomb Glow Effect
+   Cyber Honeycomb Grid Overlay
 ========================= */
 body::after {
   content: "";
   position: fixed;
   inset: 0;
-  z-index: -0.5; /* between background image and content */
+  z-index: -0.5; /* behind content but above background */
   
   /* Hexagonal / honeycomb pattern using linear gradients */
   background-color: transparent;
   background-image:
-    repeating-linear-gradient(60deg, rgba(255,255,200,0.05) 0 10px, transparent 10px 20px),
-    repeating-linear-gradient(-60deg, rgba(255,255,200,0.05) 0 10px, transparent 10px 20px);
+    repeating-linear-gradient(60deg, rgba(0, 229, 255, 0.05) 0 10px, transparent 10px 20px),
+    repeating-linear-gradient(-60deg, rgba(0, 229, 255, 0.05) 0 10px, transparent 10px 20px);
   background-size: 40px 40px;
 
-  /* Glow effect overlay */
+  /* Glow animation */
   pointer-events: none;
-  animation: honeyGlow 3s infinite;
+  animation: cyberHoneyGlow 3s infinite;
 }
 
-@keyframes honeyGlow {
-  0%   { filter: brightness(0.8); }
-  50%  { filter: brightness(1.5); }
-  100% { filter: brightness(0.8); }
+/* Pulse animation for cyber glow */
+@keyframes cyberHoneyGlow {
+  0%   { filter: brightness(0.7) contrast(1); }
+  25%  { filter: brightness(1.2) contrast(1.1); }
+  50%  { filter: brightness(1.5) contrast(1.2); }
+  75%  { filter: brightness(1.2) contrast(1.1); }
+  100% { filter: brightness(0.7) contrast(1); }
 }
 
 /* =========================
