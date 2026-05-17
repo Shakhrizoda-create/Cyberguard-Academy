@@ -1,0 +1,300 @@
+/* =========================
+   BASE RESET
+========================= */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: monospace;
+}
+
+body {
+  background: #05010a;
+  color: #d1d5db;
+  overflow: hidden;
+}
+
+/* =========================
+   SCREEN SYSTEM
+========================= */
+
+.screen {
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hidden {
+  display: none;
+}
+
+/* =========================
+   BACKGROUND LAYERS
+========================= */
+
+.bg-gradient {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at center, #2e1065, #05010a);
+  z-index: -5;
+}
+
+.bg-noise {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: url("https://www.transparenttextures.com/patterns/noise.png");
+  opacity: 0.05;
+  z-index: -4;
+}
+
+.bg-scanlines {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(255,255,255,0.03),
+    rgba(255,255,255,0.03) 1px,
+    transparent 1px,
+    transparent 4px
+  );
+  z-index: -3;
+  animation: scanMove 6s linear infinite;
+}
+
+@keyframes scanMove {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(20px); }
+}
+
+.bg-glow {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, rgba(168,85,247,0.15), transparent 60%);
+  z-index: -2;
+}
+
+/* =========================
+   INTRO
+========================= */
+
+.center-wrapper {
+  text-align: center;
+}
+
+.title {
+  font-size: 3rem;
+  color: #a855f7;
+  text-shadow: 0 0 20px #a855f7;
+}
+
+.subtitle {
+  margin-top: 10px;
+  color: #22d3ee;
+  font-size: 1rem;
+}
+
+.terminal-box {
+  margin-top: 30px;
+  padding: 20px;
+  border: 1px solid #6d28d9;
+  background: rgba(0,0,0,0.4);
+  width: 400px;
+}
+
+.blink {
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+.start-btn {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background: #6d28d9;
+  border: none;
+  color: white;
+  cursor: pointer;
+  box-shadow: 0 0 10px #6d28d9;
+}
+
+.start-btn:hover {
+  background: #a855f7;
+}
+
+/* =========================
+   CHARACTER SELECTION
+========================= */
+
+.section-title {
+  position: absolute;
+  top: 40px;
+  font-size: 2rem;
+  color: #a855f7;
+  text-shadow: 0 0 15px #a855f7;
+}
+
+.hint {
+  position: absolute;
+  top: 80px;
+  color: #22d3ee;
+}
+
+.character-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  padding: 120px;
+}
+
+.character-card {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid #6d28d9;
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.character-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px #a855f7;
+}
+
+.character-card h3 {
+  color: #a855f7;
+  margin-top: 10px;
+}
+
+/* =========================
+   GAME HUD
+========================= */
+
+.hud {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  display: flex;
+  gap: 20px;
+}
+
+.hud-box {
+  width: 250px;
+  padding: 15px;
+  border: 1px solid #6d28d9;
+  background: rgba(0,0,0,0.5);
+}
+
+.hud-box h3 {
+  color: #a855f7;
+}
+
+/* =========================
+   LAB LEVEL
+========================= */
+
+#laboratory-level {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.environment-layer {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, #12081f, #05010a);
+  z-index: -2;
+}
+
+.fog-layer {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: url("https://www.transparenttextures.com/patterns/smoke.png");
+  opacity: 0.05;
+  animation: fogMove 10s infinite linear;
+}
+
+@keyframes fogMove {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(50px); }
+}
+
+/* =========================
+   OBJECTS
+========================= */
+
+.computer {
+  width: 50px;
+  height: 50px;
+  background: #6d28d9;
+  position: absolute;
+  top: 50%;
+}
+
+.computer.active {
+  background: #22d3ee;
+}
+
+.computer.broken {
+  background: #fb7185;
+}
+
+.door {
+  position: absolute;
+  right: 50px;
+  top: 50%;
+  padding: 10px;
+  border: 1px solid #a855f7;
+  color: #a855f7;
+}
+
+#player {
+  width: 30px;
+  height: 30px;
+  background: #22d3ee;
+  position: absolute;
+  bottom: 50px;
+  left: 50px;
+  box-shadow: 0 0 10px #22d3ee;
+}
+
+/* =========================
+   POPUP
+========================= */
+
+#message-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.popup {
+  background: #12081f;
+  padding: 30px;
+  border: 1px solid #a855f7;
+  width: 400px;
+  text-align: center;
+}
+
+.popup h2 {
+  color: #a855f7;
+}
