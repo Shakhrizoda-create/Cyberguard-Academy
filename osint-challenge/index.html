@@ -1,1 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CyberGuard - OSINT Challenge</title>
 
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <!-- Background Effects -->
+  <div class="background-overlay"></div>
+  <div class="grid"></div>
+
+  <!-- Intro Screen -->
+  <section id="intro-screen">
+
+    <div class="glitch-container">
+      <h1 class="game-title glitch" data-text="OSINT CHALLENGE">
+        OSINT CHALLENGE
+      </h1>
+
+      <p class="subtitle">
+        Track the hacker. Recover the truth.
+      </p>
+    </div>
+
+    <div class="terminal-box">
+      <p>> SYSTEM BREACH DETECTED...</p>
+      <p>> SEARCHING FOR AGENTS...</p>
+      <p>> GHOSTCIPHER LOCATION UNKNOWN</p>
+      <p class="warning-text">>> PRESS START TO BEGIN INVESTIGATION</p>
+    </div>
+
+    <button id="start-btn">
+      START MISSION
+    </button>
+
+  </section>
+
+  <!-- Character Selection -->
+  <section id="character-selection" class="hidden">
+
+    <h2 class="section-title">
+      SELECT YOUR AGENT
+    </h2>
+
+    <div class="character-container">
+
+      <!-- NOVA -->
+      <div class="character-card">
+        <div class="character-image nova"></div>
+
+        <h3>NOVA</h3>
+
+        <p class="character-role">
+          Cyber Intelligence Analyst
+        </p>
+
+        <p class="character-desc">
+          “Every system leaves traces.”
+        </p>
+
+        <button class="select-btn">
+          SELECT AGENT
+        </button>
+      </div>
+
+      <!-- RAVEN -->
+      <div class="character-card">
+        <div class="character-image raven"></div>
+
+        <h3>RAVEN</h3>
+
+        <p class="character-role">
+          Stealth Infiltration Expert
+        </p>
+
+        <p class="character-desc">
+          “Silence hides the sharpest code.”
+        </p>
+
+        <button class="select-btn">
+          SELECT AGENT
+        </button>
+      </div>
+
+      <!-- LUNA -->
+      <div class="character-card">
+        <div class="character-image luna"></div>
+
+        <h3>LUNA</h3>
+
+        <p class="character-role">
+          OSINT Investigation Specialist
+        </p>
+
+        <p class="character-desc">
+          “Truth hides inside metadata.”
+        </p>
+
+        <button class="select-btn">
+          SELECT AGENT
+        </button>
+      </div>
+
+      <!-- ZERO -->
+      <div class="character-card">
+        <div class="character-image zero"></div>
+
+        <h3>ZERO</h3>
+
+        <p class="character-role">
+          Cyber Runner
+        </p>
+
+        <p class="character-desc">
+          “Fear is the first firewall.”
+        </p>
+
+        <button class="select-btn">
+          SELECT AGENT
+        </button>
+      </div>
+
+      <!-- AXEL -->
+      <div class="character-card">
+        <div class="character-image axel"></div>
+
+        <h3>AXEL</h3>
+
+        <p class="character-role">
+          Tactical Security Operative
+        </p>
+
+        <p class="character-desc">
+          “Stay alert. Every click matters.”
+        </p>
+
+        <button class="select-btn">
+          SELECT AGENT
+        </button>
+      </div>
+
+      <!-- KAI -->
+      <div class="character-card">
+        <div class="character-image kai"></div>
+
+        <h3>KAI</h3>
+
+        <p class="character-role">
+          Young Cyber Genius
+        </p>
+
+        <p class="character-desc">
+          “Hack the pattern. Find the truth.”
+        </p>
+
+        <button class="select-btn">
+          SELECT AGENT
+        </button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Main Game Area -->
+  <section id="game-screen" class="hidden">
+
+    <!-- Top HUD -->
+    <div class="hud">
+
+      <div class="mission-box">
+        <h3>MISSION</h3>
+        <p>
+          Search the abandoned laboratory and locate hidden hacker evidence.
+        </p>
+      </div>
+
+      <div class="objective-box">
+        <h3>OBJECTIVES</h3>
+
+        <ul>
+          <li>Restore power</li>
+          <li>Search computer terminals</li>
+          <li>Recover encrypted message</li>
+          <li>Unlock next zone</li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- Laboratory Scene -->
+    <div id="laboratory-level">
+
+      <div class="lab-background"></div>
+
+      <!-- Broken Computers -->
+      <div class="computer broken-computer"></div>
+      <div class="computer active-computer"></div>
+      <div class="computer active-computer second"></div>
+
+      <!-- Exit Door -->
+      <div class="exit-door locked">
+        <p>LOCKED</p>
+      </div>
+
+      <!-- Player -->
+      <div id="player">
+        <div class="player-character"></div>
+      </div>
+
+      <!-- Hacker Message Popup -->
+      <div id="message-popup" class="hidden">
+
+        <div class="popup-content">
+
+          <h2>MESSAGE RECOVERED</h2>
+
+          <p>
+            “People reveal everything online.”
+          </p>
+
+          <p>
+            “The weakest password opened the first gate.”
+          </p>
+
+          <button id="close-popup">
+            CLOSE TERMINAL
+          </button>
+
+        </div>
+      </div>
+
+    </div>
+
+  </section>
+
+  <script src="script.js"></script>
+
+</body>
+</html>
