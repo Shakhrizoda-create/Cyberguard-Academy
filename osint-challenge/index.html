@@ -11,119 +11,115 @@
 <body>
 
   <!-- ===================== -->
-  <!-- BACKGROUND LAYERS -->
+  <!-- BACKGROUND SYSTEM LAYERS -->
   <!-- ===================== -->
-  <div class="background-overlay"></div>
-  <div class="grid"></div>
+
+  <div class="bg-gradient"></div>
+  <div class="bg-noise"></div>
+  <div class="bg-scanlines"></div>
+  <div class="bg-radar"></div>
+  <div class="bg-data-stream"></div>
+  <div class="bg-glow"></div>
 
   <!-- ===================== -->
   <!-- INTRO SCREEN -->
   <!-- ===================== -->
-  <section id="intro-screen">
+  <section id="intro-screen" class="screen">
 
-    <div class="glitch-container">
-      <h1 class="game-title glitch" data-text="OSINT CHALLENGE">
+    <div class="center-wrapper">
+
+      <h1 class="title" data-text="OSINT CHALLENGE">
         OSINT CHALLENGE
       </h1>
 
       <p class="subtitle" id="typewriter"></p>
-    </div>
 
-    <div class="terminal-box">
-      <p>> SYSTEM BREACH DETECTED...</p>
-      <p>> INITIALIZING OSINT MODULE...</p>
-      <p>> TRACKING SIGNAL: UNKNOWN</p>
-      <p>> GHOSTCIPHER STATUS: OFFLINE</p>
-      <p class="warning-text">>> PRESS START TO BEGIN INVESTIGATION</p>
-    </div>
+      <div class="terminal-box">
 
-    <button id="start-btn">
-      START MISSION
-    </button>
+        <p>> SYSTEM BREACH DETECTED</p>
+        <p>> INITIALIZING OSINT INVESTIGATION MODULE</p>
+        <p>> SIGNAL TRACE: ACTIVE</p>
+        <p>> TARGET: GHOSTCIPHER UNKNOWN</p>
+        <p class="blink">>> PRESS START TO BEGIN TRACE</p>
+
+      </div>
+
+      <button id="start-btn" class="start-btn">
+        START MISSION
+      </button>
+
+    </div>
 
   </section>
 
   <!-- ===================== -->
-  <!-- CHARACTER SELECT -->
+  <!-- CHARACTER SELECTION -->
   <!-- ===================== -->
-  <section id="character-selection" class="hidden">
+  <section id="character-selection" class="screen hidden">
 
-    <h2 class="section-title">SELECT YOUR AGENT</h2>
+    <h2 class="section-title">
+      SELECT YOUR AGENT
+    </h2>
 
-    <div class="character-container">
+    <p class="hint">
+      Click agent name to deploy OSINT unit
+    </p>
 
-      <!-- NOVA -->
+    <div class="character-grid">
+
       <div class="character-card">
-        <div class="character-image nova"></div>
-        <h3 class="character-name" onclick="selectCharacter('nova')">NOVA</h3>
-        <p class="character-role">Cyber Intelligence Analyst</p>
-        <p class="character-desc">“Every system leaves traces.”</p>
+        <div class="avatar nova"></div>
+        <h3 onclick="selectCharacter('nova')">NOVA</h3>
       </div>
 
-      <!-- RAVEN -->
       <div class="character-card">
-        <div class="character-image raven"></div>
-        <h3 class="character-name" onclick="selectCharacter('raven')">RAVEN</h3>
-        <p class="character-role">Stealth Infiltration Expert</p>
-        <p class="character-desc">“Silence hides the sharpest code.”</p>
+        <div class="avatar raven"></div>
+        <h3 onclick="selectCharacter('raven')">RAVEN</h3>
       </div>
 
-      <!-- LUNA -->
       <div class="character-card">
-        <div class="character-image luna"></div>
-        <h3 class="character-name" onclick="selectCharacter('luna')">LUNA</h3>
-        <p class="character-role">OSINT Investigation Specialist</p>
-        <p class="character-desc">“Truth hides inside metadata.”</p>
+        <div class="avatar luna"></div>
+        <h3 onclick="selectCharacter('luna')">LUNA</h3>
       </div>
 
-      <!-- ZERO -->
       <div class="character-card">
-        <div class="character-image zero"></div>
-        <h3 class="character-name" onclick="selectCharacter('zero')">ZERO</h3>
-        <p class="character-role">Cyber Runner</p>
-        <p class="character-desc">“Fear is the first firewall.”</p>
+        <div class="avatar zero"></div>
+        <h3 onclick="selectCharacter('zero')">ZERO</h3>
       </div>
 
-      <!-- AXEL -->
       <div class="character-card">
-        <div class="character-image axel"></div>
-        <h3 class="character-name" onclick="selectCharacter('axel')">AXEL</h3>
-        <p class="character-role">Tactical Security Operative</p>
-        <p class="character-desc">“Stay alert. Every click matters.”</p>
+        <div class="avatar axel"></div>
+        <h3 onclick="selectCharacter('axel')">AXEL</h3>
       </div>
 
-      <!-- KAI -->
       <div class="character-card">
-        <div class="character-image kai"></div>
-        <h3 class="character-name" onclick="selectCharacter('kai')">KAI</h3>
-        <p class="character-role">Young Cyber Genius</p>
-        <p class="character-desc">“Hack the pattern. Find the truth.”</p>
+        <div class="avatar kai"></div>
+        <h3 onclick="selectCharacter('kai')">KAI</h3>
       </div>
 
     </div>
+
   </section>
 
   <!-- ===================== -->
   <!-- GAME SCREEN -->
   <!-- ===================== -->
-  <section id="game-screen" class="hidden">
+  <section id="game-screen" class="screen hidden">
 
     <!-- HUD -->
     <div class="hud">
 
-      <div class="mission-box">
+      <div class="hud-box">
         <h3>MISSION</h3>
-        <p>
-          Investigate the abandoned laboratory and trace hacker activity leading to GhostCipher.
-        </p>
+        <p>Trace GhostCipher through abandoned intelligence nodes.</p>
       </div>
 
-      <div class="objective-box">
+      <div class="hud-box">
         <h3>OBJECTIVES</h3>
         <ul>
-          <li>Explore environment</li>
-          <li>Search computer terminals</li>
-          <li>Recover encrypted OSINT data</li>
+          <li>Scan environment</li>
+          <li>Analyze computer terminals</li>
+          <li>Recover encrypted OSINT logs</li>
           <li>Unlock next location</li>
         </ul>
       </div>
@@ -133,43 +129,46 @@
     <!-- LABORATORY LEVEL -->
     <div id="laboratory-level">
 
-      <div class="lab-background"></div>
+      <!-- ENVIRONMENT -->
+      <div class="environment-layer"></div>
+      <div class="fog-layer"></div>
 
-      <!-- INTERACTIVE COMPUTERS -->
-      <div class="computer broken-computer"></div>
-      <div class="computer active-computer"></div>
-      <div class="computer active-computer second"></div>
+      <!-- INTERACTIVE OBJECTS -->
+      <div class="computer broken"></div>
+      <div class="computer active"></div>
+      <div class="computer active"></div>
 
-      <!-- EXIT DOOR -->
-      <div class="exit-door locked">
-        <p>LOCKED</p>
+      <!-- EXIT -->
+      <div class="door locked">
+        LOCKED
       </div>
 
       <!-- PLAYER -->
-      <div id="player">
-        <div class="player-character"></div>
-      </div>
+      <div id="player"></div>
 
-      <!-- TERMINAL MESSAGE POPUP -->
+      <!-- MESSAGE POPUP -->
       <div id="message-popup" class="hidden">
-        <div class="popup-content">
 
-          <h2>ENCRYPTED MESSAGE RECOVERED</h2>
+        <div class="popup">
 
-          <p>“People reveal everything online.”</p>
-          <p>“The weakest password opened the first gate.”</p>
-          <p>“Trace leads deeper into the forest node.”</p>
+          <h2>ENCRYPTED OSINT DATA</h2>
 
-          <button id="close-popup">CLOSE TERMINAL</button>
+          <p>“Metadata always leaves traces.”</p>
+          <p>“Every login is a footprint.”</p>
+          <p>“Next signal leads to forest node.”</p>
+
+          <button id="close-popup">
+            CLOSE TERMINAL
+          </button>
 
         </div>
+
       </div>
 
     </div>
 
   </section>
 
-  <!-- SCRIPT -->
   <script src="script.js"></script>
 
 </body>
