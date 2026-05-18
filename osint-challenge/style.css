@@ -483,29 +483,207 @@ body::after {
 }
 
 /* =========================
-   CHARACTER SELECTION
+   CHARACTER SELECTION SCREEN
+========================= */
+
+#character-selection {
+
+  width: 100%;
+  height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  padding: 40px;
+
+  background:
+    radial-gradient(circle at center,
+    rgba(18,8,31,0.92),
+    rgba(5,1,10,0.98));
+}
+
+/* =========================
+   TITLE
 ========================= */
 
 .section-title {
 
-  text-align: center;
+  font-size: 3rem;
 
-  margin-top: 40px;
-
-  font-size: 2.5rem;
+  letter-spacing: 5px;
 
   color: #a855f7;
+
+  margin-bottom: 15px;
+
+  text-shadow:
+    0 0 10px #a855f7,
+    0 0 30px #6d28d9;
 }
 
 .hint {
 
-  text-align: center;
+  color: #22d3ee;
+
+  font-size: 1.1rem;
+
+  margin-bottom: 50px;
+
+  text-shadow:
+    0 0 10px #22d3ee;
+}
+
+/* =========================
+   GRID LAYOUT
+========================= */
+
+.character-grid {
+
+  width: 100%;
+
+  display: grid;
+
+  grid-template-columns: repeat(3, 1fr);
+
+  grid-template-rows: repeat(2, auto);
+
+  justify-items: center;
+
+  row-gap: 60px;
+
+  column-gap: 40px;
+}
+
+/* =========================
+   CHARACTER CARD
+========================= */
+
+.character-card {
+
+  position: relative;
+
+  width: 260px;
+  height: 340px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+
+  transition: 0.4s;
+}
+
+/* =========================
+   CHARACTER IMAGE
+========================= */
+
+.avatar {
+
+  position: absolute;
+
+  top: 0;
+
+  width: 100%;
+  height: 100%;
+
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center bottom;
+
+  transition: 0.4s;
+
+  filter:
+    drop-shadow(0 0 20px rgba(168,85,247,0.4));
+}
+
+/* IMAGE HOVER */
+
+.character-card:hover .avatar {
+
+  transform:
+    scale(1.05)
+    translateY(-8px);
+
+  filter:
+    drop-shadow(0 0 25px rgba(34,211,238,0.6))
+    drop-shadow(0 0 50px rgba(34,211,238,0.3));
+}
+
+/* =========================
+   CHARACTER NAME
+========================= */
+
+.character-card h3 {
+
+  position: relative;
+
+  z-index: 5;
+
+  margin-bottom: 10px;
+
+  font-size: 1.4rem;
+
+  letter-spacing: 4px;
+
+  color: white;
+
+  cursor: pointer;
+
+  transition: 0.3s;
+
+  text-shadow:
+    0 0 8px rgba(255,255,255,0.3);
+}
+
+/* NAME HOVER EFFECT */
+
+.character-card h3:hover {
 
   color: #22d3ee;
 
-  margin-bottom: 20px;
+  transform: scale(1.15);
+
+  text-shadow:
+    0 0 10px #22d3ee,
+    0 0 25px #22d3ee,
+    0 0 45px #0ea5e9;
 }
 
+/* =========================
+   CHARACTER IMAGES
+========================= */
+
+.nova {
+  background-image:
+    url("assets/characters/nova.png");
+}
+
+.raven {
+  background-image:
+    url("assets/characters/raven.png");
+}
+
+.luna {
+  background-image:
+    url("assets/characters/luna.png");
+}
+
+.zero {
+  background-image:
+    url("assets/characters/zero.png");
+}
+
+.axel {
+  background-image:
+    url("assets/characters/axel.png");
+}
+
+.kai {
+  background-image:
+    url("assets/characters/kai.png");
+}
 /* =========================
    PLAYER
 ========================= */
