@@ -10,9 +10,9 @@
 }
 
 body {
-  background: radial-gradient(circle at center, #12081f, #05010a);
-  color: #d1d5db;
   overflow: hidden;
+  color: #d1d5db;
+  background: #05010a;
 }
 
 /* =========================
@@ -32,63 +32,173 @@ body {
 }
 
 /* =========================
-   CYBER BACKGROUND EFFECTS
+   GLOBAL BACKGROUND IMAGE
 ========================= */
 
-/* floating purple core glow */
 body::before {
-  content: "";
-  position: fixed;
-  width: 600px;
-  height: 600px;
-  background: radial-gradient(circle, rgba(168,85,247,0.25), transparent 60%);
-  top: 20%;
-  left: 30%;
-  filter: blur(80px);
-  animation: floatGlow 8s infinite alternate ease-in-out;
-  z-index: -5;
-}
-
-@keyframes floatGlow {
-  from { transform: translate(0, 0); }
-  to { transform: translate(120px, 80px); }
-}
-
-/* flicker overlay */
-body::after {
   content: "";
   position: fixed;
   width: 100%;
   height: 100%;
-  background: rgba(168,85,247,0.03);
-  animation: flicker 3s infinite;
-  z-index: -4;
+
+  background:
+    linear-gradient(
+      rgba(5,1,10,0.82),
+      rgba(5,1,10,0.92)
+    ),
+    url("global-network-map.png");
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  z-index: -10;
+
+  filter:
+    brightness(0.5)
+    contrast(1.2)
+    saturate(1.1);
 }
 
-@keyframes flicker {
-  0%, 100% { opacity: 0.05; }
-  50% { opacity: 0.12; }
+/* =========================
+   FLOATING PURPLE GLOW
+========================= */
+
+body::after {
+  content: "";
+  position: fixed;
+
+  width: 700px;
+  height: 700px;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(168,85,247,0.22),
+      transparent 70%
+    );
+
+  top: 10%;
+  left: 25%;
+
+  filter: blur(90px);
+
+  animation: floatGlow 10s infinite alternate ease-in-out;
+
+  z-index: -9;
 }
 
-/* scanlines */
+@keyframes floatGlow {
+  from {
+    transform: translate(0,0);
+  }
+
+  to {
+    transform: translate(140px,80px);
+  }
+}
+
+/* =========================
+   SCANLINES
+========================= */
+
 .bg-scanlines {
   position: fixed;
   width: 100%;
   height: 100%;
-  background: repeating-linear-gradient(
-    to bottom,
-    rgba(255,255,255,0.03),
-    rgba(255,255,255,0.03) 1px,
-    transparent 1px,
-    transparent 4px
-  );
-  animation: scanMove 6s linear infinite;
-  z-index: -3;
+
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      rgba(255,255,255,0.03),
+      rgba(255,255,255,0.03) 1px,
+      transparent 1px,
+      transparent 4px
+    );
+
+  animation: scanMove 8s linear infinite;
+
+  z-index: -7;
 }
 
 @keyframes scanMove {
-  0% { transform: translateY(0); }
-  100% { transform: translateY(20px); }
+  from {
+    transform: translateY(0);
+  }
+
+  to {
+    transform: translateY(25px);
+  }
+}
+
+/* =========================
+   CYBER ENERGY LINES
+========================= */
+
+.bg-data-stream {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: -6;
+}
+
+.bg-data-stream::before,
+.bg-data-stream::after {
+  content: "";
+
+  position: absolute;
+
+  width: 6px;
+  height: 300px;
+
+  background:
+    linear-gradient(
+      to top,
+      rgba(168,85,247,0),
+      rgba(168,85,247,1)
+    );
+
+  border-radius: 999px;
+
+  box-shadow:
+    0 0 20px #a855f7,
+    0 0 40px #6d28d9,
+    0 0 80px #6d28d9;
+
+  animation: streamMove 7s linear infinite;
+}
+
+.bg-data-stream::before {
+  left: 20%;
+}
+
+.bg-data-stream::after {
+  left: 75%;
+  animation-delay: 3s;
+}
+
+@keyframes streamMove {
+
+  0% {
+    transform:
+      translateY(120vh)
+      scaleY(0.8);
+
+    opacity: 0;
+  }
+
+  10% {
+    opacity: 1;
+  }
+
+  100% {
+    transform:
+      translateY(-140vh)
+      scaleY(1.3);
+
+    opacity: 0;
+  }
 }
 
 /* =========================
@@ -98,81 +208,164 @@ body::after {
 .center-wrapper {
   width: 100%;
   text-align: center;
-  padding-top: 10vh;
+  padding-top: 12vh;
 }
+
+/* SMALLER TITLE */
 
 .title {
-  font-size: 10vw;
-  letter-spacing: 0.2em;
+  font-size: 5vw;
+
+  letter-spacing: 0.25em;
+
   color: #a855f7;
+
   text-shadow:
-    0 0 20px #a855f7,
-    0 0 60px #6d28d9,
-    0 0 120px #2e1065;
+    0 0 10px #a855f7,
+    0 0 40px #6d28d9,
+    0 0 80px #2e1065;
 }
+
+/* BIGGER SUBTITLE */
 
 .subtitle {
-  margin-top: 10px;
+  margin-top: 25px;
+
+  font-size: 1.4rem;
+
   color: #22d3ee;
+
+  text-shadow:
+    0 0 12px #22d3ee;
 }
 
-/* terminal */
+/* =========================
+   TERMINAL BOX
+========================= */
+
 .terminal-box {
-  margin: 40px auto;
-  width: 420px;
-  padding: 20px;
+
+  margin: 50px auto;
+
+  width: 560px;
+
+  padding: 30px;
+
   border: 1px solid #6d28d9;
-  background: rgba(0,0,0,0.5);
+
+  background: rgba(0,0,0,0.55);
+
+  backdrop-filter: blur(4px);
+
+  box-shadow:
+    0 0 25px rgba(168,85,247,0.3);
 }
 
-/* ghost text animation */
+/* BIGGER TERMINAL TEXT */
+
 .terminal-box p {
+
+  font-size: 1.1rem;
+
+  line-height: 2;
+
   opacity: 0;
+
   transform: translateY(10px);
+
   animation: ghostAppear 1s forwards;
 }
 
-.terminal-box p:nth-child(1) { animation-delay: 0.5s; }
-.terminal-box p:nth-child(2) { animation-delay: 1.2s; }
-.terminal-box p:nth-child(3) { animation-delay: 1.9s; }
-.terminal-box p:nth-child(4) { animation-delay: 2.6s; }
-.terminal-box p:nth-child(5) { animation-delay: 3.3s; }
+.terminal-box p:nth-child(1) {
+  animation-delay: 0.5s;
+}
+
+.terminal-box p:nth-child(2) {
+  animation-delay: 1.2s;
+}
+
+.terminal-box p:nth-child(3) {
+  animation-delay: 1.9s;
+}
+
+.terminal-box p:nth-child(4) {
+  animation-delay: 2.6s;
+}
+
+.terminal-box p:nth-child(5) {
+  animation-delay: 3.3s;
+}
 
 @keyframes ghostAppear {
+
   to {
     opacity: 1;
     transform: translateY(0);
   }
 }
 
-/* blinking last line */
+/* =========================
+   BLINKING LAST LINE
+========================= */
+
 .terminal-box p:last-child {
+
   animation: pulseBlink 1.2s infinite;
 }
 
 @keyframes pulseBlink {
+
   0%, 100% {
     opacity: 1;
-    text-shadow: 0 0 10px #fb7185;
+
+    text-shadow:
+      0 0 10px #fb7185,
+      0 0 25px #fb7185;
   }
+
   50% {
     opacity: 0.2;
   }
 }
 
-/* start button */
+/* =========================
+   START BUTTON
+========================= */
+
 .start-btn {
-  margin-top: 20px;
-  padding: 12px 24px;
+
+  margin-top: 30px;
+
+  padding: 16px 34px;
+
+  font-size: 1rem;
+
+  letter-spacing: 2px;
+
   background: #6d28d9;
+
   border: none;
+
   color: white;
+
   cursor: pointer;
-  box-shadow: 0 0 20px #6d28d9;
+
+  transition: 0.3s;
+
+  box-shadow:
+    0 0 20px #6d28d9,
+    0 0 50px rgba(168,85,247,0.4);
 }
 
 .start-btn:hover {
+
+  transform: scale(1.05);
+
   background: #a855f7;
+
+  box-shadow:
+    0 0 30px #a855f7,
+    0 0 70px rgba(168,85,247,0.7);
 }
 
 /* =========================
@@ -180,157 +373,46 @@ body::after {
 ========================= */
 
 .section-title {
+
   text-align: center;
+
   margin-top: 40px;
+
   font-size: 2.5rem;
+
   color: #a855f7;
 }
 
 .hint {
+
   text-align: center;
+
   color: #22d3ee;
+
   margin-bottom: 20px;
 }
 
-.character-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 25px;
-  padding: 100px;
-}
-
-.character-card {
-  background: rgba(255,255,255,0.03);
-  border: 1px solid #6d28d9;
-  padding: 20px;
-  text-align: center;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.character-card:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 25px #a855f7;
-}
-
-.character-card h3 {
-  color: #a855f7;
-}
-
 /* =========================
-   GAME HUD
+   PLAYER
 ========================= */
-
-.hud {
-  position: absolute;
-  top: 20px;
-  left: 20px;
-  display: flex;
-  gap: 20px;
-}
-
-.hud-box {
-  width: 260px;
-  padding: 15px;
-  background: rgba(0,0,0,0.6);
-  border: 1px solid #6d28d9;
-}
-
-.hud-box h3 {
-  color: #a855f7;
-}
-
-/* =========================
-   GAME WORLD
-========================= */
-
-#laboratory-level {
-  width: 100%;
-  height: 100%;
-  position: relative;
-}
-
-.environment-layer {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background: radial-gradient(circle, #12081f, #05010a);
-  z-index: -2;
-}
-
-.fog-layer {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background: url("https://www.transparenttextures.com/patterns/smoke.png");
-  opacity: 0.04;
-  animation: fogMove 12s linear infinite;
-}
-
-@keyframes fogMove {
-  from { transform: translateX(0); }
-  to { transform: translateX(80px); }
-}
-
-/* objects */
-.computer {
-  width: 50px;
-  height: 50px;
-  position: absolute;
-  background: #6d28d9;
-}
-
-.computer.active {
-  background: #22d3ee;
-}
-
-.computer.broken {
-  background: #fb7185;
-}
-
-.door {
-  position: absolute;
-  right: 60px;
-  top: 50%;
-  color: #a855f7;
-  border: 1px solid #a855f7;
-  padding: 10px;
-}
 
 #player {
-  width: 30px;
-  height: 30px;
+
+  width: 35px;
+
+  height: 35px;
+
   background: #22d3ee;
+
   position: absolute;
+
   bottom: 50px;
+
   left: 50px;
-  box-shadow: 0 0 15px #22d3ee;
-}
 
-/* =========================
-   POPUP
-========================= */
+  border-radius: 8px;
 
-#message-popup {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.85);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.popup {
-  width: 420px;
-  padding: 25px;
-  background: #12081f;
-  border: 1px solid #a855f7;
-  text-align: center;
-}
-
-.popup h2 {
-  color: #a855f7;
+  box-shadow:
+    0 0 15px #22d3ee,
+    0 0 40px #22d3ee;
 }
