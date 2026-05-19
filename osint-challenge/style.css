@@ -156,11 +156,11 @@ body::after {
   width: 100%;
   height: 100%;
 
-  z-index: -6;
+  z-index: -2;
 
   pointer-events: none;
 
-  opacity: 0.45;
+  opacity: 0.9;
 }
 
 /* NETWORK LINES */
@@ -169,18 +169,19 @@ body::after {
 
   fill: none;
 
-  stroke: rgba(168,85,247,0.45);
+  stroke: rgba(168,85,247,0.95);
 
-  stroke-width: 1.5;
+  stroke-width: 2;
 
-  stroke-dasharray: 10;
+  stroke-dasharray: 12;
 
   animation:
-    flowLine 8s linear infinite;
+    flowLine 6s linear infinite;
 
   filter:
-    drop-shadow(0 0 4px #a855f7)
-    drop-shadow(0 0 10px #6d28d9);
+    drop-shadow(0 0 6px #a855f7)
+    drop-shadow(0 0 12px #6d28d9)
+    drop-shadow(0 0 24px #c084fc);
 }
 
 /* FLOWING LINE MOTION */
@@ -200,11 +201,12 @@ body::after {
 
 .pulse-dot {
 
-  fill: #c084fc;
+  fill: #22d3ee;
 
   filter:
-    drop-shadow(0 0 6px #c084fc)
-    drop-shadow(0 0 14px #a855f7);
+    drop-shadow(0 0 8px #22d3ee)
+    drop-shadow(0 0 18px #0ea5e9)
+    drop-shadow(0 0 30px #67e8f9);
 }
 
 /* =========================
@@ -460,10 +462,10 @@ body::after {
   justify-items: center;
   align-items: center;
 
-  padding: 0 60px;
-
-  column-gap: 20px;
+  column-gap: 10px;
   row-gap: 10px;
+
+  margin: 0 auto;
 }
 
 /* CARD */
