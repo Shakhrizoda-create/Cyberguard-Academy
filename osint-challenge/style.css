@@ -554,27 +554,27 @@ body::after {
 /* CHARACTER IMAGES */
 
 .nova {
-  background-image: url("players/Nova.png");
+  background-image: url("Players/Nova.png");
 }
 
 .raven {
-  background-image: url("players/Raven.png");
+  background-image: url("Players/Raven.png");
 }
 
 .luna {
-  background-image: url("players/Luna.png");
+  background-image: url("Players/Luna.png");
 }
 
 .zero {
-  background-image: url("players/Zero.png");
+  background-image: url("Players/Zero.png");
 }
 
 .axel {
-  background-image: url("players/Axel.png");
+  background-image: url("Players/Axel.png");
 }
 
 .kai {
-  background-image: url("players/Kai.png");
+  background-image: url("Players/Kai.png");
 }
 /* =========================
    GAME WORLD
