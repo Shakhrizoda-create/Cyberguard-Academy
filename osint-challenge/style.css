@@ -554,35 +554,28 @@ body::after {
 /* CHARACTER IMAGES */
 
 .nova {
-  background-image:
-    url("assets/characters/nova.png");
+  background-image: url("players/Nova.png");
 }
 
 .raven {
-  background-image:
-    url("assets/characters/raven.png");
+  background-image: url("players/Raven.png");
 }
 
 .luna {
-  background-image:
-    url("assets/characters/luna.png");
+  background-image: url("players/Luna.png");
 }
 
 .zero {
-  background-image:
-    url("assets/characters/zero.png");
+  background-image: url("players/Zero.png");
 }
 
 .axel {
-  background-image:
-    url("assets/characters/axel.png");
+  background-image: url("players/Axel.png");
 }
 
 .kai {
-  background-image:
-    url("assets/characters/kai.png");
+  background-image: url("players/Kai.png");
 }
-
 /* =========================
    GAME WORLD
 ========================= */
