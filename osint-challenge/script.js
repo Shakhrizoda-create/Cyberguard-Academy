@@ -29,27 +29,48 @@ function showScreen(id) {
 }
 
 /* =========================
-   CHARACTER SYSTEM (NEW FIXED VERSION)
+   CHARACTER SYSTEM
 ========================= */
 
 let cards = [];
 let currentIndex = 0;
 
-/* INIT */
+/* INIT CHARACTERS */
 function initCharacters() {
   cards = document.querySelectorAll(".character-card");
-
+  currentIndex = 0;
   updateCharacter();
 }
 
-/* UPDATE ACTIVE CHARACTER */
+/* UPDATE VISUAL STATE */
 function updateCharacter() {
 
-  cards.forEach(c => c.classList.remove("active"));
+  if (!cards.length) return;
 
-  if (cards[currentIndex]) {
-    cards[currentIndex].classList.add("active");
-  }
+  cards.forEach((c, index) => {
+    c.classList.remove("active", "prev", "next");
+
+    if (index === currentIndex) {
+      c.classList.add("active");
+    }
+
+    if (index === currentIndex - 1) {
+      c.classList.add("prev");
+    }
+
+    if (index === currentIndex + 1) {
+      c.classList.add("next");
+    }
+
+    // loop edges
+    if (currentIndex === 0 && index === cards.length - 1) {
+      c.classList.add("prev");
+    }
+
+    if (currentIndex === cards.length - 1 && index === 0) {
+      c.classList.add("next");
+    }
+  });
 }
 
 /* NEXT */
@@ -70,6 +91,34 @@ function previousCharacter() {
   if (currentIndex < 0) currentIndex = cards.length - 1;
 
   updateCharacter();
+}
+
+/* =========================
+   CONTROLS (ARROWS + KEYBOARD)
+========================= */
+
+function bindControls() {
+
+  const leftArrow = document.querySelector(".arrow.left");
+  const rightArrow = document.querySelector(".arrow.right");
+
+  if (leftArrow) {
+    leftArrow.onclick = () => previousCharacter();
+  }
+
+  if (rightArrow) {
+    rightArrow.onclick = () => nextCharacter();
+  }
+
+  document.addEventListener("keydown", (e) => {
+
+    const screen = document.getElementById("character-selection");
+
+    if (!screen || screen.classList.contains("hidden")) return;
+
+    if (e.key === "ArrowRight") nextCharacter();
+    if (e.key === "ArrowLeft") previousCharacter();
+  });
 }
 
 /* =========================
@@ -109,27 +158,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
     setTimeout(() => {
       initCharacters();
+      bindControls();
     }, 50);
 
   });
 });
 
 /* =========================
-   KEYBOARD CONTROL
-========================= */
-
-document.addEventListener("keydown", (e) => {
-
-  const screen = document.getElementById("character-selection");
-
-  if (!screen || screen.classList.contains("hidden")) return;
-
-  if (e.key === "ArrowRight") nextCharacter();
-  if (e.key === "ArrowLeft") previousCharacter();
-});
-
-/* =========================
-   POPUP SYSTEM (UNCHANGED)
+   POPUP SYSTEM
 ========================= */
 
 function openMessage(lines) {
@@ -158,4 +194,3 @@ document.addEventListener("click", (e) => {
     document.getElementById("message-popup")?.classList.add("hidden");
   }
 });
-
