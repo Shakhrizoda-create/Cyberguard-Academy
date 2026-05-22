@@ -467,6 +467,15 @@ body::after {
   transform: scale(0.6);
 
   transition: all 0.6s ease;
+
+  z-index: 1;
+}
+
+/* ACTIVE ALWAYS ON TOP */
+.character-card.active {
+  opacity: 1;
+  transform: scale(1.4);
+  z-index: 10;
 }
 
 /* ACTIVE CENTER CHARACTER */
