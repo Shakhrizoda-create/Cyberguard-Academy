@@ -366,7 +366,7 @@ body::after {
 }
 
 /* =========================
-   CHARACTER SELECTION (CLEAN SYSTEM)
+   CHARACTER SELECTION (FINAL CINEMATIC SYSTEM)
 ========================= */
 
 #character-selection {
@@ -381,7 +381,8 @@ body::after {
   justify-content: center;
   align-items: center;
 
-  background: radial-gradient(circle at center,
+  background: radial-gradient(
+    circle at center,
     rgba(20,10,35,0.98),
     rgba(5,1,10,1)
   );
@@ -435,21 +436,17 @@ body::after {
 .arrow.right { right: 40px; }
 
 /* =========================
-   CARDS LAYER (IMPORTANT FIX)
+   TRACK
 ========================= */
 
 .character-track {
   position: relative;
   width: 100%;
   height: 80vh;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 /* =========================
-   CHARACTER CARD (CLEAN CAMERA SYSTEM)
+   CHARACTER CARD BASE
 ========================= */
 
 .character-card {
@@ -464,45 +461,71 @@ body::after {
   justify-content: center;
 
   opacity: 0;
-  transform: scale(0.6);
+  transform: scale(0.6) translateX(200px);
 
   transition: all 0.6s ease;
 
   z-index: 1;
 }
 
+/* =========================
+   ACTIVE CHARACTER (CENTER HERO)
+========================= */
+
 .character-card.active {
   opacity: 1;
-  transform: scale(1.5);
+  transform: scale(1.45) translateX(0);
   z-index: 10;
 }
 
 /* =========================
-   CHARACTER IMAGE (FULL HERO FOCUS)
+   GHOST SIDE CHARACTERS
+========================= */
+
+.character-card.prev {
+  opacity: 0.25;
+  transform: scale(0.85) translateX(-450px);
+  filter: blur(2px);
+}
+
+.character-card.next {
+  opacity: 0.25;
+  transform: scale(0.85) translateX(450px);
+  filter: blur(2px);
+}
+
+/* =========================
+   AVATAR (KEEP BIG HERO FEEL)
 ========================= */
 
 .avatar {
-  width: 450px;
+  width: 100%;
   height: 75vh;
 
   background-size: contain;
   background-repeat: no-repeat;
-  background-position: center;
+  background-position: center bottom;
 
-  display: block;
-
-  filter: drop-shadow(0 0 40px rgba(34,211,238,0.5));
+  filter: drop-shadow(0 0 70px rgba(34,211,238,0.4));
 }
 
-/* NAME */
+/* =========================
+   NAME (ALWAYS VISIBLE)
+========================= */
+
 .character-card h3 {
   font-size: 2.2rem;
   margin-top: 10px;
+
+  opacity: 1;
+  display: block;
+  position: relative;
+  z-index: 20;
   letter-spacing: 3px;
 }
 
 /* =========================
-   NAME COLORS (FIXED)
+   NAME COLORS
 ========================= */
 
 .character-card.nova h3 { color: #38bdf8; text-shadow: 0 0 20px #38bdf8; }
