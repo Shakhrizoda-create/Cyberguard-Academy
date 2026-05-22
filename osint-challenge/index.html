@@ -94,53 +94,70 @@
   </section>
 
   <!-- ===================== -->
-  <!-- CHARACTER SELECTION -->
-  <!-- ===================== -->
-  <section id="character-selection" class="screen hidden">
+<!-- CHARACTER SELECTION -->
+<!-- ===================== -->
+<section id="character-selection" class="screen hidden">
 
-    <h2 class="section-title">
-      SELECT YOUR AGENT
-    </h2>
+  <h2 class="section-title">
+    SELECT YOUR AGENT
+  </h2>
 
-    <p class="hint">
-      Click agent name to deploy OSINT unit
-    </p>
+  <p class="hint">
+    Use ← → keys to browse operatives
+  </p>
 
-    <div class="character-grid">
+  <!-- LEFT ARROW -->
+  <div class="arrow left">
+    &#10094;
+  </div>
 
-      <div class="character-card">
-        <div class="avatar nova"></div>
-        <h3 onclick="selectCharacter('nova')">NOVA</h3>
-      </div>
+  <!-- CHARACTER VIEWER -->
+  <div class="character-grid">
 
-      <div class="character-card">
-        <div class="avatar raven"></div>
-        <h3 onclick="selectCharacter('raven')">RAVEN</h3>
-      </div>
-
-      <div class="character-card">
-        <div class="avatar luna"></div>
-        <h3 onclick="selectCharacter('luna')">LUNA</h3>
-      </div>
-
-      <div class="character-card">
-        <div class="avatar zero"></div>
-        <h3 onclick="selectCharacter('zero')">ZERO</h3>
-      </div>
-
-      <div class="character-card">
-        <div class="avatar axel"></div>
-        <h3 onclick="selectCharacter('axel')">AXEL</h3>
-      </div>
-
-      <div class="character-card">
-        <div class="avatar kai"></div>
-        <h3 onclick="selectCharacter('kai')">KAI</h3>
-      </div>
-
+    <!-- NOVA -->
+    <div class="character-card active">
+      <div class="avatar nova"></div>
+      <h3 onclick="selectCharacter('nova')">NOVA</h3>
     </div>
 
-  </section>
+    <!-- RAVEN -->
+    <div class="character-card">
+      <div class="avatar raven"></div>
+      <h3 onclick="selectCharacter('raven')">RAVEN</h3>
+    </div>
+
+    <!-- LUNA -->
+    <div class="character-card">
+      <div class="avatar luna"></div>
+      <h3 onclick="selectCharacter('luna')">LUNA</h3>
+    </div>
+
+    <!-- ZERO -->
+    <div class="character-card">
+      <div class="avatar zero"></div>
+      <h3 onclick="selectCharacter('zero')">ZERO</h3>
+    </div>
+
+    <!-- AXEL -->
+    <div class="character-card">
+      <div class="avatar axel"></div>
+      <h3 onclick="selectCharacter('axel')">AXEL</h3>
+    </div>
+
+    <!-- KAI -->
+    <div class="character-card">
+      <div class="avatar kai"></div>
+      <h3 onclick="selectCharacter('kai')">KAI</h3>
+    </div>
+
+  </div>
+
+  <!-- RIGHT ARROW -->
+  <div class="arrow right">
+    &#10095;
+  </div>
+
+</section>
 
   <!-- ===================== -->
   <!-- GAME SCREEN -->
