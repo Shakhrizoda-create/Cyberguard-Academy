@@ -518,16 +518,31 @@ body::after {
 .character-card.axel h3 { color: #84cc16; text-shadow: 0 0 20px #84cc16; }
 .character-card.kai h3 { color: #fb923c; text-shadow: 0 0 20px #fb923c; }
 
-/* =========================
-   IMAGES
-========================= */
+/* ========================= IMAGES ========================= */
 
-.nova { background-image: url("Players/Nova.png"); }
-.raven { background-image: url("Players/Raven.png"); }
-.luna { background-image: url("Players/Luna.png"); }
-.zero { background-image: url("Players/Zero.png"); }
-.axel { background-image: url("Players/Axel.png"); }
-.kai { background-image: url("Players/Kai.png"); }
+.nova {
+  background-image: url("./Players/Nova.png");
+}
+
+.raven {
+  background-image: url("./Players/Raven.png");
+}
+
+.luna {
+  background-image: url("./Players/Luna.png");
+}
+
+.zero {
+  background-image: url("./Players/Zero.png");
+}
+
+.axel {
+  background-image: url("./Players/Axel.png");
+}
+
+.kai {
+  background-image: url("./Players/Kai.png");
+}
 
 /* =========================
    GAME WORLD
