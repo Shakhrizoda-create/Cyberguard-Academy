@@ -382,7 +382,7 @@ body::after {
 
   overflow: hidden;
 
-  padding: 20px;
+  position: relative;
 
   background:
     radial-gradient(
@@ -391,22 +391,20 @@ body::after {
       rgba(5,1,10,1)
     );
 
-  backdrop-filter: blur(4px);
+  padding-top: 30px;
 }
 
 /* TITLE */
 
 .section-title {
 
-  font-size: 3.2rem;
-
-  font-weight: bold;
+  font-size: clamp(2rem, 4vw, 4rem);
 
   letter-spacing: 8px;
 
-  text-transform: uppercase;
+  margin-bottom: 10px;
 
-  margin-bottom: 12px;
+  text-transform: uppercase;
 
   background:
     linear-gradient(
@@ -420,108 +418,207 @@ body::after {
   -webkit-text-fill-color: transparent;
 
   text-shadow:
-    0 0 12px rgba(168,85,247,0.45),
-    0 0 30px rgba(34,211,238,0.2);
+    0 0 20px rgba(168,85,247,0.4);
 
-  position: relative;
+  text-align: center;
 }
 
 /* SUBTITLE */
 
 .hint {
 
-  font-size: 1.2rem;
-
-  letter-spacing: 2px;
+  font-size: clamp(0.9rem, 1.2vw, 1.2rem);
 
   color: #c084fc;
 
-  margin-bottom: 35px;
+  margin-bottom: 20px;
 
-  opacity: 0.92;
+  text-align: center;
 
-  text-shadow:
-    0 0 10px rgba(192,132,252,0.5);
+  opacity: 0.9;
 }
 
-/* GRID */
+/* CHARACTER VIEWER */
 
 .character-grid {
+
   width: 100%;
-  height: 100vh;
-
-  display: grid;
-
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(2, 1fr);
-
-  gap: 30px;
-
-  padding: 60px;
-  align-items: center;
-  justify-items: center;
-}
-
-/* CARD */
-
-.character-card {
-  width: 200px;
-  height: 260px;
+  height: 75vh;
 
   display: flex;
-  flex-direction: column;
 
   justify-content: center;
   align-items: center;
 
-  gap: 10px;
-
   position: relative;
+}
+
+/* CHARACTER CARD */
+
+.character-card {
+
+  position: absolute;
+
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+
+  transition:
+    transform 0.5s ease,
+    opacity 0.5s ease;
+
+  opacity: 0;
+
+  transform: scale(0.7);
+
+  pointer-events: none;
+}
+
+/* ACTIVE CHARACTER */
+
+.character-card.active {
+
+  opacity: 1;
+
+  transform: scale(1);
+
+  pointer-events: auto;
 }
 
 /* AVATAR */
 
 .avatar {
-  width: 160px;
-  height: 160px;
+
+  width: min(32vw, 420px);
+  height: min(70vh, 700px);
 
   background-size: contain;
   background-repeat: no-repeat;
-  background-position: center;
-}
+  background-position: center bottom;
 
-/* AVATAR HOVER */
-
-.character-card:hover .avatar {
-
-  transform:
-    scale(1.05);
+  transition:
+    transform 0.4s ease,
+    filter 0.4s ease;
 
   filter:
-    drop-shadow(0 0 25px rgba(34,211,238,0.7));
+    drop-shadow(0 0 25px rgba(168,85,247,0.45));
+}
+
+/* HOVER */
+
+.character-card.active:hover .avatar {
+
+  transform: scale(1.03);
+
+  filter:
+    drop-shadow(0 0 40px rgba(34,211,238,0.8));
 }
 
 /* CHARACTER NAME */
 
 .character-card h3 {
-  font-size: 2rem;
-  letter-spacing: 3px;
 
-  text-align: center;
+  margin-top: 10px;
+
+  font-size: clamp(2rem, 3vw, 4rem);
+
+  letter-spacing: 6px;
+
+  text-transform: uppercase;
+
+  transition: 0.3s ease;
 }
 
-/* NAME HOVER */
+/* UNIQUE CHARACTER COLORS */
 
-.character-card h3:hover {
-
-  color: #22d3ee;
-
-  transform: scale(1.2);
+.nova + h3 {
+  color: #38bdf8;
 
   text-shadow:
-    0 0 10px #22d3ee,
-    0 0 25px #0ea5e9,
-    0 0 40px #0ea5e9;
+    0 0 12px #38bdf8,
+    0 0 30px #0ea5e9;
+}
+
+.raven + h3 {
+  color: #22c55e;
+
+  text-shadow:
+    0 0 12px #22c55e,
+    0 0 30px #15803d;
+}
+
+.luna + h3 {
+  color: #ff4fd8;
+
+  text-shadow:
+    0 0 12px #ff4fd8,
+    0 0 30px #db2777;
+}
+
+.zero + h3 {
+  color: #7c3aed;
+
+  text-shadow:
+    0 0 12px #000,
+    0 0 30px #7c3aed;
+}
+
+.axel + h3 {
+  color: #84cc16;
+
+  text-shadow:
+    0 0 12px #84cc16,
+    0 0 30px #3f6212;
+}
+
+.kai + h3 {
+  color: #fb923c;
+
+  text-shadow:
+    0 0 12px #fb923c,
+    0 0 30px #ea580c;
+}
+
+/* NAVIGATION ARROWS */
+
+.arrow {
+
+  position: absolute;
+
+  top: 50%;
+
+  transform: translateY(-50%);
+
+  font-size: 4rem;
+
+  color: #c084fc;
+
+  cursor: pointer;
+
+  user-select: none;
+
+  z-index: 10;
+
+  transition: 0.3s;
+}
+
+.arrow:hover {
+
+  transform:
+    translateY(-50%)
+    scale(1.2);
+
+  color: #22d3ee;
+}
+
+.arrow.left {
+  left: 40px;
+}
+
+.arrow.right {
+  right: 40px;
 }
 
 /* CHARACTER IMAGES */
