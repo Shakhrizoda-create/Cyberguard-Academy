@@ -36,9 +36,7 @@ body {
 ========================= */
 
 body::before {
-
   content: "";
-
   position: fixed;
 
   width: 100%;
@@ -49,7 +47,7 @@ body::before {
       rgba(5,1,10,0.45),
       rgba(5,1,10,0.65)
     ),
-    url("assets/background/global-network-map.png");
+    url("./assets/background/global-network-map.png");
 
   background-size: cover;
   background-position: center;
@@ -57,10 +55,7 @@ body::before {
 
   z-index: -10;
 
-  filter:
-    brightness(0.9)
-    contrast(1.1)
-    saturate(1.1);
+  filter: brightness(0.9) contrast(1.1) saturate(1.1);
 }
 
 /* =========================
@@ -68,41 +63,31 @@ body::before {
 ========================= */
 
 body::after {
-
   content: "";
-
   position: fixed;
 
   width: 700px;
   height: 700px;
 
-  background:
-    radial-gradient(
-      circle,
-      rgba(168,85,247,0.22),
-      transparent 70%
-    );
+  background: radial-gradient(
+    circle,
+    rgba(168,85,247,0.22),
+    transparent 70%
+  );
 
   top: 10%;
   left: 25%;
 
   filter: blur(90px);
 
-  animation:
-    floatGlow 10s infinite alternate ease-in-out;
+  animation: floatGlow 10s infinite alternate ease-in-out;
 
   z-index: -9;
 }
 
 @keyframes floatGlow {
-
-  from {
-    transform: translate(0,0);
-  }
-
-  to {
-    transform: translate(140px,80px);
-  }
+  from { transform: translate(0,0); }
+  to { transform: translate(140px,80px); }
 }
 
 /* =========================
@@ -110,9 +95,7 @@ body::after {
 ========================= */
 
 .bg-scanlines {
-
   position: fixed;
-
   width: 100%;
   height: 100%;
 
@@ -125,21 +108,14 @@ body::after {
       transparent 4px
     );
 
-  animation:
-    scanMove 8s linear infinite;
+  animation: scanMove 8s linear infinite;
 
   z-index: -7;
 }
 
 @keyframes scanMove {
-
-  from {
-    transform: translateY(0);
-  }
-
-  to {
-    transform: translateY(25px);
-  }
+  from { transform: translateY(0); }
+  to { transform: translateY(25px); }
 }
 
 /* =========================
@@ -147,9 +123,7 @@ body::after {
 ========================= */
 
 .network-overlay {
-
   position: fixed;
-
   top: 0;
   left: 0;
 
@@ -157,26 +131,17 @@ body::after {
   height: 100%;
 
   z-index: -2;
-
   pointer-events: none;
-
   opacity: 0.9;
 }
 
-/* NETWORK LINES */
-
 .net-line {
-
   fill: none;
-
   stroke: rgba(168,85,247,0.95);
-
   stroke-width: 2;
-
   stroke-dasharray: 12;
 
-  animation:
-    flowLine 6s linear infinite;
+  animation: flowLine 6s linear infinite;
 
   filter:
     drop-shadow(0 0 6px #a855f7)
@@ -184,25 +149,13 @@ body::after {
     drop-shadow(0 0 24px #c084fc);
 }
 
-/* FLOWING LINE MOTION */
-
 @keyframes flowLine {
-
-  from {
-    stroke-dashoffset: 0;
-  }
-
-  to {
-    stroke-dashoffset: 120;
-  }
+  from { stroke-dashoffset: 0; }
+  to { stroke-dashoffset: 120; }
 }
 
-/* SIGNAL DOTS */
-
 .pulse-dot {
-
   fill: #22d3ee;
-
   filter:
     drop-shadow(0 0 8px #22d3ee)
     drop-shadow(0 0 18px #0ea5e9)
@@ -214,22 +167,14 @@ body::after {
 ========================= */
 
 .center-wrapper {
-
   width: 100%;
-
   text-align: center;
-
   padding-top: 12vh;
 }
 
-/* TITLE */
-
 .title {
-
   font-size: 5vw;
-
   letter-spacing: 0.25em;
-
   color: #a855f7;
 
   text-shadow:
@@ -237,136 +182,84 @@ body::after {
     0 0 40px #6d28d9;
 }
 
-/* SUBTITLE */
-
 .subtitle {
-
   margin-top: 25px;
-
   font-size: 1.4rem;
-
   color: #22d3ee;
-
-  text-shadow:
-    0 0 12px #22d3ee;
+  text-shadow: 0 0 12px #22d3ee;
 }
 
-/* TERMINAL */
-
 .terminal-box {
-
   margin: 50px auto;
-
   width: 560px;
-
   padding: 30px;
 
   border: 1px solid #6d28d9;
-
-  background:
-    rgba(0,0,0,0.55);
+  background: rgba(0,0,0,0.55);
 
   backdrop-filter: blur(4px);
 }
 
 .terminal-box p {
-
   font-size: 1.1rem;
-
   line-height: 2;
 
   opacity: 0;
-
   transform: translateY(10px);
 
-  animation:
-    ghostAppear 1s forwards;
+  animation: ghostAppear 1s forwards;
 }
 
-/* GHOST TEXT APPEAR */
-
 @keyframes ghostAppear {
-
   to {
     opacity: 1;
     transform: translateY(0);
   }
 }
 
-/* TERMINAL TIMINGS */
-
-.terminal-box p:nth-child(1) {
-  animation-delay: 0.5s;
-}
-
-.terminal-box p:nth-child(2) {
-  animation-delay: 1.2s;
-}
-
-.terminal-box p:nth-child(3) {
-  animation-delay: 1.9s;
-}
-
-.terminal-box p:nth-child(4) {
-  animation-delay: 2.6s;
-}
-
-/* BLINKING LINE */
+.terminal-box p:nth-child(1) { animation-delay: 0.5s; }
+.terminal-box p:nth-child(2) { animation-delay: 1.2s; }
+.terminal-box p:nth-child(3) { animation-delay: 1.9s; }
+.terminal-box p:nth-child(4) { animation-delay: 2.6s; }
 
 .blink {
-
-  animation:
-    pulseBlink 1.2s infinite !important;
+  animation: pulseBlink 1.2s infinite !important;
 }
 
 @keyframes pulseBlink {
-
   0%,100% {
     opacity: 1;
     text-shadow: 0 0 10px #fb7185;
   }
-
   50% {
     opacity: 0.25;
   }
 }
 
-/* START BUTTON */
-
 .start-btn {
-
   margin-top: 30px;
-
   padding: 16px 34px;
 
   font-size: 1rem;
-
   background: #6d28d9;
-
   color: white;
 
   border: none;
-
   cursor: pointer;
 
   transition: 0.3s;
 
-  box-shadow:
-    0 0 20px #6d28d9;
+  box-shadow: 0 0 20px #6d28d9;
 }
 
 .start-btn:hover {
-
   background: #a855f7;
-
   transform: scale(1.05);
-
-  box-shadow:
-    0 0 25px #a855f7;
+  box-shadow: 0 0 25px #a855f7;
 }
 
 /* =========================
-   CHARACTER SELECTION (FINAL CINEMATIC SYSTEM)
+   CHARACTER SELECTION
 ========================= */
 
 #character-selection {
@@ -386,9 +279,10 @@ body::after {
     rgba(20,10,35,0.98),
     rgba(5,1,10,1)
   );
+
+  isolation: isolate;
 }
 
-/* TITLE */
 .section-title {
   font-size: clamp(2rem, 4vw, 4rem);
   margin-bottom: 10px;
@@ -401,7 +295,6 @@ body::after {
   -webkit-text-fill-color: transparent;
 }
 
-/* HINT */
 .hint {
   color: #c084fc;
   margin-bottom: 30px;
@@ -462,41 +355,49 @@ body::after {
 
   opacity: 0;
   visibility: hidden;
-  transform: scale(0.6) translateX(200px);
 
-  transition: all 0.6s ease;
+  transform: scale(0.6);
+
+  transition: transform 0.6s ease, opacity 0.6s ease;
 
   z-index: 1;
+
+  will-change: transform, opacity;
 }
 
-/* =========================
-   ACTIVE CHARACTER (CENTER HERO)
-========================= */
-
+/* ACTIVE */
 .character-card.active {
   opacity: 1;
   visibility: visible;
+
   transform: scale(1.45) translateX(0);
   z-index: 10;
 }
-/* =========================
-   GHOST SIDE CHARACTERS
-========================= */
 
+/* PREV */
 .character-card.prev {
-  opacity: 0.25;
-  transform: scale(0.85) translateX(-450px);
+  opacity: 0.35;
+  visibility: visible;
+
+  transform: scale(0.85) translateX(-420px);
+
   filter: blur(2px);
+  z-index: 5;
 }
 
+/* NEXT */
 .character-card.next {
-  opacity: 0.25;
-  transform: scale(0.85) translateX(450px);
+  opacity: 0.35;
+  visibility: visible;
+
+  transform: scale(0.85) translateX(420px);
+
   filter: blur(2px);
+  z-index: 5;
 }
 
 /* =========================
-   AVATAR (KEEP BIG HERO FEEL)
+   AVATAR
 ========================= */
 
 .avatar {
@@ -511,120 +412,76 @@ body::after {
 }
 
 /* =========================
-   NAME (ALWAYS VISIBLE)
+   NAME
 ========================= */
 
 .character-card h3 {
   font-size: 2.2rem;
   margin-top: 10px;
 
-  opacity: 1;
-  display: block;
   position: relative;
   z-index: 20;
-  letter-spacing: 3px;
 }
+
+/* COLORS */
+
+.character-card.nova h3 { color: #38bdf8; }
+.character-card.raven h3 { color: #22c55e; }
+.character-card.luna h3 { color: #ff4fd8; }
+.character-card.zero h3 { color: #7c3aed; }
+.character-card.axel h3 { color: #84cc16; }
+.character-card.kai h3 { color: #fb923c; }
 
 /* =========================
-   NAME COLORS
+   IMAGES
 ========================= */
 
-.character-card.nova h3 { color: #38bdf8; text-shadow: 0 0 20px #38bdf8; }
-.character-card.raven h3 { color: #22c55e; text-shadow: 0 0 20px #22c55e; }
-.character-card.luna h3 { color: #ff4fd8; text-shadow: 0 0 20px #ff4fd8; }
-.character-card.zero h3 { color: #7c3aed; text-shadow: 0 0 20px #7c3aed; }
-.character-card.axel h3 { color: #84cc16; text-shadow: 0 0 20px #84cc16; }
-.character-card.kai h3 { color: #fb923c; text-shadow: 0 0 20px #fb923c; }
-
-/* ========================= IMAGES ========================= */
-
-.nova {
-  background-image: url("Players/Nova.png");
-}
-
-.raven {
-  background-image: url("./Players/Raven.png");
-}
-
-.luna {
-  background-image: url("./Players/Luna.png");
-}
-
-.zero {
-  background-image: url("./Players/Zero.png");
-}
-
-.axel {
-  background-image: url("./Players/Axel.png");
-}
-
-.kai {
-  background-image: url("./Players/Kai.png");
-}
+.nova { background-image: url("./Players/Nova.png"); }
+.raven { background-image: url("./Players/Raven.png"); }
+.luna { background-image: url("./Players/Luna.png"); }
+.zero { background-image: url("./Players/Zero.png"); }
+.axel { background-image: url("./Players/Axel.png"); }
+.kai { background-image: url("./Players/Kai.png"); }
 
 /* =========================
    GAME WORLD
 ========================= */
 
 #laboratory-level {
-
   width: 100%;
   height: 100%;
-
   position: relative;
 }
 
-/* PLAYER */
-
 #player {
-
   width: 35px;
   height: 35px;
-
   background: #22d3ee;
 
   position: absolute;
-
   bottom: 50px;
   left: 50px;
 
   border-radius: 8px;
-
-  box-shadow:
-    0 0 15px #22d3ee;
+  box-shadow: 0 0 15px #22d3ee;
 }
 
-/* COMPUTER */
-
 .computer {
-
   width: 50px;
   height: 50px;
-
   position: absolute;
-
   background: #6d28d9;
 }
 
-.computer.active {
-  background: #22d3ee;
-}
-
-.computer.broken {
-  background: #fb7185;
-}
-
-/* DOOR */
+.computer.active { background: #22d3ee; }
+.computer.broken { background: #fb7185; }
 
 .door {
-
   position: absolute;
-
   right: 60px;
   top: 50%;
 
   color: #a855f7;
-
   border: 1px solid #a855f7;
 
   padding: 10px;
@@ -635,50 +492,38 @@ body::after {
 ========================= */
 
 #message-popup {
-
   position: fixed;
-
   top: 0;
   left: 0;
 
   width: 100%;
   height: 100%;
 
-  background:
-    rgba(0,0,0,0.85);
+  background: rgba(0,0,0,0.85);
 
   display: flex;
-
   justify-content: center;
   align-items: center;
 }
 
 .popup {
-
   width: 420px;
-
   padding: 25px;
 
   background: #12081f;
-
   border: 1px solid #a855f7;
 
   text-align: center;
 
-  box-shadow:
-    0 0 25px rgba(168,85,247,0.35);
+  box-shadow: 0 0 25px rgba(168,85,247,0.35);
 }
 
 .popup h2 {
-
   color: #a855f7;
-
   margin-bottom: 20px;
 }
 
 .popup p {
-
   margin-bottom: 12px;
-
   line-height: 1.5;
 }
