@@ -471,17 +471,9 @@ body::after {
   z-index: 1;
 }
 
-/* ACTIVE ALWAYS ON TOP */
 .character-card.active {
   opacity: 1;
-  transform: scale(1.4);
-  z-index: 10;
-}
-
-/* ACTIVE CENTER CHARACTER */
-.character-card.active {
-  opacity: 1;
-  transform: scale(1.45);
+  transform: scale(1.5);
   z-index: 10;
 }
 
@@ -490,14 +482,16 @@ body::after {
 ========================= */
 
 .avatar {
-  width: 100%;
+  width: 450px;
   height: 75vh;
 
   background-size: contain;
   background-repeat: no-repeat;
-  background-position: center bottom;
+  background-position: center;
 
-  filter: drop-shadow(0 0 70px rgba(34,211,238,0.4));
+  display: block;
+
+  filter: drop-shadow(0 0 40px rgba(34,211,238,0.5));
 }
 
 /* NAME */
