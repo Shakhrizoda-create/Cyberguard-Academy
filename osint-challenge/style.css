@@ -365,22 +365,19 @@ body::after {
     0 0 25px #a855f7;
 }
 
-
 /* =========================
-   CHARACTER SELECTION
+   CHARACTER SELECTION (CLEAN SYSTEM)
 ========================= */
 
 #character-selection {
   width: 100vw;
   height: 100vh;
 
-  overflow: hidden;
-
   position: relative;
+  overflow: hidden;
 
   display: flex;
   flex-direction: column;
-
   justify-content: center;
   align-items: center;
 
@@ -394,8 +391,8 @@ body::after {
 .section-title {
   font-size: clamp(2rem, 4vw, 4rem);
   margin-bottom: 10px;
-  letter-spacing: 8px;
 
+  letter-spacing: 8px;
   text-transform: uppercase;
 
   background: linear-gradient(90deg, #c084fc, #22d3ee, #a855f7);
@@ -438,34 +435,27 @@ body::after {
 .arrow.right { right: 40px; }
 
 /* =========================
-   CAROUSEL SYSTEM (FIXED)
+   CARDS LAYER (IMPORTANT FIX)
 ========================= */
 
-.carousel-container {
-  width: 100%;
-  height: 100vh;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  overflow: hidden;
-}
-
 .character-track {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  position: relative;
+  width: 100%;
+  height: 80vh;
 
-  transition: transform 0.7s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /* =========================
-   CHARACTER CARD (FIXED)
+   CHARACTER CARD (CLEAN CAMERA SYSTEM)
 ========================= */
 
 .character-card {
-  width: 60vw;
+  position: absolute;
+
+  width: 100%;
   height: 80vh;
 
   display: flex;
@@ -473,8 +463,8 @@ body::after {
   align-items: center;
   justify-content: center;
 
-  opacity: 0.25;
-  transform: scale(0.7);
+  opacity: 0;
+  transform: scale(0.6);
 
   transition: all 0.6s ease;
 }
@@ -482,12 +472,12 @@ body::after {
 /* ACTIVE CENTER CHARACTER */
 .character-card.active {
   opacity: 1;
-  transform: scale(1.35);
+  transform: scale(1.45);
   z-index: 10;
 }
 
 /* =========================
-   CHARACTER IMAGE (FIXED BIG)
+   CHARACTER IMAGE (FULL HERO FOCUS)
 ========================= */
 
 .avatar {
@@ -498,18 +488,18 @@ body::after {
   background-repeat: no-repeat;
   background-position: center bottom;
 
-  filter: drop-shadow(0 0 60px rgba(34,211,238,0.4));
+  filter: drop-shadow(0 0 70px rgba(34,211,238,0.4));
 }
 
 /* NAME */
 .character-card h3 {
-  font-size: 2rem;
+  font-size: 2.2rem;
   margin-top: 10px;
   letter-spacing: 3px;
 }
 
 /* =========================
-   NAME COLORS (FIXED PROPERLY)
+   NAME COLORS (FIXED)
 ========================= */
 
 .character-card.nova h3 { color: #38bdf8; text-shadow: 0 0 20px #38bdf8; }
