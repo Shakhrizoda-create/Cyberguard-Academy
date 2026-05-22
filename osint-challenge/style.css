@@ -365,12 +365,12 @@ body::after {
     0 0 25px #a855f7;
 }
 
+
 /* =========================
    CHARACTER SELECTION
 ========================= */
 
 #character-selection {
-
   width: 100vw;
   height: 100vh;
 
@@ -384,89 +384,61 @@ body::after {
   justify-content: center;
   align-items: center;
 
-  background:
-    radial-gradient(
-      circle at center,
-      rgba(20,10,35,0.98),
-      rgba(5,1,10,1)
-    );
+  background: radial-gradient(circle at center,
+    rgba(20,10,35,0.98),
+    rgba(5,1,10,1)
+  );
 }
 
 /* TITLE */
-
 .section-title {
-
   font-size: clamp(2rem, 4vw, 4rem);
-
   margin-bottom: 10px;
-
   letter-spacing: 8px;
 
   text-transform: uppercase;
 
-  background:
-    linear-gradient(
-      90deg,
-      #c084fc,
-      #22d3ee,
-      #a855f7
-    );
-
+  background: linear-gradient(90deg, #c084fc, #22d3ee, #a855f7);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 /* HINT */
-
 .hint {
-
   color: #c084fc;
-
   margin-bottom: 30px;
-
   letter-spacing: 2px;
 }
 
-/* ARROWS */
+/* =========================
+   ARROWS
+========================= */
+
 .arrow {
-
   position: absolute;
-
   top: 50%;
-
   transform: translateY(-50%);
 
   font-size: 5rem;
-
   color: #c084fc;
 
   cursor: pointer;
-
   z-index: 9999;
 
   user-select: none;
-
   transition: 0.3s ease;
 }
 
 .arrow:hover {
-
   color: #22d3ee;
-
-  transform: translateY(-50%) scale(1.15);
+  transform: translateY(-50%) scale(1.2);
 }
 
-.arrow.left {
-  left: 40px;
-}
-
-.arrow.right {
-  right: 40px;
-}
-
+.arrow.left { left: 40px; }
+.arrow.right { right: 40px; }
 
 /* =========================
-   CAROUSEL CONTAINER
+   CAROUSEL SYSTEM (FIXED)
 ========================= */
 
 .carousel-container {
@@ -474,167 +446,90 @@ body::after {
   height: 100vh;
 
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
 
   overflow: hidden;
-  position: relative;
 }
-
-/* TRACK */
 
 .character-track {
   display: flex;
   align-items: center;
-
-  gap: 60px;
+  justify-content: center;
 
   transition: transform 0.7s ease;
 }
 
-/* CARD */
+/* =========================
+   CHARACTER CARD (FIXED)
+========================= */
 
 .character-card {
-  width: 250px;
-  height: 70vh;
+  width: 60vw;
+  height: 80vh;
 
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
 
-  opacity: 0.35;
-  transform: scale(0.75);
+  opacity: 0.25;
+  transform: scale(0.7);
 
-  transition: 0.5s ease;
-
-  cursor: pointer;
+  transition: all 0.6s ease;
 }
 
-/* ACTIVE (CENTER CHARACTER) */
-
+/* ACTIVE CENTER CHARACTER */
 .character-card.active {
-  transform: scale(1.6);
   opacity: 1;
+  transform: scale(1.35);
   z-index: 10;
 }
 
-/* AVATAR (FULL SCREEN FEEL) */
+/* =========================
+   CHARACTER IMAGE (FIXED BIG)
+========================= */
 
 .avatar {
   width: 100%;
-  height: 60vh;
+  height: 75vh;
 
   background-size: contain;
   background-repeat: no-repeat;
-  background-position: center;
+  background-position: center bottom;
 
-  filter: drop-shadow(0 0 40px rgba(168,85,247,0.5));
+  filter: drop-shadow(0 0 60px rgba(34,211,238,0.4));
 }
 
 /* NAME */
-
 .character-card h3 {
   font-size: 2rem;
   margin-top: 10px;
+  letter-spacing: 3px;
 }
 
-/* CHARACTER COLORS */
+/* =========================
+   NAME COLORS (FIXED PROPERLY)
+========================= */
 
-.nova + h3 {
-  color: #38bdf8;
-  text-shadow: 0 0 20px #38bdf8;
-}
+.character-card.nova h3 { color: #38bdf8; text-shadow: 0 0 20px #38bdf8; }
+.character-card.raven h3 { color: #22c55e; text-shadow: 0 0 20px #22c55e; }
+.character-card.luna h3 { color: #ff4fd8; text-shadow: 0 0 20px #ff4fd8; }
+.character-card.zero h3 { color: #7c3aed; text-shadow: 0 0 20px #7c3aed; }
+.character-card.axel h3 { color: #84cc16; text-shadow: 0 0 20px #84cc16; }
+.character-card.kai h3 { color: #fb923c; text-shadow: 0 0 20px #fb923c; }
 
-.raven + h3 {
-  color: #22c55e;
-  text-shadow: 0 0 20px #22c55e;
-}
+/* =========================
+   IMAGES
+========================= */
 
-.luna + h3 {
-  color: #ff4fd8;
-  text-shadow: 0 0 20px #ff4fd8;
-}
+.nova { background-image: url("Players/Nova.png"); }
+.raven { background-image: url("Players/Raven.png"); }
+.luna { background-image: url("Players/Luna.png"); }
+.zero { background-image: url("Players/Zero.png"); }
+.axel { background-image: url("Players/Axel.png"); }
+.kai { background-image: url("Players/Kai.png"); }
 
-.zero + h3 {
-  color: #7c3aed;
-  text-shadow: 0 0 20px #7c3aed;
-}
-
-.axel + h3 {
-  color: #84cc16;
-  text-shadow: 0 0 20px #84cc16;
-}
-
-.kai + h3 {
-  color: #fb923c;
-  text-shadow: 0 0 20px #fb923c;
-}
-
-/* ARROWS */
-
-.arrow {
-
-  position: absolute;
-
-  top: 50%;
-
-  transform: translateY(-50%);
-
-  font-size: 5rem;
-
-  color: #c084fc;
-
-  cursor: pointer;
-
-  z-index: 20;
-
-  transition: 0.3s ease;
-
-  user-select: none;
-}
-
-.arrow:hover {
-
-  color: #22d3ee;
-
-  transform:
-    translateY(-50%)
-    scale(1.15);
-}
-
-.arrow.left {
-  left: 40px;
-}
-
-.arrow.right {
-  right: 40px;
-}
-
-/* CHARACTER IMAGES */
-
-.nova {
-  background-image: url("Players/Nova.png");
-}
-
-.raven {
-  background-image: url("Players/Raven.png");
-}
-
-.luna {
-  background-image: url("Players/Luna.png");
-}
-
-.zero {
-  background-image: url("Players/Zero.png");
-}
-
-.axel {
-  background-image: url("Players/Axel.png");
-}
-
-.kai {
-  background-image: url("Players/Kai.png");
-}
 /* =========================
    GAME WORLD
 ========================= */
