@@ -539,7 +539,7 @@ body::after {
 /* ========================= IMAGES ========================= */
 
 .nova {
-  background-image: url("./Players/Nova.png");
+  background-image: url("Players/Nova.png");
 }
 
 .raven {
