@@ -427,107 +427,115 @@ body::after {
   letter-spacing: 2px;
 }
 
-/* CONTAINER */
+/* ARROWS */
+.arrow {
+
+  position: absolute;
+
+  top: 50%;
+
+  transform: translateY(-50%);
+
+  font-size: 5rem;
+
+  color: #c084fc;
+
+  cursor: pointer;
+
+  z-index: 9999;
+
+  user-select: none;
+
+  transition: 0.3s ease;
+}
+
+.arrow:hover {
+
+  color: #22d3ee;
+
+  transform: translateY(-50%) scale(1.15);
+}
+
+.arrow.left {
+  left: 40px;
+}
+
+.arrow.right {
+  right: 40px;
+}
+
+
+/* =========================
+   CAROUSEL CONTAINER
+========================= */
 
 .carousel-container {
-
   width: 100%;
-  height: 75vh;
-
-  overflow: hidden;
-
-  position: relative;
+  height: 100vh;
 
   display: flex;
   align-items: center;
+  justify-content: center;
+
+  overflow: hidden;
+  position: relative;
 }
 
 /* TRACK */
 
 .character-track {
-
   display: flex;
-
   align-items: center;
 
-  gap: 80px;
+  gap: 60px;
 
-  transition:
-    transform 0.6s ease;
-
-  padding: 0 25vw;
+  transition: transform 0.7s ease;
 }
 
 /* CARD */
 
 .character-card {
-
-  width: 320px;
-
-  flex-shrink: 0;
+  width: 250px;
+  height: 70vh;
 
   display: flex;
   flex-direction: column;
-
   align-items: center;
 
-  cursor: pointer;
-
-  opacity: 0.45;
-
-  transform: scale(0.72);
-
-  transition:
-    transform 0.5s ease,
-    opacity 0.5s ease,
-    filter 0.5s ease;
-}
-
-/* ACTIVE */
-
-.character-card.active {
-
-  opacity: 1;
-
-  transform: scale(1.15);
-
-  z-index: 5;
-}
-
-/* AVATAR */
-
-.avatar {
-
-  width: 320px;
-  height: 72vh;
-
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center bottom;
+  opacity: 0.35;
+  transform: scale(0.75);
 
   transition: 0.5s ease;
 
-  filter:
-    drop-shadow(0 0 30px rgba(168,85,247,0.4));
+  cursor: pointer;
 }
 
-/* ACTIVE GLOW */
+/* ACTIVE (CENTER CHARACTER) */
 
-.character-card.active .avatar {
-
-  filter:
-    drop-shadow(0 0 50px rgba(34,211,238,0.8));
+.character-card.active {
+  transform: scale(1.6);
+  opacity: 1;
+  z-index: 10;
 }
 
-/* NAMES */
+/* AVATAR (FULL SCREEN FEEL) */
+
+.avatar {
+  width: 100%;
+  height: 60vh;
+
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+
+  filter: drop-shadow(0 0 40px rgba(168,85,247,0.5));
+}
+
+/* NAME */
 
 .character-card h3 {
-
+  font-size: 2rem;
   margin-top: 10px;
-
-  font-size: 2.3rem;
-
-  letter-spacing: 5px;
 }
 
 /* CHARACTER COLORS */
