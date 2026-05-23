@@ -416,9 +416,9 @@ body::after {
 
 /* ONLY when mouse is on center character */
 .character-card.active:hover .avatar {
-  filter: drop-shadow(0 0 25px currentColor)
-          drop-shadow(0 0 60px currentColor)
-          drop-shadow(0 0 120px currentColor);
+  filter: drop-shadow(0 0 25px var(--char-color))
+          drop-shadow(0 0 60px var(--char-color))
+          drop-shadow(0 0 120px var(--char-color));
 }
 
 /* =========================
@@ -435,12 +435,47 @@ body::after {
 
 /* COLORS */
 
-.character-card.nova h3 { color: #38bdf8; }
-.character-card.raven h3 { color: #22c55e; }
-.character-card.luna h3 { color: #ff4fd8; }
-.character-card.zero h3 { color: #7c3aed; }
-.character-card.axel h3 { color: #84cc16; }
-.character-card.kai h3 { color: #fb923c; }
+.character-card.nova {
+  --char-color: #38bdf8;
+}
+.character-card.nova h3 {
+  color: var(--char-color);
+}
+
+.character-card.raven {
+  --char-color: #22c55e;
+}
+.character-card.raven h3 {
+  color: var(--char-color);
+}
+
+.character-card.luna {
+  --char-color: #ff4fd8;
+}
+.character-card.luna h3 {
+  color: var(--char-color);
+}
+
+.character-card.zero {
+  --char-color: #7c3aed;
+}
+.character-card.zero h3 {
+  color: var(--char-color);
+}
+
+.character-card.axel {
+  --char-color: #84cc16;
+}
+.character-card.axel h3 {
+  color: var(--char-color);
+}
+
+.character-card.kai {
+  --char-color: #fb923c;
+}
+.character-card.kai h3 {
+  color: var(--char-color);
+}
 
 /* =========================
    IMAGES
