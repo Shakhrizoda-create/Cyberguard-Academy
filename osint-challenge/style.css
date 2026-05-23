@@ -436,12 +436,29 @@ body::after {
    IMAGES
 ========================= */
 
-.nova { background-image: url("./Players/Nova.png"); }
-.raven { background-image: url("./Players/Raven.png"); }
-.luna { background-image: url("./Players/Luna.png"); }
-.zero { background-image: url("./Players/Zero.png"); }
-.axel { background-image: url("./Players/Axel.png"); }
-.kai { background-image: url("./Players/Kai.png"); }
+.avatar.nova {
+  background-image: url("./Players/Nova.png");
+}
+
+.avatar.raven {
+  background-image: url("./Players/Raven.png");
+}
+
+.avatar.luna {
+  background-image: url("./Players/Luna.png");
+}
+
+.avatar.zero {
+  background-image: url("./Players/Zero.png");
+}
+
+.avatar.axel {
+  background-image: url("./Players/Axel.png");
+}
+
+.avatar.kai {
+  background-image: url("./Players/Kai.png");
+}
 
 /* =========================
    GAME WORLD
