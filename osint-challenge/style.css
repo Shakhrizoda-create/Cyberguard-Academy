@@ -362,32 +362,33 @@ body::after {
   z-index: 1;
 }
 
-/* ACTIVE */
+/* CENTER (SELECTED CHARACTER) */
 .character-card.active {
   opacity: 1;
   visibility: visible;
 
-  transform: scale(1);
-  z-index: 10;
+  transform: scale(1.25);
+
+  z-index: 20;
 }
 
-/* PREV */
+/* LEFT */
 .character-card.prev {
-  opacity: 0.35;
+  opacity: 0.25;
   visibility: visible;
 
-  transform: translateX(-420px) scale(0.8);
+  transform: translateX(-420px) scale(0.75);
 
   filter: blur(2px);
   z-index: 5;
 }
 
-/* NEXT */
+/* RIGHT */
 .character-card.next {
-  opacity: 0.35;
+  opacity: 0.25;
   visibility: visible;
 
-  transform: translateX(420px) scale(0.8);
+  transform: translateX(420px) scale(0.75);
 
   filter: blur(2px);
   z-index: 5;
@@ -396,6 +397,7 @@ body::after {
 /* =========================
    AVATAR
 ========================= */
+
 .avatar {
   width: 420px;
   height: 650px;
@@ -405,8 +407,18 @@ body::after {
   background-position: center bottom;
 
   display: block;
+}
 
-  z-index: 20;
+.character-card.active .avatar {
+  filter: none;
+  transition: 0.3s ease;
+}
+
+/* ONLY when mouse is on center character */
+.character-card.active:hover .avatar {
+  filter: drop-shadow(0 0 25px currentColor)
+          drop-shadow(0 0 60px currentColor)
+          drop-shadow(0 0 120px currentColor);
 }
 
 /* =========================
