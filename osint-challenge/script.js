@@ -135,6 +135,64 @@ function selectCharacter(name) {
 }
 
 /* =========================
+   BRIEFING SYSTEM
+========================= */
+
+const briefingSlides = [
+
+  {
+    image: "./assets/background/briefing/slide1.png",
+    text: "Explore the forest and investigate suspicious locations."
+  },
+
+  {
+    image: "./assets/background/briefing/slide2.png",
+    text: "Find 3 hidden devices hidden across the environment."
+  },
+
+  {
+    image: "./assets/background/briefing/slide3.png",
+    text: "Use terminals to decode recovered intelligence."
+  },
+
+  {
+    image: "./assets/background/briefing/slide4.png",
+    text: "Solve mysterious puzzles and uncover hidden connections."
+  },
+
+  {
+    image: "./assets/background/briefing/slide5.png",
+    text: "Recover passwords to unlock the next stage."
+  }
+
+];
+
+let currentSlide = 0;
+
+function showBriefingSlide() {
+
+  const img = document.getElementById("briefing-image");
+  const text = document.getElementById("briefing-text");
+
+  img.src = briefingSlides[currentSlide].image;
+  text.textContent = briefingSlides[currentSlide].text;
+}
+
+function nextBriefingSlide() {
+
+  currentSlide++;
+
+  if (currentSlide >= briefingSlides.length) {
+
+    showScreen("game-screen");
+    startGame();
+    return;
+  }
+
+  showBriefingSlide();
+}
+
+/* =========================
    GAME START
 ========================= */
 
@@ -163,6 +221,33 @@ document.addEventListener("DOMContentLoaded", () => {
 
   });
 });
+
+ /* BRIEFING CLICK */
+  const nextSlideBtn = document.getElementById("next-slide");
+
+  nextSlideBtn?.addEventListener("click", nextBriefingSlide);
+
+  /* GLOBAL KEYBOARD CONTROLS */
+  document.addEventListener("keydown", (e) => {
+
+    const briefing = document.getElementById("briefing-screen");
+
+    if (briefing && !briefing.classList.contains("hidden")) {
+
+      if (
+        e.key === " " ||
+        e.code === "Space" ||
+        e.key === "n" ||
+        e.key === "N" ||
+        e.key === "ArrowRight"
+      ) {
+        nextBriefingSlide();
+      }
+    }
+  });
+
+});
+
 
 /* =========================
    POPUP SYSTEM
