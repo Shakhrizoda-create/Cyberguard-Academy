@@ -220,7 +220,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 50);
 
   });
-});
 
  /* BRIEFING CLICK */
   const nextSlideBtn = document.getElementById("next-slide");
