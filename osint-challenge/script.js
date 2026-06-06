@@ -126,12 +126,16 @@ function bindControls() {
 ========================= */
 
 function selectCharacter(name) {
+
   selectedCharacter = name;
 
   console.log("Selected:", selectedCharacter);
 
-  showScreen("game-screen");
-  startGame();
+  currentSlide = 0;
+
+  showScreen("briefing-screen");
+
+  showBriefingSlide();
 }
 
 /* =========================
