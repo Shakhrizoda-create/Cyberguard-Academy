@@ -188,7 +188,7 @@ function nextBriefingSlide() {
 
   if (currentSlide >= briefingSlides.length) {
 
-    showScreen("introduction.jpg");
+    showScreen("forest-intro");
    
     return;
   }
