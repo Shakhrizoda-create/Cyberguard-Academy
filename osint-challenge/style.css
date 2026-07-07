@@ -607,7 +607,7 @@ body::after {
   width: 100%;
   height: 100%;
 
-  background: url("./assets/background/instruction.jpg");
+  background: url("./assets/background/introduction.jpg");
   background-size: cover;
   background-position: center;
 
