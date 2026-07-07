@@ -188,8 +188,8 @@ function nextBriefingSlide() {
 
   if (currentSlide >= briefingSlides.length) {
 
-    showScreen("game-screen");
-    startGame();
+    showScreen("forest-intro");
+   
     return;
   }
 
