@@ -1281,6 +1281,105 @@ body::after {
   line-height: 1.5;
 }
 
+/* =========================
+   BRIEFING TITLE
+========================= */
+
+.briefing-title {
+
+    margin-top:40px;
+
+    font-size:3rem;
+
+    color:#d4a72c; /* golden leaf */
+
+    letter-spacing:6px;
+
+    text-shadow:
+    0 0 10px #8b6f1d,
+    0 0 25px #556b2f;
+
+}
+
+
+/* BIG SQUARE */
+
+.briefing-frame {
+
+    position:relative;
+
+    margin-top:30px;
+
+    width:700px;
+    height:420px;
+
+    border:4px solid #b8863b;
+
+    box-shadow:
+    0 0 20px rgba(184,134,59,.8),
+    inset 0 0 20px rgba(34,80,40,.6);
+
+}
+
+
+/* TEXT PANEL */
+
+.briefing-text-box {
+
+    position:absolute;
+
+    bottom:20px;
+    left:20px;
+    right:20px;
+
+    padding:20px;
+
+
+    background:
+    rgba(15,35,20,.75);
+
+
+    border:1px solid #6f9b45;
+
+    box-shadow:
+    0 0 15px rgba(111,155,69,.5);
+
+}
+
+
+.briefing-text-box p {
+
+    color:#e7e5c8;
+
+    font-size:1.2rem;
+
+    text-align:center;
+
+}
+
+
+/* NEXT BUTTON */
+
+.key-box {
+
+    border-color:#6f9b45;
+
+    background:
+    rgba(111,155,69,.25);
+
+    color:#e7e5c8;
+
+    box-shadow:
+    0 0 15px rgba(111,155,69,.6);
+}
+
+
+.key-text {
+
+    color:#d4a72c;
+
+}
+
 /* =========================   
    BRIEFING SCREEN  
 ========================= */
