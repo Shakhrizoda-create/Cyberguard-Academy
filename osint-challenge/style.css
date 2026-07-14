@@ -602,18 +602,22 @@ body::after {
 }
 
 /* BACKGROUND IMAGE */
-.forest-bg {
-  position: absolute;
-  width: 100%;
-  height: 100%;
+#forest-intro {
+    position: absolute;
+    inset: 0;
 
-  background: url("./assets/background/introduction.jpg");
-  background-size: cover;
-  background-position: center;
+    background:
+        linear-gradient(
+            rgba(5,1,10,.25),
+            rgba(5,1,10,.45)
+        ),
+        url("./assets/background/introduction.jpg");
 
-  filter: brightness(0.85) contrast(1.1) saturate(1.1);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 
-  z-index: 1;
+    overflow: hidden;
 }
 
 /* AGENT (BOTTOM CENTER) */
