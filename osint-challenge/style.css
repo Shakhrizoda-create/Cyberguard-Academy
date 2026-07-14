@@ -1331,3 +1331,19 @@ body::after {
   font-size: 1rem;
   letter-spacing: 2px;
 }
+
+#briefing-screen {
+    position: absolute;
+    inset: 0;
+
+    background:
+        linear-gradient(
+            rgba(0,0,0,.35),
+            rgba(0,0,0,.45)
+        ),
+        url("./assets/background/introduction.jpg");
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
